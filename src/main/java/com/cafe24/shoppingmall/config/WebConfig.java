@@ -10,8 +10,8 @@ import com.cafe24.config.web.SwaggerConfig;
 
 @Configurable
 @EnableAspectJAutoProxy
-@ComponentScan({"com.cafe24.shoppingmall.hello.controller"})
+@ComponentScan({"com.cafe24.shoppingmall.hello.controller", "com.cafe24.shoppingmall.exception"})
 @Import({MVCConfig.class, SwaggerConfig.class})
 public class WebConfig {
-
+ 
 }

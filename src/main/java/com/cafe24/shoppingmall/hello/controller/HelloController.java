@@ -15,14 +15,13 @@ import io.swagger.annotations.ApiOperation;
 @RequestMapping("/hello")
 public class HelloController {
     
-    @RequestMapping(value="/hello", method=RequestMethod.GET)
+    @RequestMapping(value="", method=RequestMethod.GET)
 	public String hello() { 
 		return "hello/hello";
-	} 
-     
+	}
 
 	@ApiOperation(value="스웨거 테스트")
-	@ApiImplicitParams({
+	@ApiImplicitParams({ 
 		@ApiImplicitParam(name="name", value="이름", required=true, dataType="string"),
 		@ApiImplicitParam(name="email", value="이메일주소", required=true, dataType="string")
 	})
