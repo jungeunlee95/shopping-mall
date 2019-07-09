@@ -8,7 +8,7 @@ public class HelloController {
     
     @RequestMapping("/hello")
 	public String hello() { 
-		return "/WEB-INF/views/hello/hello.jsp";
+		return "hello/hello";
 	}
 }
  

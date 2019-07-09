@@ -16,6 +16,7 @@
 	<!-- 서블릿 컨테이너의 디폴트 서블릿 위임 핸들러  -->
 	<mvc:default-servlet-handler />
 
+	
 	<context:annotation-config />
 	<context:component-scan 
 	base-package="com.cafe24.shoppingmall.hello.controller" />
