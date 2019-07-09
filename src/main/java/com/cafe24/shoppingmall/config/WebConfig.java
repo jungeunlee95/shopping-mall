@@ -6,11 +6,12 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.Import;
 
 import com.cafe24.config.web.MVCConfig;
+import com.cafe24.config.web.SwaggerConfig;
 
 @Configurable
 @EnableAspectJAutoProxy
 @ComponentScan({"com.cafe24.shoppingmall.hello.controller"})
-@Import({MVCConfig.class})
+@Import({MVCConfig.class, SwaggerConfig.class})
 public class WebConfig {
 
 }
