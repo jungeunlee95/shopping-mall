@@ -14,7 +14,7 @@ import com.cafe24.shoppingmall.config.TestWebConfig;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes={AppConfig.class, TestWebConfig.class})
 @WebAppConfiguration
-public class UserDao {
+public class UserDaoTest {
 	
 	@Autowired 
 	private SqlSession sqlSession;

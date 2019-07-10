@@ -7,6 +7,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,7 +74,7 @@ public class UserControllerTest {
 		ResultActions resultActions = 
 				mockMvc
 				.perform(post("/api/user/checkId")
-				.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(userVo.getId())));
+				.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(userVo)));
 		
 		resultActions 
 		.andExpect(status().isOk()).andDo(print())
