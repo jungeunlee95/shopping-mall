@@ -31,7 +31,7 @@ public class DBConfig {
 		basicDataSource.setMaxActive(env.getProperty("jdbc.maxActive", Integer.class));
 		return basicDataSource;
 	}
-	
+	 
 	@Bean
 	public PlatformTransactionManager transactionManager(DataSource dataSource) {
 		return new DataSourceTransactionManager(dataSource);
