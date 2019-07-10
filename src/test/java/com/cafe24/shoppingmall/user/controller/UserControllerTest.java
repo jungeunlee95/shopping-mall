@@ -83,6 +83,41 @@ public class UserControllerTest {
         //  false : 회원가입 가능, true : 중복 아이디 존재
 	}
 	
+	@Test
+	public void testlogin() throws Exception {
+
+		UserVo userVo = new UserVo();
+		userVo.setId("userId");
+		userVo.setPassword("userPW");
+		
+		ResultActions resultActions = 
+				mockMvc
+				.perform(post("/api/user/login")
+				.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(userVo)));
+		
+		resultActions 
+		.andExpect(status().isOk()).andDo(print())
+		.andExpect(jsonPath("$.result", is("success") ))
+		.andExpect(jsonPath("$.data", is(false))); 
+        //  false : 로그인 실패, true : 로그인 가능
+	}
+	
+	@Test
+	public void findId() throws Exception {
+
+		String email = "leeap1004@gmail.com";
+		
+		ResultActions resultActions = 
+				mockMvc
+				.perform(post("/api/user/findId")
+				.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(email)));
+		
+		resultActions 
+		.andExpect(status().isOk()).andDo(print())
+		.andExpect(jsonPath("$.result", is("success") ));
+//		.andExpect(jsonPath("$.data", is(false))); 
+        //  false : 로그인 실패, true : 로그인 가능
+	}
 }
 
 

@@ -1,4 +1,4 @@
-package com.cafe24.shoppingmall.user.controller.api;
+package com.cafe24.shoppingmall.product.controller.api;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +12,9 @@ import com.cafe24.shoppingmall.dto.JSONResult;
 import com.cafe24.shoppingmall.user.service.UserService;
 import com.cafe24.shoppingmall.user.vo.UserVo;
 
-@RestController("userAPIController")
-@RequestMapping("/api/user")
-public class UserController {
+@RestController("productAPIController")
+@RequestMapping("/api/product")
+public class ProductController {
 	
 	@Autowired
 	private UserService userService;
@@ -25,28 +25,12 @@ public class UserController {
 		return JSONResult.success(vo);
 	}
 	
-
 	@RequestMapping(value="/checkId", method=RequestMethod.POST) 
 	public JSONResult checkId(
-			@RequestBody UserVo userVo) {
-		Boolean exist = userService.checkId(userVo.getId());
+			@RequestParam(value="id", required=true, defaultValue="") String id) {
+		Boolean exist = userService.checkId(id);
 		return JSONResult.success(exist);
 	} 
-	
-	@RequestMapping(value="/login", method=RequestMethod.POST) 
-	public JSONResult login(
-			@RequestBody UserVo userVo) {
-		Boolean exist = userService.getUser(userVo);
-	    return JSONResult.success(exist);
-	} 
-	
-	@RequestMapping(value="/findId", method=RequestMethod.POST) 
-	public JSONResult findId(@RequestParam(value="phoneNumber", required=true, defaultValue="") String phoneNumber) {
-		String userId = "aaa";
-		return JSONResult.success(userId);
-	} 
-	
-
 	
 }
  

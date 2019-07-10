@@ -22,6 +22,11 @@ public class UserService {
 	public Boolean checkId( String id) {
 		Boolean exist = userDao.getId(id);
 		return exist;
+	}
+
+	public Boolean getUser(UserVo userVo) {
+		Boolean exist = userDao.get(userVo);
+		return exist;
 	} 
 
 }

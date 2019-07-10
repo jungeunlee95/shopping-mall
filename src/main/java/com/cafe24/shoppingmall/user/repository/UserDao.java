@@ -20,4 +20,8 @@ public class UserDao {
 		return false;
 	}
 
+	public Boolean get(UserVo userVo) {
+		return false;
+	}
+
 }
