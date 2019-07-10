@@ -19,5 +19,12 @@ public class UserController {
 		return JSONResult.success(userVo);
 	}
 	
+	@RequestMapping(value="/checkId", method=RequestMethod.POST) 
+	public JSONResult checkId(
+			@RequestParam(value="id", required=true, defaultValue="") String id) {
+		Boolean exist = false;
+		return JSONResult.success(exist);
+	} 
+	
 }
  

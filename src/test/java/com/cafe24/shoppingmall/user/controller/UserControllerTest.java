@@ -64,6 +64,24 @@ public class UserControllerTest {
 		.andExpect(jsonPath("$.data.phoneNumber", is(userVo.getPhoneNumber())));
 	}
 	
+	@Test
+	public void testCheckId() throws Exception {
+
+		UserVo userVo = new UserVo();
+		userVo.setId("leeap1004@gmail.com");
+		
+		ResultActions resultActions = 
+				mockMvc
+				.perform(post("/api/user/checkId")
+				.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(userVo.getId())));
+		
+		resultActions 
+		.andExpect(status().isOk()).andDo(print())
+		.andExpect(jsonPath("$.result", is("success") ))
+		.andExpect(jsonPath("$.data", is(false))); 
+        //  false : 회원가입 가능, true : 중복 아이디 존재
+	}
+	
 }
 
 
