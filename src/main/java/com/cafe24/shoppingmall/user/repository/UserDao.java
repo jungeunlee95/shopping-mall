@@ -20,8 +20,13 @@ public class UserDao {
 		return false;
 	}
 
-	public Boolean get(UserVo userVo) {
+	public Boolean get(String id, String password) {
 		return false;
 	}
+
+	public String get(String email) {
+		return email;
+	}
+
 
 }

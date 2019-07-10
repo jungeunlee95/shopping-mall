@@ -26,23 +26,21 @@ public class UserController {
 	}
 	
 
-	@RequestMapping(value="/checkId", method=RequestMethod.POST) 
-	public JSONResult checkId(
-			@RequestBody UserVo userVo) {
-		Boolean exist = userService.checkId(userVo.getId());
+	@RequestMapping(value="/checkId", method=RequestMethod.GET) 
+	public JSONResult checkId(@RequestParam(value="id") String id) {
+		Boolean exist = userService.checkId(id);
 		return JSONResult.success(exist);
 	} 
 	
-	@RequestMapping(value="/login", method=RequestMethod.POST) 
-	public JSONResult login(
-			@RequestBody UserVo userVo) {
-		Boolean exist = userService.getUser(userVo);
+	@RequestMapping(value="/login", method=RequestMethod.GET) 
+	public JSONResult login(@RequestParam(value="id") String id, @RequestParam(value="password") String password) {
+		Boolean exist = userService.getUser(id, password);
 	    return JSONResult.success(exist);
 	} 
 	
-	@RequestMapping(value="/findId", method=RequestMethod.POST) 
-	public JSONResult findId(@RequestParam(value="phoneNumber", required=true, defaultValue="") String phoneNumber) {
-		String userId = "aaa";
+	@RequestMapping(value="/findId", method=RequestMethod.GET) 
+	public JSONResult findId(@RequestParam(value = "email") String email) {
+		String userId = userService.getUser(email);
 		return JSONResult.success(userId);
 	} 
 	

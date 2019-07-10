@@ -24,9 +24,14 @@ public class UserService {
 		return exist;
 	}
 
-	public Boolean getUser(UserVo userVo) {
-		Boolean exist = userDao.get(userVo);
+	public Boolean getUser(String id, String password) {
+		Boolean exist = userDao.get(id, password);
 		return exist;
+	}
+
+	public String getUser(String email) {
+		String userId = userDao.get(email);
+		return userId;
 	} 
 
 }

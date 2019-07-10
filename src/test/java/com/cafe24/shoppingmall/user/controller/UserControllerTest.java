@@ -3,6 +3,7 @@ package com.cafe24.shoppingmall.user.controller;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -39,7 +40,7 @@ public class UserControllerTest {
 	public void setup() {
 		mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
 	}
-
+	
 	@Test
 	public void testJoinUser() throws Exception {
 
@@ -68,13 +69,12 @@ public class UserControllerTest {
 	@Test
 	public void testCheckId() throws Exception {
 
-		UserVo userVo = new UserVo();
-		userVo.setId("leeap1004@gmail.com");
+		String id = "userId";
 		
 		ResultActions resultActions = 
 				mockMvc
-				.perform(post("/api/user/checkId")
-				.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(userVo)));
+				.perform(get("/api/user/checkId?id={id}", id)
+				.contentType(MediaType.APPLICATION_JSON));
 		
 		resultActions 
 		.andExpect(status().isOk()).andDo(print())
@@ -86,14 +86,13 @@ public class UserControllerTest {
 	@Test
 	public void testlogin() throws Exception {
 
-		UserVo userVo = new UserVo();
-		userVo.setId("userId");
-		userVo.setPassword("userPW");
+		String id = "userId";
+		String password = "userPW";
 		
 		ResultActions resultActions = 
 				mockMvc
-				.perform(post("/api/user/login")
-				.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(userVo)));
+				.perform(get("/api/user/login?id={id}&password={password}", id, password)
+				.contentType(MediaType.APPLICATION_JSON));
 		
 		resultActions 
 		.andExpect(status().isOk()).andDo(print())
@@ -109,14 +108,13 @@ public class UserControllerTest {
 		
 		ResultActions resultActions = 
 				mockMvc
-				.perform(post("/api/user/findId")
-				.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(email)));
+				.perform(get("/api/user/findId?email={email}", email)
+				.contentType(MediaType.APPLICATION_JSON));
 		
 		resultActions 
 		.andExpect(status().isOk()).andDo(print())
-		.andExpect(jsonPath("$.result", is("success") ));
-//		.andExpect(jsonPath("$.data", is(false))); 
-        //  false : 로그인 실패, true : 로그인 가능
+		.andExpect(jsonPath("$.result", is("success") ))
+		.andExpect(jsonPath("$.data", is(email))); 
 	}
 }
 
