@@ -25,11 +25,6 @@ public class UserController {
 		return "hello/hello";
 	}
 
-	@ApiOperation(value="스웨거 테스트") 
-	@ApiImplicitParams({ 
-		@ApiImplicitParam(name="name", value="이름", required=true, dataType="string"),
-		@ApiImplicitParam(name="email", value="이메일주소", required=true, dataType="string")
-	})
 	@RequestMapping(value="/join", method=RequestMethod.POST) 
 	public JSONResult checkEmail(
 			@RequestParam(value="email", required=true, defaultValue="") String email,
