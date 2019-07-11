@@ -56,21 +56,35 @@ public class UserController {
 	
 
 	@RequestMapping(value="/checkId", method=RequestMethod.GET) 
-	public JSONResult checkId(@RequestParam(value="id") String id) {
+	public ResponseEntity<JSONResult> checkId(@RequestParam(value="id") String id) {
+		if(!Pattern.matches(UserVo.CHECK_ID_VALID, id)) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(JSONResult.fail("잘못된 아이디 형식입니다."));
+		}
 		Boolean exist = userService.checkId(id);
-		return JSONResult.success(exist);
+		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(exist));
 	} 
 	
 	@RequestMapping(value="/login", method=RequestMethod.GET) 
-	public JSONResult login(@RequestParam(value="id") String id, @RequestParam(value="password") String password) {
+	public ResponseEntity<JSONResult> login(@RequestParam(value="id") String id, 
+							@RequestParam(value="password") String password) {
+		if(!Pattern.matches(UserVo.CHECK_ID_VALID, id)) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(JSONResult.fail("잘못된 아이디 형식입니다."));
+		}else if(!Pattern.matches(UserVo.CHECK_PASSWORD_VALID, password)) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(JSONResult.fail("잘못된 비밀번호 형식입니다."));
+		}
 		Boolean exist = userService.getUser(id, password);
-	    return JSONResult.success(exist);
+	    return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(exist));
 	} 
 	
 	@RequestMapping(value="/findId", method=RequestMethod.GET) 
-	public JSONResult findId(@RequestParam(value = "email") String email) {
+	public ResponseEntity<JSONResult> findId(@RequestParam(value = "email") String email) {
+		// 일치하는 email없으면 false
 		String userId = userService.getUser(email);
-		return JSONResult.success(userId);
+		if(userId!=null) {
+			return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(userId));
+		}else {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(JSONResult.fail("해당하는 아이디가 없습니다."));			
+		}
 	} 
 	
 

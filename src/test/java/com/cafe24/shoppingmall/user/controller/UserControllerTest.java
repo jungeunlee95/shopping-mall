@@ -107,7 +107,7 @@ public class UserControllerTest {
 
 	}
 	
-	@Ignore
+//	@Ignore
 	@Test
 	public void testCheckId() throws Exception {
 
@@ -125,12 +125,12 @@ public class UserControllerTest {
         //  false : 회원가입 가능, true : 중복 아이디 존재
 	}
 	
-	@Ignore
+//	@Ignore
 	@Test
 	public void testlogin() throws Exception {
 
 		String id = "userId";
-		String password = "userPW";
+		String password = "userPW123!";
 		
 		ResultActions resultActions = 
 				mockMvc
@@ -144,7 +144,7 @@ public class UserControllerTest {
         //  false : 로그인 실패, true : 로그인 가능
 	}
 	
-	@Ignore
+//	@Ignore
 	@Test
 	public void findId() throws Exception {
 
