@@ -1,4 +1,4 @@
-package com.cafe24.config.web;
+package com.cafe24.config.web.test;
 
 import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
@@ -22,7 +22,7 @@ import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
 
 @Configuration
 @EnableWebMvc
-public class TestMVCConfig extends WebMvcConfigurerAdapter {
+public class MVCConfig extends WebMvcConfigurerAdapter {
 	
 	// View Resolver
 	@Bean
