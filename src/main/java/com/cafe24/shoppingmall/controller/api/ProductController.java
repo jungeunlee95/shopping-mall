@@ -3,9 +3,9 @@ package com.cafe24.shoppingmall.controller.api;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -29,7 +29,7 @@ public class ProductController {
 		@ApiImplicitParam(name="categoryNo", value="categoryNo: 카테고리 번호", required=true, dataType="Long", defaultValue=""),
 		@ApiImplicitParam(name="keyword", value="keyword: 검색어 입력 값", required=false, dataType="String", defaultValue="")
 	})
-	@RequestMapping(value = "/{categoryNo}", method = RequestMethod.GET)
+	@GetMapping(value = "/{categoryNo}")
 	public JSONResult getProductList(@PathVariable(value = "categoryNo") Long categoryNo,
 			@RequestParam(value="keyword", required = false, defaultValue = "") String keyword) {
 		

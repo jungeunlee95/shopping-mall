@@ -14,9 +14,6 @@ import com.cafe24.shoppingmall.config.test.WebConfig;
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 public class UserDaoTest {
-	
-	@Autowired 
-	private SqlSession sqlSession;
 
 	@Test
 	public void testJoinUser() throws Exception {

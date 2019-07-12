@@ -11,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -40,7 +42,7 @@ public class UserController {
 				+ "phoneNumber: 전화번호 - 필수값 \n"
 				+ "email: 이메일 - 선택값 \n", required=true, dataType="UserVo", defaultValue="")
 	})
-	@RequestMapping(value="/join", method=RequestMethod.POST) 
+	@PostMapping(value="/join") 
 	public ResponseEntity<JSONResult> joinUser(@RequestBody @Valid UserVo userVo,
 								BindingResult result) {
 		// java @valid 유효성 검증
@@ -71,7 +73,7 @@ public class UserController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name="id", value="id : 아이디", required=true, dataType="String", defaultValue="")
 	})
-	@RequestMapping(value="/checkId", method=RequestMethod.GET) 
+	@GetMapping(value="/checkId") 
 	public ResponseEntity<JSONResult> checkId(@RequestParam(value="id") String id) {
 		// id 정규식 검증 
 		if(!Pattern.matches(UserVo.CHECK_ID_VALID, id)) {
@@ -87,7 +89,7 @@ public class UserController {
 		@ApiImplicitParam(name="id", value="id : 아이디", required=true, dataType="String", defaultValue=""),
 		@ApiImplicitParam(name="password", value="password : 비밀번호", required=true, dataType="String", defaultValue="")
 	})
-	@RequestMapping(value="/login", method=RequestMethod.GET) 
+	@GetMapping(value="/login") 
 	public ResponseEntity<JSONResult> login(@RequestParam(value="id") String id, 
 							@RequestParam(value="password") String password) {
 		Boolean exist = userService.getUser(id, password);
@@ -98,7 +100,7 @@ public class UserController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name="email", value="email : 이메일", required=true, dataType="String", defaultValue="")
 	})
-	@RequestMapping(value="/findId", method=RequestMethod.GET) 
+	@GetMapping(value="/findId") 
 	public ResponseEntity<JSONResult> findId(@RequestParam(value = "email") String email) {
 		// 일치하는 email없으면 false
 		String userId = userService.getUser(email);
