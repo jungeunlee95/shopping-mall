@@ -15,7 +15,6 @@ import com.cafe24.shoppingmall.vo.ProductVo;
 
 @RestController("productAPIController")
 @RequestMapping("/api/product")
-//@Admin // 관리자 권한 체크 어노테이션 
 public class ProductController {
 
 	@Autowired

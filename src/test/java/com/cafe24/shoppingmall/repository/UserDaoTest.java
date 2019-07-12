@@ -1,4 +1,4 @@
-package com.cafe24.shoppingmall.user.repository;
+package com.cafe24.shoppingmall.repository;
 
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;

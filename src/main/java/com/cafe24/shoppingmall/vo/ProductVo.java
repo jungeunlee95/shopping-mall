@@ -9,7 +9,7 @@ public class ProductVo {
 	private String regDate;
 	private boolean show;
 	private boolean option;
-	private int shoppingFee;
+	private int shippingFee;
 	private int orderNo;
 	private String contents;
 	private Long categoryNo;
@@ -19,7 +19,7 @@ public class ProductVo {
 	}
 
 	public ProductVo(Long no, String code, String name, int price, String regDate, boolean show, boolean option,
-			int shoppingFee, int orderNo, String contents, Long categoryNo) {
+			int shippingFee, int orderNo, String contents, Long categoryNo) {
 		super();
 		this.no = no;
 		this.code = code;
@@ -28,7 +28,7 @@ public class ProductVo {
 		this.regDate = regDate;
 		this.show = show;
 		this.option = option;
-		this.shoppingFee = shoppingFee;
+		this.shippingFee = shippingFee;
 		this.orderNo = orderNo;
 		this.contents = contents;
 		this.categoryNo = categoryNo;
@@ -90,12 +90,12 @@ public class ProductVo {
 		this.option = option;
 	}
 
-	public int getShoppingFee() {
-		return shoppingFee;
+	public int getshippingFee() {
+		return shippingFee;
 	}
 
-	public void setShoppingFee(int shoppingFee) {
-		this.shoppingFee = shoppingFee;
+	public void setshippingFee(int shippingFee) {
+		this.shippingFee = shippingFee;
 	}
 
 	public int getOrderNo() {
@@ -125,7 +125,7 @@ public class ProductVo {
 	@Override
 	public String toString() {
 		return "ProductVo [no=" + no + ", code=" + code + ", name=" + name + ", price=" + price + ", regDate=" + regDate
-				+ ", show=" + show + ", option=" + option + ", shoppingFee=" + shoppingFee + ", orderNo=" + orderNo
+				+ ", show=" + show + ", option=" + option + ", shippingFee=" + shippingFee + ", orderNo=" + orderNo
 				+ ", contents=" + contents + ", categoryNo=" + categoryNo + "]";
 	}
 
