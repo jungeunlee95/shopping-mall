@@ -4,6 +4,7 @@ package com.cafe24.shoppingmall.controller.api;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,6 +16,10 @@ import com.cafe24.shoppingmall.service.impl.CartServiceImpl;
 import com.cafe24.shoppingmall.service.impl.ProductServiceImpl;
 import com.cafe24.shoppingmall.vo.ProductVo;
 
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
+
 @RestController("cartAPIController")
 @RequestMapping("/api/cart")
 public class CartController {
@@ -25,14 +30,23 @@ public class CartController {
 	@Autowired
 	private CartServiceImpl CartService;
 	
-	@RequestMapping(value = "/{userId}", method = RequestMethod.GET)
+	@ApiOperation(value="장바구니 목록 가져오기")
+	@ApiImplicitParams({
+		@ApiImplicitParam(name="userId", value="userId: 회원아이디", required=true, dataType="String", defaultValue="")
+	})
+	@GetMapping(value = "/{userId}")
 	public JSONResult getCartList(@PathVariable(value="userId") String userId) {
 		
 		// 상품 list return
 		List<ProductVo> list = productService.getProductList(userId);
 		return JSONResult.success(list);
 	}
-	
+
+	@ApiOperation(value="장바구니에 상품 추가하기")
+	@ApiImplicitParams({
+		@ApiImplicitParam(name="userId", value="userId: 회원아이디", required=true, dataType="String", defaultValue=""),
+		@ApiImplicitParam(name="optionNo", value="optionNo: 상품의 옵션 번호", required=true, dataType="Long", defaultValue="")
+	})
 	@RequestMapping(value = "/{userId}/{optionNo}", method = RequestMethod.POST)
 	public JSONResult addCart(@PathVariable(value="userId") String userId,
 							  @PathVariable(value="optionNo") Long optionNo) {
@@ -44,12 +58,19 @@ public class CartController {
 	/**
 	 * 해당 회원의 상품(cartNo)의 옵션 변경(optionNo : 변경 할 수량)
 	 * 해당 회원의 상품(cartNo)의 옵션 수량 변경(quantity : 변경 할 수량)
-	 * @param userId
-	 * @param cartNo
+	 * @param userId: 유저 아이디
+	 * @param cartNo: 
 	 * @param optionNo
 	 * @param quantity
-	 * @return
+	 * @return 
 	 */
+	@ApiOperation(value="장바구니 옵션/수량 수정하기")
+	@ApiImplicitParams({
+		@ApiImplicitParam(name="userId", value="userId: 회원아이디", required=true, dataType="String", defaultValue=""),
+		@ApiImplicitParam(name="cartNo", value="cartNo: 장바구니에 담긴 상품번호", required=true, dataType="Long", defaultValue=""),
+		@ApiImplicitParam(name="optionNo", value="optionNo: 상품의 옵션 번호", required=true, dataType="Long", defaultValue=""),
+		@ApiImplicitParam(name="quantity", value="quantity: 상품의 수량", required=true, dataType="Long", defaultValue="")
+	})
 	@RequestMapping(value = "/modify/{userId}/{cartNo}", method = RequestMethod.POST)
 	public JSONResult modifyCart(
 			@PathVariable(value="userId") String userId,
@@ -68,6 +89,11 @@ public class CartController {
 		return JSONResult.success(result);
 	}
 	
+	@ApiOperation(value="장바구니 상품 삭제하기")
+	@ApiImplicitParams({
+		@ApiImplicitParam(name="userId", value="userId: 회원아이디", required=true, dataType="String", defaultValue=""),
+		@ApiImplicitParam(name="cartNo", value="cartNo: 장바구니에 담긴 상품번호", required=true, dataType="Long", defaultValue="")
+	})
 	@RequestMapping(value = "/delete/{userId}/{cartNo}", method = RequestMethod.DELETE)
 	public JSONResult deleteCart(
 			@PathVariable(value="userId") String userId,
@@ -79,7 +105,7 @@ public class CartController {
 	}
 	
 	
-
+ 
 	
 }
  

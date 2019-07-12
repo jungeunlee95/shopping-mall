@@ -21,6 +21,10 @@ import com.cafe24.shoppingmall.dto.JSONResult;
 import com.cafe24.shoppingmall.service.impl.UserServiceImpl;
 import com.cafe24.shoppingmall.vo.UserVo;
 
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
+
 @RestController("userAPIController")
 @RequestMapping("/api/user")
 public class UserController {
@@ -28,6 +32,14 @@ public class UserController {
 	@Autowired
 	private UserServiceImpl userService;
 
+	@ApiOperation(value="회원가입")
+	@ApiImplicitParams({
+		@ApiImplicitParam(name="userVo", value="userId: 아이디 - 필수값 \n password: 비밀번호 - 필수값 \n name: 이름 - 필수값 \n"
+				+ "passwordQuestion: 비밀번호 질문 - 필수값 \n"
+				+ "passwordAnswer: 비밀번호 대답 - 필수값 \n"
+				+ "phoneNumber: 전화번호 - 필수값 \n"
+				+ "email: 이메일 - 선택값 \n", required=true, dataType="UserVo", defaultValue="")
+	})
 	@RequestMapping(value="/join", method=RequestMethod.POST) 
 	public ResponseEntity<JSONResult> joinUser(@RequestBody @Valid UserVo userVo,
 								BindingResult result) {
@@ -55,6 +67,10 @@ public class UserController {
 	}
 	
 
+	@ApiOperation(value="아이디 중복 검사")
+	@ApiImplicitParams({
+		@ApiImplicitParam(name="id", value="id : 아이디", required=true, dataType="String", defaultValue="")
+	})
 	@RequestMapping(value="/checkId", method=RequestMethod.GET) 
 	public ResponseEntity<JSONResult> checkId(@RequestParam(value="id") String id) {
 		// id 정규식 검증 
@@ -66,6 +82,11 @@ public class UserController {
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(exist));
 	} 
 	
+	@ApiOperation(value="로그인")
+	@ApiImplicitParams({
+		@ApiImplicitParam(name="id", value="id : 아이디", required=true, dataType="String", defaultValue=""),
+		@ApiImplicitParam(name="password", value="password : 비밀번호", required=true, dataType="String", defaultValue="")
+	})
 	@RequestMapping(value="/login", method=RequestMethod.GET) 
 	public ResponseEntity<JSONResult> login(@RequestParam(value="id") String id, 
 							@RequestParam(value="password") String password) {
@@ -73,6 +94,10 @@ public class UserController {
 	    return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(exist));
 	} 
 	
+	@ApiOperation(value="아이디 찾기")
+	@ApiImplicitParams({
+		@ApiImplicitParam(name="email", value="email : 이메일", required=true, dataType="String", defaultValue="")
+	})
 	@RequestMapping(value="/findId", method=RequestMethod.GET) 
 	public ResponseEntity<JSONResult> findId(@RequestParam(value = "email") String email) {
 		// 일치하는 email없으면 false

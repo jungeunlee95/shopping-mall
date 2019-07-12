@@ -12,6 +12,8 @@ import com.cafe24.shoppingmall.dto.JSONResult;
 import com.cafe24.shoppingmall.service.impl.ProductServiceImpl;
 import com.cafe24.shoppingmall.vo.ProductVo;
 
+import io.swagger.annotations.ApiOperation;
+
 @RestController("mainAPIController")
 @RequestMapping("/api/main")
 public class MainController {
@@ -19,6 +21,7 @@ public class MainController {
 	@Autowired
 	private ProductServiceImpl productService;
 	
+	@ApiOperation(value="메인에서 상품 목록 가져오기")
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public JSONResult getProductList() {
 		

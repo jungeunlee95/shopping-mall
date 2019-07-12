@@ -13,6 +13,10 @@ import com.cafe24.shoppingmall.dto.JSONResult;
 import com.cafe24.shoppingmall.service.impl.ProductServiceImpl;
 import com.cafe24.shoppingmall.vo.ProductVo;
 
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
+
 @RestController("productAPIController")
 @RequestMapping("/api/product")
 public class ProductController {
@@ -20,6 +24,11 @@ public class ProductController {
 	@Autowired
 	private ProductServiceImpl productService;
 
+	@ApiOperation(value="특정 조건에 맞는 상품 목록 가져오기")
+	@ApiImplicitParams({
+		@ApiImplicitParam(name="categoryNo", value="categoryNo: 카테고리 번호", required=true, dataType="Long", defaultValue=""),
+		@ApiImplicitParam(name="keyword", value="keyword: 검색어 입력 값", required=false, dataType="String", defaultValue="")
+	})
 	@RequestMapping(value = "/{categoryNo}", method = RequestMethod.GET)
 	public JSONResult getProductList(@PathVariable(value = "categoryNo") Long categoryNo,
 			@RequestParam(value="keyword", required = false, defaultValue = "") String keyword) {
