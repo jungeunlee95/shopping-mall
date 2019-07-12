@@ -1,4 +1,4 @@
-package com.cafe24.shoppingmall.user.controller.api;
+package com.cafe24.shoppingmall.controller.api;
 
 
 import java.util.List;
@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cafe24.shoppingmall.dto.JSONResult;
-import com.cafe24.shoppingmall.user.service.UserService;
-import com.cafe24.shoppingmall.user.vo.UserVo;
+import com.cafe24.shoppingmall.service.UserService;
+import com.cafe24.shoppingmall.vo.UserVo;
 
 @RestController("userAPIController")
 @RequestMapping("/api/user")
@@ -31,7 +31,7 @@ public class UserController {
 	@RequestMapping(value="/join", method=RequestMethod.POST) 
 	public ResponseEntity<JSONResult> joinUser(@RequestBody @Valid UserVo userVo,
 								BindingResult result) {
-		
+		// java @valid 유효성 검증
 		if(result.hasErrors()) {
 			List<ObjectError> allErrors = result.getAllErrors();
 			for(ObjectError error : allErrors) {
@@ -39,7 +39,7 @@ public class UserController {
 			}
 		}
 		
-		// 유효성검사
+		// 정규식 유효성 검증
 		if(!Pattern.matches(UserVo.CHECK_ID_VALID, userVo.getId())) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(JSONResult.fail("잘못된 아이디 형식입니다."));
 		}else if(!Pattern.matches(UserVo.CHECK_PASSWORD_VALID, userVo.getPassword())) {
@@ -57,9 +57,11 @@ public class UserController {
 
 	@RequestMapping(value="/checkId", method=RequestMethod.GET) 
 	public ResponseEntity<JSONResult> checkId(@RequestParam(value="id") String id) {
+		// id 정규식 검증 
 		if(!Pattern.matches(UserVo.CHECK_ID_VALID, id)) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(JSONResult.fail("잘못된 아이디 형식입니다."));
 		}
+		
 		Boolean exist = userService.checkId(id);
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(exist));
 	} 
@@ -67,11 +69,6 @@ public class UserController {
 	@RequestMapping(value="/login", method=RequestMethod.GET) 
 	public ResponseEntity<JSONResult> login(@RequestParam(value="id") String id, 
 							@RequestParam(value="password") String password) {
-		if(!Pattern.matches(UserVo.CHECK_ID_VALID, id)) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(JSONResult.fail("잘못된 아이디 형식입니다."));
-		}else if(!Pattern.matches(UserVo.CHECK_PASSWORD_VALID, password)) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(JSONResult.fail("잘못된 비밀번호 형식입니다."));
-		}
 		Boolean exist = userService.getUser(id, password);
 	    return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(exist));
 	} 
@@ -86,6 +83,7 @@ public class UserController {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(JSONResult.fail("해당하는 아이디가 없습니다."));			
 		}
 	} 
+	
 	
 
 	

@@ -18,7 +18,7 @@ public class SwaggerConfig extends WebMvcConfigurerAdapter{
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.cafe24.shoppingmall.user.controller"))
+                .apis(RequestHandlerSelectors.basePackage("com.cafe24.shoppingmall.controller"))
                 .paths(PathSelectors.any())
                 .build();
 
@@ -27,7 +27,7 @@ public class SwaggerConfig extends WebMvcConfigurerAdapter{
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
 
-        registry.
+        registry. 
         addResourceHandler("swagger-ui.html")
         .addResourceLocations("classpath:/META-INF/resources/");
 

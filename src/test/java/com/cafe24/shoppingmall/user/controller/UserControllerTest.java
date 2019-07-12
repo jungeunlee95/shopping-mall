@@ -23,7 +23,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import com.cafe24.shoppingmall.config.test.AppConfig;
 import com.cafe24.shoppingmall.config.test.WebConfig;
-import com.cafe24.shoppingmall.user.vo.UserVo;
+import com.cafe24.shoppingmall.vo.UserVo;
 import com.google.gson.Gson;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -54,7 +54,7 @@ public class UserControllerTest {
 		
 		resultActions 
 		.andExpect(status().isBadRequest()).andDo(print())
-		.andExpect(jsonPath("$.message", is("이메일 형식이 맞지 않습니다.") ));
+		.andExpect(jsonPath("$.message", is("잘못된 이메일 형식입니다.") ));
 		
 		// 비밀번호 검사
 		userVo.setPassword("1234");
@@ -107,7 +107,6 @@ public class UserControllerTest {
 
 	}
 	
-//	@Ignore
 	@Test
 	public void testCheckId() throws Exception {
 
@@ -125,7 +124,6 @@ public class UserControllerTest {
         //  false : 회원가입 가능, true : 중복 아이디 존재
 	}
 	
-//	@Ignore
 	@Test
 	public void testlogin() throws Exception {
 
@@ -144,7 +142,6 @@ public class UserControllerTest {
         //  false : 로그인 실패, true : 로그인 가능
 	}
 	
-//	@Ignore
 	@Test
 	public void findId() throws Exception {
 

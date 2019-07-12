@@ -1,0 +1,31 @@
+package com.cafe24.shoppingmall.repository;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import com.cafe24.shoppingmall.vo.ProductVo;
+
+
+@Repository
+public class ProductDao {
+	
+	@Autowired 
+	private SqlSession sqlSession;
+	
+	public List<ProductVo> getList(Long categodyNo, String keyword) {
+		List<ProductVo> list = new ArrayList<ProductVo>(); 
+
+		ProductVo vo = new ProductVo(1L, "AAA", "AAA", 30000, "2019-07-12", true, true, 2500, 1, "AAA", 1L);
+		ProductVo vo2 = new ProductVo(2L, "BBB", "BBB", 1000, "2019-07-13", true, true, 2500, 2, "BBB", 1L);
+		list.add(vo);
+		list.add(vo2);
+		
+		return list;
+	}
+
+
+}

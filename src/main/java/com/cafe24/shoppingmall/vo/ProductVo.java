@@ -1,4 +1,4 @@
-package com.cafe24.shoppingmall.product.vo;
+package com.cafe24.shoppingmall.vo;
 
 public class ProductVo {
 

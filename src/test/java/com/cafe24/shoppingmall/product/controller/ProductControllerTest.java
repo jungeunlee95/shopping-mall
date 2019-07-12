@@ -39,14 +39,15 @@ public class ProductControllerTest {
 	public void setup() {
 		mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
 	}
-	
+	 
 	@Test
 	public void testGetProductList() throws Exception {
-
+		int categoryNo = 1;
 		ResultActions resultActions = 
 				mockMvc
-				.perform(post("/api/product")
-				.contentType(MediaType.APPLICATION_JSON));
+				.perform(get("/api/product/{categoryNo}", categoryNo)
+				.param("keyword","상의")		
+				.contentType(MediaType.APPLICATION_JSON)); 
 		
 		resultActions 
 		.andExpect(status().isOk()).andDo(print());
