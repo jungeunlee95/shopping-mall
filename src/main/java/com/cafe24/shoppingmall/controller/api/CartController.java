@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cafe24.shoppingmall.dto.JSONResult;
-import com.cafe24.shoppingmall.service.CartService;
-import com.cafe24.shoppingmall.service.ProductService;
+import com.cafe24.shoppingmall.service.impl.CartServiceImpl;
+import com.cafe24.shoppingmall.service.impl.ProductServiceImpl;
 import com.cafe24.shoppingmall.vo.ProductVo;
 
 @RestController("cartAPIController")
@@ -20,10 +20,10 @@ import com.cafe24.shoppingmall.vo.ProductVo;
 public class CartController {
 	
 	@Autowired
-	private ProductService productService;
+	private ProductServiceImpl productService;
 
 	@Autowired
-	private CartService CartService;
+	private CartServiceImpl CartService;
 	
 	@RequestMapping(value = "/{userId}", method = RequestMethod.GET)
 	public JSONResult getCartList(@PathVariable(value="userId") String userId) {

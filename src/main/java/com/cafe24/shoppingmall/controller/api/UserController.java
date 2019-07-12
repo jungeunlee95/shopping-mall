@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cafe24.shoppingmall.dto.JSONResult;
-import com.cafe24.shoppingmall.service.UserService;
+import com.cafe24.shoppingmall.service.impl.UserServiceImpl;
 import com.cafe24.shoppingmall.vo.UserVo;
 
 @RestController("userAPIController")
@@ -26,7 +26,7 @@ import com.cafe24.shoppingmall.vo.UserVo;
 public class UserController {
 	
 	@Autowired
-	private UserService userService;
+	private UserServiceImpl userService;
 
 	@RequestMapping(value="/join", method=RequestMethod.POST) 
 	public ResponseEntity<JSONResult> joinUser(@RequestBody @Valid UserVo userVo,

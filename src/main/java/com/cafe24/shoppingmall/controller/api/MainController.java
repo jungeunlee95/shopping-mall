@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cafe24.shoppingmall.dto.JSONResult;
-import com.cafe24.shoppingmall.service.ProductService;
+import com.cafe24.shoppingmall.service.impl.ProductServiceImpl;
 import com.cafe24.shoppingmall.vo.ProductVo;
 
 @RestController("mainAPIController")
@@ -17,7 +17,7 @@ import com.cafe24.shoppingmall.vo.ProductVo;
 public class MainController {
 	
 	@Autowired
-	private ProductService productService;
+	private ProductServiceImpl productService;
 	
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public JSONResult getProductList() {

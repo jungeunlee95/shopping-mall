@@ -1,32 +1,16 @@
 package com.cafe24.shoppingmall.repository;
 
-import org.apache.ibatis.session.SqlSession;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
-
 import com.cafe24.shoppingmall.vo.UserVo;
 
-@Repository
-public class UserDao {
-	
-	@Autowired 
-	private SqlSession sqlSession;
+public interface UserDao {
 
-	public UserVo insert(UserVo vo) {
-		return vo;
-	}
+	public UserVo insert(UserVo vo);
 
-	public Boolean getId(String id) {
-		return false;
-	}
+	public Boolean getId(String id) ;
 
-	public Boolean get(String id, String password) {
-		return false;
-	}
+	public Boolean get(String id, String password);
 
-	public String get(String email) {
-		return email;
-	}
+	public String get(String email);
 
 
 }
