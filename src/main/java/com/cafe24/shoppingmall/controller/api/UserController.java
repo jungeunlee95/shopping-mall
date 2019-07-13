@@ -45,6 +45,7 @@ public class UserController {
 	@PostMapping(value="/join") 
 	public ResponseEntity<JSONResult> joinUser(@RequestBody @Valid UserVo userVo,
 								BindingResult result) {
+		System.out.println("####" + userVo);
 		// java @valid 유효성 검증
 		if(result.hasErrors()) {
 			List<ObjectError> allErrors = result.getAllErrors();
@@ -52,18 +53,7 @@ public class UserController {
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(JSONResult.fail(error.getDefaultMessage()));
 			}
 		}
-		
-		// 정규식 유효성 검증
-		if(!Pattern.matches(UserVo.CHECK_ID_VALID, userVo.getId())) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(JSONResult.fail("잘못된 아이디 형식입니다."));
-		}else if(!Pattern.matches(UserVo.CHECK_PASSWORD_VALID, userVo.getPassword())) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(JSONResult.fail("잘못된 비밀번호 형식입니다."));
-		}else if(!Pattern.matches(UserVo.CHECK_PHONE_VALID, userVo.getPhoneNumber())) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(JSONResult.fail("잘못된 전화번호 형식입니다."));
-		}else if(!Pattern.matches(UserVo.CHECK_NAME_VALID, userVo.getName())){
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(JSONResult.fail("잘못된 이름 형식입니다."));
-		}
-		
+
 		UserVo vo = userService.joinUser(userVo);
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(vo));
 	}
@@ -75,11 +65,7 @@ public class UserController {
 	})
 	@GetMapping(value="/checkId") 
 	public ResponseEntity<JSONResult> checkId(@RequestParam(value="id") String id) {
-		// id 정규식 검증 
-		if(!Pattern.matches(UserVo.CHECK_ID_VALID, id)) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(JSONResult.fail("잘못된 아이디 형식입니다."));
-		}
-		
+
 		Boolean exist = userService.checkId(id);
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(exist));
 	} 
