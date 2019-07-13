@@ -21,8 +21,8 @@ public class UserVo {
 	private String name;
 	
 	@Length(min=9, max=15, message="비밀번호 길이는 8~16자 입니다.")
-	// 비밀번호 정규식 (영문(대소문자 구분), 숫자, 특수문자 조합, 9~12자리)
-	@Pattern(regexp = "^(?=.*\\\\d)(?=.*[~`!@#$%\\\\^&*()-])(?=.*[a-z])(?=.*[A-Z]).{9,15}$", message = "잘못된 비밀번호 형식입니다.")
+	// 비밀번호 정규식 (최소 8자리에 대문자 1자리 소문자 한자리 숫자 한자리)
+	@Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$", message = "잘못된 비밀번호 형식입니다.")
 	private String password;
 	
 	private String passwordQuestion;
@@ -32,7 +32,7 @@ public class UserVo {
 	
 	@NotEmpty(message="전화번호를 입력해주세요.") 
 	// 전화번호 정규식
-	@Pattern(regexp = "^01(?:0|1|[6-9])-(?:\\\\d{3}|\\\\d{4})-\\\\d{4}$", message = "잘못된 전화번호 형식입니다.")
+	@Pattern(regexp = "^01(?:0|1|[6-9])[.-]?(\\d{3}|\\d{4})[.-]?(\\d{4})$", message = "잘못된 전화번호 형식입니다.")
 	private String phoneNumber;
 	
 	@Email(message="잘못된 이메일 형식입니다.")

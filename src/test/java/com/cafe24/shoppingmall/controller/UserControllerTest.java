@@ -47,7 +47,7 @@ public class UserControllerTest {
 		UserVo userVo = new UserVo();
 		userVo.setId("d2o");
 		userVo.setName("testUser");
-		userVo.setPassword("wjddms95!!");
+		userVo.setPassword("Gkdlfn123");
 		userVo.setPasswordQuestion("가장 아끼는 보물은?");
 		userVo.setPasswordAnswer("수첩");
 		userVo.setPhoneNumber("010-9274-3036");
@@ -70,7 +70,7 @@ public class UserControllerTest {
 		UserVo userVo = new UserVo();
 		userVo.setId("leeap1004");
 		userVo.setName("d2ㅇ");
-		userVo.setPassword("wjddms95!!");
+		userVo.setPassword("Gkdlfn123");
 		userVo.setPasswordQuestion("가장 아끼는 보물은?");
 		userVo.setPasswordAnswer("수첩");
 		userVo.setPhoneNumber("010-9274-3036");
@@ -90,11 +90,10 @@ public class UserControllerTest {
 	@Test
 	public void testJoinUserPw() throws Exception {
 		
-		UserVo userVo = new UserVo("leeap1004", "이정은", "1234", "가장 아끼는 보물은?", 
-				"수첩", "01092743036", "leeap1004@gmail.com");
+		UserVo userVo = new UserVo();
 		userVo.setId("leeap1004");
-		userVo.setName("이정은");
-		userVo.setPassword("1234");
+		userVo.setName("이정은"); 
+		userVo.setPassword("");
 		userVo.setPasswordQuestion("가장 아끼는 보물은?");
 		userVo.setPasswordAnswer("수첩");
 		userVo.setPhoneNumber("010-9274-3036");
@@ -107,10 +106,52 @@ public class UserControllerTest {
 		
 		resultActions 
 		.andExpect(status().isBadRequest()).andDo(print())
-		.andExpect(jsonPath("$.message", is("잘못된 비밀번호 형식입니다.") ));
+		.andExpect(jsonPath("$.message", is("비밀번호 길이는 8~16자 입니다.") ));
+	}
+	
+	@Test
+	public void testJoinUserEmail() throws Exception {
+		
+		UserVo userVo = new UserVo();
+		userVo.setId("leeap1004");
+		userVo.setName("이정은"); 
+		userVo.setPassword("Gkdlfn123");
+		userVo.setPasswordQuestion("가장 아끼는 보물은?");
+		userVo.setPasswordAnswer("수첩");
+		userVo.setPhoneNumber("010-9274-3036");
+		userVo.setEmail("leeap1004");
+		// 이름 검사
+		ResultActions resultActions = 
+				mockMvc
+				.perform(post("/api/user/join")
+						.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(userVo)));
+		
+		resultActions 
+		.andExpect(status().isBadRequest()).andDo(print())
+		.andExpect(jsonPath("$.message", is("잘못된 이메일 형식입니다.") ));
+	}
+	
+	@Test
+	public void testJoinSuccess() throws Exception {
+		 
+		UserVo userVo = new UserVo();
+		userVo.setId("leeap1004");
+		userVo.setName("이정은"); 
+		userVo.setPassword("Gkdlfn123");
+		userVo.setPasswordQuestion("가장 아끼는 보물은?");
+		userVo.setPasswordAnswer("수첩");
+		userVo.setPhoneNumber("010-9274-3036");
+		userVo.setEmail("leeap1004@gmail.com");
+		// 이름 검사
+		ResultActions resultActions = 
+				mockMvc
+				.perform(post("/api/user/join")
+						.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(userVo)));
+		
+		resultActions 
+		.andExpect(status().isOk()).andDo(print());
 	}
 	 
-	@Ignore
 	@Test
 	public void testCheckId() throws Exception {
 
@@ -127,8 +168,7 @@ public class UserControllerTest {
 		.andExpect(jsonPath("$.data", is(false))); 
         //  false : 회원가입 가능, true : 중복 아이디 존재
 	}
-	
-	@Ignore
+
 	@Test
 	public void testlogin() throws Exception {
 
@@ -146,8 +186,7 @@ public class UserControllerTest {
 		.andExpect(jsonPath("$.data", is(false))); 
         //  false : 로그인 실패, true : 로그인 가능
 	}
-	
-	@Ignore
+
 	@Test
 	public void findId() throws Exception {
 

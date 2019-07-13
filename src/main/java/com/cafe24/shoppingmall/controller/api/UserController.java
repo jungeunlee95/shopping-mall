@@ -54,6 +54,7 @@ public class UserController {
 			}
 		}
 
+		// id 중복검사
 		UserVo vo = userService.joinUser(userVo);
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(vo));
 	}
