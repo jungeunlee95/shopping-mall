@@ -7,12 +7,14 @@ import org.springframework.stereotype.Repository;
 import com.cafe24.shoppingmall.vo.UserVo;
 
 @Repository
-public class UserDaoImpl{
+public class UserDao{
 	
 	@Autowired 
 	private SqlSession sqlSession;
 
 	public UserVo insert(UserVo vo) {
+		System.out.println(vo);
+		int count = sqlSession.insert("user.insert", vo);
 		return vo;
 	}
 

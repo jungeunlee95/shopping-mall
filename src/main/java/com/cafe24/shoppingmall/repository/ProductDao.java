@@ -11,7 +11,7 @@ import com.cafe24.shoppingmall.vo.ProductVo;
 
 
 @Repository
-public class ProductDaoImpl{
+public class ProductDao{
 	
 	@Autowired 
 	private SqlSession sqlSession;

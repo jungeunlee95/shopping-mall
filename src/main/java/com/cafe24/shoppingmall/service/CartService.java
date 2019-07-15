@@ -5,14 +5,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cafe24.shoppingmall.repository.CartDaoImpl;
+import com.cafe24.shoppingmall.repository.CartDao;
 import com.cafe24.shoppingmall.vo.ProductVo;
 
 @Service
-public class CartServiceImpl{
+public class CartService{
 
 	@Autowired
-	private CartDaoImpl cartDao;
+	private CartDao cartDao;
 
 	/**
 	 * 회원 장바구니에 상품 추가

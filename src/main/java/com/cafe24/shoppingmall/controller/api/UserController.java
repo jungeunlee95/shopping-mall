@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cafe24.shoppingmall.dto.JSONResult;
-import com.cafe24.shoppingmall.service.UserServiceImpl;
+import com.cafe24.shoppingmall.service.UserService;
 import com.cafe24.shoppingmall.vo.UserVo;
 
 import io.swagger.annotations.ApiImplicitParam;
@@ -39,7 +39,7 @@ public class UserController {
 	private MessageSource messageSource;
 	
 	@Autowired
-	private UserServiceImpl userService;
+	private UserService userService;
 	
 	@ApiOperation(value="회원가입")
 	@ApiImplicitParams({

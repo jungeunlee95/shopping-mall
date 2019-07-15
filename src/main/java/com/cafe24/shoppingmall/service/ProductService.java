@@ -5,14 +5,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cafe24.shoppingmall.repository.ProductDaoImpl;
+import com.cafe24.shoppingmall.repository.ProductDao;
 import com.cafe24.shoppingmall.vo.ProductVo;
 
 @Service
-public class ProductServiceImpl {
+public class ProductService {
 
 	@Autowired
-	private ProductDaoImpl productDao;
+	private ProductDao productDao;
 
 	/**
 	 * 상품 리스트 가져오기 (카테고리 or 키워드)

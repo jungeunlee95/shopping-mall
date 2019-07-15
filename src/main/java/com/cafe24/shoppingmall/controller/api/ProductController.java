@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cafe24.shoppingmall.dto.JSONResult;
-import com.cafe24.shoppingmall.service.ProductServiceImpl;
+import com.cafe24.shoppingmall.service.ProductService;
 import com.cafe24.shoppingmall.vo.ProductVo;
 
 import io.swagger.annotations.ApiImplicitParam;
@@ -22,7 +22,7 @@ import io.swagger.annotations.ApiOperation;
 public class ProductController {
 
 	@Autowired
-	private ProductServiceImpl productService;
+	private ProductService productService;
 
 	@ApiOperation(value="특정 조건에 맞는 상품 목록 가져오기")
 	@ApiImplicitParams({

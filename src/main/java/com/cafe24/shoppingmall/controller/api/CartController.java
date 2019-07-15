@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cafe24.shoppingmall.dto.JSONResult;
-import com.cafe24.shoppingmall.service.CartServiceImpl;
-import com.cafe24.shoppingmall.service.ProductServiceImpl;
+import com.cafe24.shoppingmall.service.CartService;
+import com.cafe24.shoppingmall.service.ProductService;
 import com.cafe24.shoppingmall.vo.ProductVo;
 
 import io.swagger.annotations.ApiImplicitParam;
@@ -27,10 +27,10 @@ import io.swagger.annotations.ApiOperation;
 public class CartController {
 	
 	@Autowired
-	private ProductServiceImpl productService;
+	private ProductService productService;
 
 	@Autowired
-	private CartServiceImpl CartService;
+	private CartService CartService;
 	
 	@ApiOperation(value="장바구니 목록 가져오기")
 	@ApiImplicitParams({

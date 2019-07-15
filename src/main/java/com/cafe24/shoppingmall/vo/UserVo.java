@@ -14,14 +14,14 @@ import com.cafe24.shoppingmall.validator.constraints.ValidPhoneNumber;
 public class UserVo {
 
 	private Long no;
-	
+
 	@ValidId
 	private String id;
 
 	// 영문 혹은 한글 이름(둘 다 사용 불가)
 	@Pattern(regexp = "^[가-힣]{2,4}|^[a-zA-Z]*$", message = "잘못된 이름 형식입니다.")
 	private String name;
- 
+
 	@ValidGender
 	private String gender;
 
@@ -44,12 +44,32 @@ public class UserVo {
 	private String email;
 	private String birthDate;
 
+	private String role;
 	private String point;
 	private String endDate;
 
 	public UserVo() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+
+	public UserVo(Long no, String id, String name, String gender, String password, String passwordQuestion,
+			String passwordAnswer, String phoneNumber, String email, String birthDate, String role, String point,
+			String endDate) {
+		super();
+		this.no = no;
+		this.id = id;
+		this.name = name;
+		this.gender = gender;
+		this.password = password;
+		this.passwordQuestion = passwordQuestion;
+		this.passwordAnswer = passwordAnswer;
+		this.phoneNumber = phoneNumber;
+		this.email = email;
+		this.birthDate = birthDate;
+		this.role = role;
+		this.point = point;
+		this.endDate = endDate;
 	}
 
 	public Long getNo() {
@@ -132,6 +152,14 @@ public class UserVo {
 		this.birthDate = birthDate;
 	}
 
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
 	public String getPoint() {
 		return point;
 	}
@@ -148,29 +176,12 @@ public class UserVo {
 		this.endDate = endDate;
 	}
 
-	public UserVo(Long no, String id, String name, String gender, String password, String passwordQuestion,
-			String passwordAnswer, String phoneNumber, String email, String birthDate, String point, String endDate) {
-		super();
-		this.no = no;
-		this.id = id;
-		this.name = name;
-		this.gender = gender;
-		this.password = password;
-		this.passwordQuestion = passwordQuestion;
-		this.passwordAnswer = passwordAnswer;
-		this.phoneNumber = phoneNumber;
-		this.email = email;
-		this.birthDate = birthDate;
-		this.point = point;
-		this.endDate = endDate;
-	}
-
 	@Override
 	public String toString() {
 		return "UserVo [no=" + no + ", id=" + id + ", name=" + name + ", gender=" + gender + ", password=" + password
 				+ ", passwordQuestion=" + passwordQuestion + ", passwordAnswer=" + passwordAnswer + ", phoneNumber="
-				+ phoneNumber + ", email=" + email + ", birthDate=" + birthDate + ", point=" + point + ", endDate="
-				+ endDate + "]";
+				+ phoneNumber + ", email=" + email + ", birthDate=" + birthDate + ", role=" + role + ", point=" + point
+				+ ", endDate=" + endDate + "]";
 	}
 
 }
