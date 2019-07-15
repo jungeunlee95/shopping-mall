@@ -7,60 +7,49 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import com.cafe24.shoppingmall.validator.constraints.ValidGender;
+import com.cafe24.shoppingmall.validator.constraints.ValidId;
+import com.cafe24.shoppingmall.validator.constraints.ValidPassword;
+import com.cafe24.shoppingmall.validator.constraints.ValidPhoneNumber;
 
 public class UserVo {
 
 	private Long no;
 	
-	@NotEmpty(message="아이디를 입력해주세요.")
-	// 영문시작 특수문자 불가능('-'가능), 4~13자 
-	@Pattern(regexp = "^[a-zA-Z]{1}[a-zA-Z0-9_]{4,13}$", message = "잘못된 아이디 형식입니다.")
+	@ValidId
 	private String id;
-	  
-	@NotEmpty(message="이름을 입력해주세요.")
+
 	// 영문 혹은 한글 이름(둘 다 사용 불가)
 	@Pattern(regexp = "^[가-힣]{2,4}|^[a-zA-Z]*$", message = "잘못된 이름 형식입니다.")
 	private String name;
-	
+ 
 	@ValidGender
 	private String gender;
-	
-	@Length(min=8, max=16, message="비밀번호 길이는 8~16자 입니다.")
+
 	// 비밀번호 정규식 (최소 8자리에 대문자 1자리 소문자 한자리 숫자 한자리)
-	@Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$", message = "잘못된 비밀번호 형식입니다.")
+//	@ValidPassword
+	@Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,16}$", message = "잘못된 비밀번호 형식입니다.")
 	private String password;
-	
+
 	private String passwordQuestion;
-	
-	@Length(min = 2, message="답변은 2글자 이상을 입력해주세요.")
+
+	@Length(min = 2, message = "답변은 2글자 이상을 입력해주세요.")
 	private String passwordAnswer;
-	
-	@NotEmpty(message="전화번호를 입력해주세요.") 
+
+//	@ValidPhoneNumber
 	@Pattern(regexp = "^01(?:0|1|[6-9])[.-]?(\\d{3}|\\d{4})[.-]?(\\d{4})$", message = "잘못된 전화번호 형식입니다.")
 	private String phoneNumber;
-	
-	@Email(message="잘못된 이메일 형식입니다.")
-	@NotEmpty(message="이메일을 입력해주세요.")
+
+	@Email(message = "잘못된 이메일 형식입니다.")
+	@NotEmpty(message = "이메일을 입력해주세요.")
 	private String email;
 	private String birthDate;
-	
+
 	private String point;
 	private String endDate;
 
 	public UserVo() {
 		super();
 		// TODO Auto-generated constructor stub
-	}
-	
-	public UserVo(String id, String name, String password, String passwordQuestion, 
-			String passwordAnswer, String phoneNumber, String email) {
-		this.id = id;
-		this.name = name;
-		this.password = password;
-		this.passwordQuestion = passwordQuestion;
-		this.passwordAnswer = passwordAnswer;
-		this.phoneNumber = phoneNumber;
-		this.email = email;
 	}
 
 	public Long getNo() {
@@ -85,6 +74,14 @@ public class UserVo {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
 	}
 
 	public String getPassword() {
@@ -151,11 +148,29 @@ public class UserVo {
 		this.endDate = endDate;
 	}
 
+	public UserVo(Long no, String id, String name, String gender, String password, String passwordQuestion,
+			String passwordAnswer, String phoneNumber, String email, String birthDate, String point, String endDate) {
+		super();
+		this.no = no;
+		this.id = id;
+		this.name = name;
+		this.gender = gender;
+		this.password = password;
+		this.passwordQuestion = passwordQuestion;
+		this.passwordAnswer = passwordAnswer;
+		this.phoneNumber = phoneNumber;
+		this.email = email;
+		this.birthDate = birthDate;
+		this.point = point;
+		this.endDate = endDate;
+	}
+
 	@Override
 	public String toString() {
-		return "UserVo [no=" + no + ", id=" + id + ", name=" + name + ", password=" + password + ", passwordQuestion="
-				+ passwordQuestion + ", passwordAnswer=" + passwordAnswer + ", phoneNumber=" + phoneNumber + ", email="
-				+ email + ", birthDate=" + birthDate + ", point=" + point + ", endDate=" + endDate + "]";
+		return "UserVo [no=" + no + ", id=" + id + ", name=" + name + ", gender=" + gender + ", password=" + password
+				+ ", passwordQuestion=" + passwordQuestion + ", passwordAnswer=" + passwordAnswer + ", phoneNumber="
+				+ phoneNumber + ", email=" + email + ", birthDate=" + birthDate + ", point=" + point + ", endDate="
+				+ endDate + "]";
 	}
 
 }

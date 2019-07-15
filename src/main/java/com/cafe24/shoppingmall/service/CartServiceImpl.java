@@ -1,16 +1,15 @@
-package com.cafe24.shoppingmall.service.impl;
+package com.cafe24.shoppingmall.service;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cafe24.shoppingmall.repository.impl.CartDaoImpl;
-import com.cafe24.shoppingmall.service.CartService;
+import com.cafe24.shoppingmall.repository.CartDaoImpl;
 import com.cafe24.shoppingmall.vo.ProductVo;
 
 @Service
-public class CartServiceImpl implements CartService {
+public class CartServiceImpl{
 
 	@Autowired
 	private CartDaoImpl cartDao;

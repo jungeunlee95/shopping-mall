@@ -5,15 +5,16 @@ import java.util.regex.Pattern;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-import com.cafe24.shoppingmall.validator.constraints.ValidGender;
+import com.cafe24.shoppingmall.validator.constraints.ValidId;
+import com.cafe24.shoppingmall.validator.constraints.ValidPassword;
 
-public class GenderValidator implements ConstraintValidator<ValidGender, String> {
+public class PasswordValidator implements ConstraintValidator<ValidPassword, String> {
 	
-	private Pattern pattern = Pattern.compile("MALE|FEMALE|NONE");
+	private Pattern pattern = Pattern.compile("(^(?=.*[a-z])(?=.*[A-Z])(?=.*\\\\d)[a-zA-Z\\\\d]{8,16}$)");
 			
 
-	@Override
-	public void initialize(ValidGender constraintAnnotation) {
+	@Override 
+	public void initialize(ValidPassword constraintAnnotation) {
 	}
 
 	@Override

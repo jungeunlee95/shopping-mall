@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cafe24.shoppingmall.dto.JSONResult;
-import com.cafe24.shoppingmall.service.impl.ProductServiceImpl;
+import com.cafe24.shoppingmall.service.ProductServiceImpl;
 import com.cafe24.shoppingmall.vo.ProductVo;
 
 import io.swagger.annotations.ApiOperation;

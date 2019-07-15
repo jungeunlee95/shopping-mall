@@ -1,15 +1,14 @@
-package com.cafe24.shoppingmall.service.impl;
+package com.cafe24.shoppingmall.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.w3c.dom.events.UIEvent;
 
-import com.cafe24.shoppingmall.repository.impl.UserDaoImpl;
-import com.cafe24.shoppingmall.service.UserService;
+import com.cafe24.shoppingmall.repository.UserDaoImpl;
 import com.cafe24.shoppingmall.vo.UserVo;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl{
 	
 	@Autowired
 	private UserDaoImpl userDao;

@@ -48,6 +48,7 @@ public class UserControllerTest {
 		UserVo userVo = new UserVo();
 		userVo.setId("leeap1004");
 		userVo.setName("이정은"); 
+		userVo.setGender("FEMALE");
 		userVo.setPassword("Gkdlfn123");
 		userVo.setPasswordQuestion("가장 아끼는 보물은?");
 		userVo.setPasswordAnswer("수첩");
@@ -58,7 +59,7 @@ public class UserControllerTest {
 				mockMvc
 				.perform(post("/api/user/join")
 						.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(userVo)));
-		
+		System.out.println("@@@@@@@@@@@@@@@@@@");
 		resultActions 
 		.andExpect(status().isOk()).andDo(print());
 	}
@@ -68,11 +69,12 @@ public class UserControllerTest {
 
 		UserVo userVo = new UserVo();
 		userVo.setId("d2o");
-		userVo.setName("testUser");
+		userVo.setName("testUser"); 
+		userVo.setGender("FEMALE");
 		userVo.setPassword("Gkdlfn123");
 		userVo.setPasswordQuestion("가장 아끼는 보물은?");
 		userVo.setPasswordAnswer("수첩");
-		userVo.setPhoneNumber("010-9274-3036");
+		userVo.setPhoneNumber("010-9274-3036"); 
 		userVo.setEmail("leeap1004@gmail.com"); 
 		
 		// 이메일 검사
@@ -92,6 +94,7 @@ public class UserControllerTest {
 		UserVo userVo = new UserVo();
 		userVo.setId("leeap1004");
 		userVo.setName("d2ㅇ");
+		userVo.setGender("FEMALE");
 		userVo.setPassword("Gkdlfn123");
 		userVo.setPasswordQuestion("가장 아끼는 보물은?");
 		userVo.setPasswordAnswer("수첩");
@@ -115,16 +118,17 @@ public class UserControllerTest {
 		UserVo userVo = new UserVo();
 		userVo.setId("leeap1004");
 		userVo.setName("이정은"); 
-		userVo.setPassword("");
+		userVo.setGender("FEMALE");
+		userVo.setPassword("ddddddddd");
 		userVo.setPasswordQuestion("가장 아끼는 보물은?");
 		userVo.setPasswordAnswer("수첩");
 		userVo.setPhoneNumber("010-9274-3036");
 		userVo.setEmail("leeap1004@gmail.com");
-		// 이름 검사
+		// 이름 검사 
 		ResultActions resultActions = 
 				mockMvc
 				.perform(post("/api/user/join")
-						.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(userVo)));
+				.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(userVo)));
 		
 		resultActions 
 		.andExpect(status().isBadRequest()).andDo(print())
@@ -137,11 +141,12 @@ public class UserControllerTest {
 		UserVo userVo = new UserVo();
 		userVo.setId("leeap1004");
 		userVo.setName("이정은"); 
+		userVo.setGender("FEMALE");
 		userVo.setPassword("Gkdlfn123");
 		userVo.setPasswordQuestion("가장 아끼는 보물은?");
 		userVo.setPasswordAnswer("수첩");
 		userVo.setPhoneNumber("010-9274-3036");
-		userVo.setEmail("leeap1004");
+		userVo.setEmail("aaa");
 		// 이름 검사
 		ResultActions resultActions = 
 				mockMvc
@@ -151,6 +156,29 @@ public class UserControllerTest {
 		resultActions 
 		.andExpect(status().isBadRequest()).andDo(print())
 		.andExpect(jsonPath("$.message", is("잘못된 이메일 형식입니다.") ));
+	}
+	
+	@Test
+	public void testJoinUserGender() throws Exception {
+		
+		UserVo userVo = new UserVo();
+		userVo.setId("leeap1004");
+		userVo.setName("이정은"); 
+		userVo.setGender("ded");
+		userVo.setPassword("Gkdlfn123");
+		userVo.setPasswordQuestion("가장 아끼는 보물은?");
+		userVo.setPasswordAnswer("수첩");
+		userVo.setPhoneNumber("010-9274-3036");
+		userVo.setEmail("leeap1004@gmail.com");
+		// 이름 검사
+		ResultActions resultActions = 
+				mockMvc
+				.perform(post("/api/user/join")
+				.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(userVo)));
+		
+		resultActions 
+		.andExpect(status().isBadRequest()).andDo(print())
+		.andExpect(jsonPath("$.message", is("잘못된 성별 형식입니다.") ));
 	}
 
 	 
@@ -173,20 +201,36 @@ public class UserControllerTest {
 
 	@Test
 	public void testlogin() throws Exception {
-
-		String id = "userId";
-		String password = "userPW123!";
+		
+		// 로그인 실패
+		UserVo userVo = new UserVo();
+		userVo.setId("d");
+		userVo.setPassword("userPW123");
 		
 		ResultActions resultActions = 
 				mockMvc
-				.perform(get("/api/user/login?id={id}&password={password}", id, password)
-				.contentType(MediaType.APPLICATION_JSON));
+				.perform(get("/api/user/login")
+				.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(userVo)));
+		
+		resultActions 
+		.andExpect(status().isBadRequest()).andDo(print())
+		.andExpect(jsonPath("$.result", is("fail") ))
+		.andExpect(jsonPath("$.message", is("잘못된 아이디 형식입니다."))); 
+        
+		// 로그인 성공
+		userVo.setId("leeap1004");
+		userVo.setPassword("userPW123!");
+		
+		resultActions = 
+				mockMvc
+				.perform(get("/api/user/login")
+						.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(userVo)));
 		
 		resultActions 
 		.andExpect(status().isOk()).andDo(print())
 		.andExpect(jsonPath("$.result", is("success") ))
 		.andExpect(jsonPath("$.data", is(false))); 
-        //  false : 로그인 실패, true : 로그인 가능
+		//  false : 로그인 실패, true : 로그인 가능
 	}
 
 	@Test

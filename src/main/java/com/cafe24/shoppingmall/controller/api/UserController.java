@@ -2,11 +2,16 @@ package com.cafe24.shoppingmall.controller.api;
 
 
 import java.util.List;
-import java.util.regex.Pattern;
+import java.util.Set;
 
+import javax.validation.ConstraintViolation;
 import javax.validation.Valid;
+import javax.validation.Validation;
+import javax.validation.Validator;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -15,12 +20,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cafe24.shoppingmall.dto.JSONResult;
-import com.cafe24.shoppingmall.service.impl.UserServiceImpl;
+import com.cafe24.shoppingmall.service.UserServiceImpl;
 import com.cafe24.shoppingmall.vo.UserVo;
 
 import io.swagger.annotations.ApiImplicitParam;
@@ -32,8 +36,11 @@ import io.swagger.annotations.ApiOperation;
 public class UserController {
 	
 	@Autowired
+	private MessageSource messageSource;
+	
+	@Autowired
 	private UserServiceImpl userService;
-
+	
 	@ApiOperation(value="회원가입")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name="userVo", value="userId: 아이디 - 필수값 \n password: 비밀번호 - 필수값 \n name: 이름 - 필수값 \n"
@@ -57,8 +64,7 @@ public class UserController {
 		// id 중복검사
 		UserVo vo = userService.joinUser(userVo);
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(vo));
-	}
-	
+	}	
 
 	@ApiOperation(value="아이디 중복 검사")
 	@ApiImplicitParams({
@@ -71,17 +77,30 @@ public class UserController {
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(exist));
 	} 
 	
+	
 	@ApiOperation(value="로그인")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name="id", value="id : 아이디", required=true, dataType="String", defaultValue=""),
-		@ApiImplicitParam(name="password", value="password : 비밀번호", required=true, dataType="String", defaultValue="")
+		@ApiImplicitParam(name="userVo", value="userId: 아이디 - 필수값 \n password: 비밀번호 - 필수값 \n")
 	})
 	@GetMapping(value="/login") 
-	public ResponseEntity<JSONResult> login(@RequestParam(value="id") String id, 
-							@RequestParam(value="password") String password) {
-		Boolean exist = userService.getUser(id, password);
+	public ResponseEntity<JSONResult> login(@RequestBody UserVo userVo) {
+		
+		Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
+		
+		Set<ConstraintViolation<UserVo>> validatorResults = validator.validateProperty(userVo, "id");
+		
+		if(validatorResults.isEmpty() == false) {
+			for( ConstraintViolation<UserVo> validatorResult : validatorResults ) {
+				String message = validatorResult.getMessage();
+				JSONResult result = JSONResult.fail(message);
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(result);				
+			}
+		}
+		
+		Boolean exist = userService.getUser(userVo.getId(), userVo.getPassword());
 	    return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(exist));
 	} 
+	
 	
 	@ApiOperation(value="아이디 찾기")
 	@ApiImplicitParams({

@@ -5,15 +5,15 @@ import java.util.regex.Pattern;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-import com.cafe24.shoppingmall.validator.constraints.ValidGender;
+import com.cafe24.shoppingmall.validator.constraints.ValidId;
 
-public class GenderValidator implements ConstraintValidator<ValidGender, String> {
+public class IdValidator implements ConstraintValidator<ValidId, String> {
 	
-	private Pattern pattern = Pattern.compile("MALE|FEMALE|NONE");
+	private Pattern pattern = Pattern.compile("(^[a-zA-Z]{1}[a-zA-Z0-9_]{4,13}$)");
 			
 
 	@Override
-	public void initialize(ValidGender constraintAnnotation) {
+	public void initialize(ValidId constraintAnnotation) {
 	}
 
 	@Override
