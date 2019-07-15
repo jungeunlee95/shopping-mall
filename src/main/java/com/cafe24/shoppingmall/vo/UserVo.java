@@ -6,13 +6,15 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
+import com.cafe24.shoppingmall.validator.constraints.ValidGender;
+
 public class UserVo {
 
 	private Long no;
 	
 	@NotEmpty(message="아이디를 입력해주세요.")
-	// 영문시작 특수문자 불가능('-'가능), 5~12자 
-	@Pattern(regexp = "^[a-zA-Z]{1}[a-zA-Z0-9_]{4,11}$", message = "잘못된 아이디 형식입니다.")
+	// 영문시작 특수문자 불가능('-'가능), 4~13자 
+	@Pattern(regexp = "^[a-zA-Z]{1}[a-zA-Z0-9_]{4,13}$", message = "잘못된 아이디 형식입니다.")
 	private String id;
 	  
 	@NotEmpty(message="이름을 입력해주세요.")
@@ -20,7 +22,10 @@ public class UserVo {
 	@Pattern(regexp = "^[가-힣]{2,4}|^[a-zA-Z]*$", message = "잘못된 이름 형식입니다.")
 	private String name;
 	
-	@Length(min=9, max=15, message="비밀번호 길이는 8~16자 입니다.")
+	@ValidGender
+	private String gender;
+	
+	@Length(min=8, max=16, message="비밀번호 길이는 8~16자 입니다.")
 	// 비밀번호 정규식 (최소 8자리에 대문자 1자리 소문자 한자리 숫자 한자리)
 	@Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$", message = "잘못된 비밀번호 형식입니다.")
 	private String password;
@@ -31,7 +36,6 @@ public class UserVo {
 	private String passwordAnswer;
 	
 	@NotEmpty(message="전화번호를 입력해주세요.") 
-	// 전화번호 정규식
 	@Pattern(regexp = "^01(?:0|1|[6-9])[.-]?(\\d{3}|\\d{4})[.-]?(\\d{4})$", message = "잘못된 전화번호 형식입니다.")
 	private String phoneNumber;
 	

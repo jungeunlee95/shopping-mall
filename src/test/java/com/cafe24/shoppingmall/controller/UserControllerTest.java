@@ -1,14 +1,15 @@
 package com.cafe24.shoppingmall.controller;
 
-import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.junit.Assert.*;
+import static org.hamcrest.Matchers.*;
+
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,27 @@ public class UserControllerTest {
 	@Before
 	public void setup() {
 		mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
+	}
+	
+	@Test
+	public void testJoinSuccess() throws Exception {
+		 
+		UserVo userVo = new UserVo();
+		userVo.setId("leeap1004");
+		userVo.setName("이정은"); 
+		userVo.setPassword("Gkdlfn123");
+		userVo.setPasswordQuestion("가장 아끼는 보물은?");
+		userVo.setPasswordAnswer("수첩");
+		userVo.setPhoneNumber("010-9274-3036");
+		userVo.setEmail("leeap1004@gmail.com");
+		// 이름 검사
+		ResultActions resultActions = 
+				mockMvc
+				.perform(post("/api/user/join")
+						.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(userVo)));
+		
+		resultActions 
+		.andExpect(status().isOk()).andDo(print());
 	}
 	
 	@Test
@@ -106,7 +128,7 @@ public class UserControllerTest {
 		
 		resultActions 
 		.andExpect(status().isBadRequest()).andDo(print())
-		.andExpect(jsonPath("$.message", is("비밀번호 길이는 8~16자 입니다.") ));
+		.andExpect(jsonPath("$.message", is("잘못된 비밀번호 형식입니다.") ));
 	}
 	
 	@Test
@@ -130,27 +152,7 @@ public class UserControllerTest {
 		.andExpect(status().isBadRequest()).andDo(print())
 		.andExpect(jsonPath("$.message", is("잘못된 이메일 형식입니다.") ));
 	}
-	
-	@Test
-	public void testJoinSuccess() throws Exception {
-		 
-		UserVo userVo = new UserVo();
-		userVo.setId("leeap1004");
-		userVo.setName("이정은"); 
-		userVo.setPassword("Gkdlfn123");
-		userVo.setPasswordQuestion("가장 아끼는 보물은?");
-		userVo.setPasswordAnswer("수첩");
-		userVo.setPhoneNumber("010-9274-3036");
-		userVo.setEmail("leeap1004@gmail.com");
-		// 이름 검사
-		ResultActions resultActions = 
-				mockMvc
-				.perform(post("/api/user/join")
-						.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(userVo)));
-		
-		resultActions 
-		.andExpect(status().isOk()).andDo(print());
-	}
+
 	 
 	@Test
 	public void testCheckId() throws Exception {

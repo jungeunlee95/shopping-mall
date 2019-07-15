@@ -45,7 +45,7 @@ public class UserController {
 	@PostMapping(value="/join") 
 	public ResponseEntity<JSONResult> joinUser(@RequestBody @Valid UserVo userVo,
 								BindingResult result) {
-		System.out.println("####" + userVo);
+		
 		// java @valid 유효성 검증
 		if(result.hasErrors()) {
 			List<ObjectError> allErrors = result.getAllErrors();
