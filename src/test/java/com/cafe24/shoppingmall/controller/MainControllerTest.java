@@ -12,23 +12,23 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import com.cafe24.shoppingmall.config.test.AppConfig;
-import com.cafe24.shoppingmall.config.test.WebConfig;
+import com.cafe24.shoppingmall.config.WebConfig;
 import com.cafe24.shoppingmall.vo.UserVo;
 import com.google.gson.Gson;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes={AppConfig.class, WebConfig.class})
-@WebAppConfiguration
+@RunWith(SpringRunner.class)
+@SpringBootTest
 public class MainControllerTest {
 
 	private MockMvc mockMvc;
