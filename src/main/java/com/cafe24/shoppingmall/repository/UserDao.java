@@ -13,8 +13,8 @@ public class UserDao{
 	private SqlSession sqlSession;
 
 	public UserVo insert(UserVo vo) {
-//		System.out.println(vo);
 //		int count = sqlSession.insert("user.insert", vo);
+//		System.out.println("@@@@@@@@@@@@  : " + count);
 		return vo;
 	}
 

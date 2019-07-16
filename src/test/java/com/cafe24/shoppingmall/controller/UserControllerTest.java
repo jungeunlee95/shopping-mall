@@ -10,12 +10,15 @@ import static org.junit.Assert.*;
 import static org.hamcrest.Matchers.*;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
@@ -26,9 +29,9 @@ import com.cafe24.shoppingmall.config.WebConfig;
 import com.cafe24.shoppingmall.vo.UserVo;
 import com.google.gson.Gson;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes={WebConfig.class})
-@WebAppConfiguration
+
+@RunWith(SpringRunner.class)
+@SpringBootTest
 public class UserControllerTest {
 
 	private MockMvc mockMvc;
@@ -134,6 +137,7 @@ public class UserControllerTest {
 		.andExpect(jsonPath("$.message", is("잘못된 비밀번호 형식입니다.") ));
 	}
 	
+	
 	@Test
 	public void testJoinUserEmail() throws Exception {
 		
@@ -156,6 +160,7 @@ public class UserControllerTest {
 		.andExpect(status().isBadRequest()).andDo(print())
 		.andExpect(jsonPath("$.message", is("잘못된 이메일 형식입니다.") ));
 	}
+	
 	
 	@Test
 	public void testJoinUserGender() throws Exception {
@@ -180,7 +185,8 @@ public class UserControllerTest {
 		.andExpect(jsonPath("$.message", is("잘못된 성별 형식입니다.") ));
 	}
 
-	 
+	
+
 	@Test
 	public void testCheckId() throws Exception {
 
@@ -197,6 +203,7 @@ public class UserControllerTest {
 		.andExpect(jsonPath("$.data", is(false))); 
         //  false : 회원가입 가능, true : 중복 아이디 존재
 	}
+	
 
 	@Test
 	public void testlogin() throws Exception {
@@ -231,6 +238,7 @@ public class UserControllerTest {
 		.andExpect(jsonPath("$.data", is(false))); 
 		//  false : 로그인 실패, true : 로그인 가능
 	}
+	
 
 	@Test
 	public void findId() throws Exception {

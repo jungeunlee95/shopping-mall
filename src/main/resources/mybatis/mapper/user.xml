@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="user">
+
+	<select id="fecth" resultType='uservo'>
+		select * from user
+	</select>
+	
+	<insert id="insert" parameterType="uservo">
+	<![CDATA[
+		insert into user(no, id, name, password, pw_question, pw_answer, phone_number, email, birth_date, role, point, end_date, gender) 
+		values(null, 
+		AES_ENCRYPT(#{id}, SHA2("aaa", 512)), 
+		AES_ENCRYPT(#{name}, SHA2("aaa", 512)), 
+		SHA2(#{password},512), 
+		#{passwordQuestion}, 
+		AES_ENCRYPT(#{passwordAnswer},SHA2("aaa", 512)), 
+		AES_ENCRYPT(#{phoneNumber}, SHA2("aaa", 512)), 
+		AES_ENCRYPT(#{email},SHA2("aaa", 512)), 
+		#{birthDate}, 'U', #{point}, #{endDate}, #{gender})
+	]]>
+	</insert> 
+	
+</mapper>
