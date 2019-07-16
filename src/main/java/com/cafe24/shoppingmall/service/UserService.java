@@ -1,6 +1,4 @@
 package com.cafe24.shoppingmall.service;
-
-import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,18 +16,20 @@ public class UserService{
 	}
 	
 	public Boolean checkId( String id) {
-		Boolean exist = userDao.getId(id);
+		UserVo vo =  userDao.getId(id);
+		Boolean exist = vo==null;
 		return exist;
 	}
 
-	public Boolean getUser(String id, String password) {
-		Boolean exist = userDao.get(id, password);
-		return exist;
+	public UserVo getUser(String id, String password) {
+		UserVo vo  = userDao.get(id, password);
+		System.out.println("+++++++" + vo);
+		return vo;
 	}
 
-	public String getUser(String email) {
-		String userId = userDao.get(email);
-		return userId;
+	public UserVo getUser(String email) {
+		UserVo userVo = userDao.get(email);
+		return userVo;
 	} 
 
 }

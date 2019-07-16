@@ -6,6 +6,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import org.hibernate.validator.internal.util.privilegedactions.GetResources;
+
 import static org.junit.Assert.*;
 import static org.hamcrest.Matchers.*;
 
@@ -16,13 +19,16 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.ResultHandler;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.cafe24.shoppingmall.config.WebConfig;
@@ -32,6 +38,7 @@ import com.google.gson.Gson;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@Transactional
 public class UserControllerTest {
 
 	private MockMvc mockMvc;
@@ -44,41 +51,45 @@ public class UserControllerTest {
 		mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
 	}
 	
+	//@Ignore
 	@Test
+	@Rollback(true)
 	public void testJoinSuccess() throws Exception {
 		 
 		UserVo userVo = new UserVo();
 		userVo.setId("leeap1004");
 		userVo.setName("이정은"); 
-		userVo.setGender("FEMALE");
+		userVo.setGender("F");
 		userVo.setPassword("Gkdlfn123");
-		userVo.setPasswordQuestion("가장 아끼는 보물은?");
+		userVo.setPasswordQuestion(1);
 		userVo.setPasswordAnswer("수첩");
 		userVo.setPhoneNumber("010-9274-3036");
 		userVo.setEmail("leeap1004@gmail.com");
+		userVo.setGender("F");
+		
 		// 이름 검사
 		ResultActions resultActions = 
 				mockMvc
 				.perform(post("/api/user/join")
 						.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(userVo)));
-		System.out.println("@@@@@@@@@@@@@@@@@@");
 		resultActions 
 		.andExpect(status().isOk()).andDo(print());
 	}
 	
+	//@Ignore
 	@Test
 	public void testJoinUserId() throws Exception {
 
 		UserVo userVo = new UserVo();
 		userVo.setId("d2o");
 		userVo.setName("testUser"); 
-		userVo.setGender("FEMALE");
+		userVo.setGender("F");
 		userVo.setPassword("Gkdlfn123");
-		userVo.setPasswordQuestion("가장 아끼는 보물은?");
+		userVo.setPasswordQuestion(1);
 		userVo.setPasswordAnswer("수첩");
 		userVo.setPhoneNumber("010-9274-3036"); 
 		userVo.setEmail("leeap1004@gmail.com"); 
-		
+		 
 		// 이메일 검사
 		ResultActions resultActions = 
 				mockMvc
@@ -90,15 +101,16 @@ public class UserControllerTest {
 		.andExpect(jsonPath("$.message", is("잘못된 아이디 형식입니다.") ));
 	} 
 	
+	//@Ignore
 	@Test
 	public void testJoinUserName() throws Exception {
 		
 		UserVo userVo = new UserVo();
 		userVo.setId("leeap1004");
 		userVo.setName("d2ㅇ");
-		userVo.setGender("FEMALE");
+		userVo.setGender("F");
 		userVo.setPassword("Gkdlfn123");
-		userVo.setPasswordQuestion("가장 아끼는 보물은?");
+		userVo.setPasswordQuestion(1);
 		userVo.setPasswordAnswer("수첩");
 		userVo.setPhoneNumber("010-9274-3036");
 		userVo.setEmail("leeap1004@gmail.com");
@@ -114,15 +126,16 @@ public class UserControllerTest {
 		.andExpect(jsonPath("$.message", is("잘못된 이름 형식입니다.") ));
 	}
 	
+	//@Ignore
 	@Test
 	public void testJoinUserPw() throws Exception {
 		
 		UserVo userVo = new UserVo();
 		userVo.setId("leeap1004");
 		userVo.setName("이정은"); 
-		userVo.setGender("FEMALE");
+		userVo.setGender("F");
 		userVo.setPassword("ddddddddd");
-		userVo.setPasswordQuestion("가장 아끼는 보물은?");
+		userVo.setPasswordQuestion(1);
 		userVo.setPasswordAnswer("수첩");
 		userVo.setPhoneNumber("010-9274-3036");
 		userVo.setEmail("leeap1004@gmail.com");
@@ -137,16 +150,16 @@ public class UserControllerTest {
 		.andExpect(jsonPath("$.message", is("잘못된 비밀번호 형식입니다.") ));
 	}
 	
-	
+	//@Ignore
 	@Test
 	public void testJoinUserEmail() throws Exception {
 		
 		UserVo userVo = new UserVo();
 		userVo.setId("leeap1004");
 		userVo.setName("이정은"); 
-		userVo.setGender("FEMALE");
+		userVo.setGender("F");
 		userVo.setPassword("Gkdlfn123");
-		userVo.setPasswordQuestion("가장 아끼는 보물은?");
+		userVo.setPasswordQuestion(1);
 		userVo.setPasswordAnswer("수첩");
 		userVo.setPhoneNumber("010-9274-3036");
 		userVo.setEmail("aaa");
@@ -161,7 +174,7 @@ public class UserControllerTest {
 		.andExpect(jsonPath("$.message", is("잘못된 이메일 형식입니다.") ));
 	}
 	
-	
+	//@Ignore
 	@Test
 	public void testJoinUserGender() throws Exception {
 		
@@ -170,7 +183,7 @@ public class UserControllerTest {
 		userVo.setName("이정은"); 
 		userVo.setGender("ded");
 		userVo.setPassword("Gkdlfn123");
-		userVo.setPasswordQuestion("가장 아끼는 보물은?");
+		userVo.setPasswordQuestion(1);
 		userVo.setPasswordAnswer("수첩");
 		userVo.setPhoneNumber("010-9274-3036");
 		userVo.setEmail("leeap1004@gmail.com");
@@ -186,7 +199,7 @@ public class UserControllerTest {
 	}
 
 	
-
+	//@Ignore
 	@Test
 	public void testCheckId() throws Exception {
 
@@ -200,11 +213,23 @@ public class UserControllerTest {
 		resultActions 
 		.andExpect(status().isOk()).andDo(print())
 		.andExpect(jsonPath("$.result", is("success") ))
+		.andExpect(jsonPath("$.data", is(true))); 
+		
+		id = "leeap1004";
+		
+		resultActions = 
+				mockMvc
+				.perform(get("/api/user/checkId?id={id}", id)
+						.contentType(MediaType.APPLICATION_JSON));
+		
+		resultActions 
+		.andExpect(status().isOk()).andDo(print())
+		.andExpect(jsonPath("$.result", is("success") ))
 		.andExpect(jsonPath("$.data", is(false))); 
         //  false : 회원가입 가능, true : 중복 아이디 존재
 	}
 	
-
+	//@Ignore
 	@Test
 	public void testlogin() throws Exception {
 		
@@ -222,28 +247,43 @@ public class UserControllerTest {
 		.andExpect(status().isBadRequest()).andDo(print())
 		.andExpect(jsonPath("$.result", is("fail") ))
 		.andExpect(jsonPath("$.message", is("잘못된 아이디 형식입니다."))); 
-        
-		// 로그인 성공
-		userVo.setId("leeap1004");
-		userVo.setPassword("userPW123!");
+		
+		// 로그인 실패
+		userVo.setId("leeap1005");
+		userVo.setPassword("userPW123");
 		
 		resultActions = 
 				mockMvc
 				.perform(get("/api/user/login")
 						.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(userVo)));
-		
-		resultActions 
+
+		resultActions  
 		.andExpect(status().isOk()).andDo(print())
-		.andExpect(jsonPath("$.result", is("success") ))
-		.andExpect(jsonPath("$.data", is(false))); 
-		//  false : 로그인 실패, true : 로그인 가능
+		.andExpect(jsonPath("$.result", is("fail") ))
+		.andExpect(jsonPath("$.message", is("아이디나 비밀번호 값이 잘못 되었습니다."))); 
+		System.out.println("==========================================================");
+		
+		// 로그인 성공
+		userVo = new UserVo();
+		userVo.setId("leeap1002");
+		userVo.setPassword("Wjddms1234");
+		
+		resultActions = 
+				mockMvc
+				.perform(get("/api/user/login")
+				.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(userVo)));
+
+		resultActions  
+		.andExpect(status().isOk()).andDo(print())		
+		.andExpect(jsonPath("$.result", is("success") )); 
+
 	}
 	
 
 	@Test
 	public void findId() throws Exception {
 
-		String email = "leeap1004@gmail.com";
+		String email = "leeap1003@gmail.com";
 		
 		ResultActions resultActions = 
 				mockMvc
@@ -253,7 +293,7 @@ public class UserControllerTest {
 		resultActions 
 		.andExpect(status().isOk()).andDo(print())
 		.andExpect(jsonPath("$.result", is("success") ))
-		.andExpect(jsonPath("$.data", is(email))); 
+		.andExpect(jsonPath("$.data", is("leeap1003"))); 
 	}
 }
 

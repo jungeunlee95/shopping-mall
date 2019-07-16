@@ -31,7 +31,7 @@ public class UserDaoTest {
 		userVo.setId("leeap1004");
 		userVo.setName("이정은");
 		userVo.setPassword("Wjddms1234");
-		userVo.setPasswordQuestion("1");
+		userVo.setPasswordQuestion(1);
 		userVo.setPasswordAnswer("핸드폰");
 		userVo.setPhoneNumber("010-9274-3036");
 		userVo.setEmail("leeap1004@gmail.com");
@@ -45,7 +45,7 @@ public class UserDaoTest {
 		userVo.setId("leeap10042");
 		userVo.setName("이정은2");
 		userVo.setPassword("Wjddms12342");
-		userVo.setPasswordQuestion("12");
+		userVo.setPasswordQuestion(12);
 		userVo.setPasswordAnswer("핸드폰2");
 		userVo.setPhoneNumber("010-9274-30362");
 		userVo.setEmail("aaa@gmail.com");

@@ -36,9 +36,6 @@ import io.swagger.annotations.ApiOperation;
 public class UserController {
 	
 	@Autowired
-	private MessageSource messageSource;
-	
-	@Autowired
 	private UserService userService;
 	
 	@ApiOperation(value="회원가입")
@@ -97,8 +94,14 @@ public class UserController {
 			}
 		}
 		
-		Boolean exist = userService.getUser(userVo.getId(), userVo.getPassword());
-	    return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(exist));
+		UserVo user = userService.getUser(userVo.getId(), userVo.getPassword());
+		
+		// 로그인 실패
+		if(user == null) {
+			return ResponseEntity.status(HttpStatus.OK).body(JSONResult.fail("아이디나 비밀번호 값이 잘못 되었습니다."));			
+		}
+		
+		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(user));			
 	} 
 	
 	
@@ -109,9 +112,9 @@ public class UserController {
 	@GetMapping(value="/findId") 
 	public ResponseEntity<JSONResult> findId(@RequestParam(value = "email") String email) {
 		// 일치하는 email없으면 false
-		String userId = userService.getUser(email);
-		if(userId!=null) {
-			return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(userId));
+		UserVo userVo = userService.getUser(email);
+		if(userVo!=null) {
+			return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(userVo.getId()));
 		}else {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(JSONResult.fail("해당하는 아이디가 없습니다."));			
 		}

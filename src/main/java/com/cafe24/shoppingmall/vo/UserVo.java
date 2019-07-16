@@ -30,7 +30,7 @@ public class UserVo {
 	@Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,16}$", message = "잘못된 비밀번호 형식입니다.")
 	private String password;
 
-	private String passwordQuestion;
+	private int passwordQuestion;
 
 	@Length(min = 2, message = "답변은 2글자 이상을 입력해주세요.")
 	private String passwordAnswer;
@@ -53,7 +53,7 @@ public class UserVo {
 		// TODO Auto-generated constructor stub
 	}
 
-	public UserVo(Long no, String id, String name, String gender, String password, String passwordQuestion,
+	public UserVo(Long no, String id, String name, String gender, String password, int passwordQuestion,
 			String passwordAnswer, String phoneNumber, String email, String birthDate, String role, String point,
 			String endDate) {
 		super();
@@ -112,11 +112,11 @@ public class UserVo {
 		this.password = password;
 	}
 
-	public String getPasswordQuestion() {
+	public int getPasswordQuestion() {
 		return passwordQuestion;
 	}
 
-	public void setPasswordQuestion(String passwordQuestion) {
+	public void setPasswordQuestion(int passwordQuestion) {
 		this.passwordQuestion = passwordQuestion;
 	}
 

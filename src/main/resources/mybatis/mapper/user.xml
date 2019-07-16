@@ -3,23 +3,85 @@
 
 <mapper namespace="user">
 
-	<select id="fecth" resultType='uservo'>
-		select * from user
+	<!-- 아이디 찾기 -->
+	<select id="findId" resultType="uservo" parameterType='map'>
+	 	<![CDATA[ 
+		 	select no, convert(AES_DECRYPT(id, SHA2(#{key}, 512)) using utf8) as id,
+			convert(AES_DECRYPT(name, SHA2(#{key}, 512))using utf8) as name,
+			pw_question as passwordQuestion,
+			convert(AES_DECRYPT(pw_answer, SHA2(#{key}, 512)) using utf8) as passwordAnswer,
+			convert(AES_DECRYPT(phone_number, SHA2(#{key}, 512)) using utf8) as phoneNumber,
+			convert(AES_DECRYPT(email, SHA2(#{key}, 512)) using utf8) as email,
+			birth_date as birthDate, role, point, end_date as endDate, gender
+			from user
+			where convert(AES_DECRYPT(email, SHA2(#{key}, 512)) using utf8) = #{email} 
+		]]>
+	</select>
+
+	<!-- 회원 수 -->
+	<select id="count" resultType="int">
+	 	<![CDATA[ select count(*) from user ]]>
 	</select>
 	
-	<insert id="insert" parameterType="uservo">
+	<!-- 중복체크 -->
+	<select id="selectId" resultType="uservo" parameterType='map'>
+	 	<![CDATA[ 
+		 	select *
+		 	from user
+			where convert(AES_DECRYPT(id, SHA2(#{key}, 512)) using utf8) = #{id} ]]>
+	</select>
+
+	<!-- 회원 목록 -->
+	<select id="userList" resultType="uservo">
+	 	<![CDATA[ 
+			select no, 
+			convert(AES_DECRYPT(id, SHA2(#{key}, 512)) using utf8) as id,
+			convert(AES_DECRYPT(name, SHA2(#{key}, 512))using utf8) as name,
+			pw_question as passwordQuestion,
+			convert(AES_DECRYPT(pw_answer, SHA2(#{key}, 512)) using utf8) as passwordAnswer,
+			convert(AES_DECRYPT(phone_number, SHA2(#{key}, 512)) using utf8) as phoneNumber,
+			convert(AES_DECRYPT(email, SHA2(#{key}, 512)) using utf8) as email,
+			birth_date as birthDate, role, point, end_date as endDate, gender
+			from user
+		 ]]>
+	</select>
+	
+	<!-- 로그인 -->
+	<select id="getUser" resultType="uservo" parameterType="map">
+	 	<![CDATA[ 
+			select no, convert(AES_DECRYPT(id, SHA2(#{key}, 512)) using utf8) as id,
+			convert(AES_DECRYPT(name, SHA2(#{key}, 512))using utf8) as name,
+			pw_question as passwordQuestion,
+			convert(AES_DECRYPT(pw_answer, SHA2(#{key}, 512)) using utf8) as passwordAnswer,
+			convert(AES_DECRYPT(phone_number, SHA2(#{key}, 512)) using utf8) as phoneNumber,
+			convert(AES_DECRYPT(email, SHA2(#{key}, 512)) using utf8) as email,
+			birth_date as birthDate, role, point, end_date as endDate, gender
+			from user
+			where convert(AES_DECRYPT(id, SHA2(#{key}, 512)) using utf8) = #{id}
+			and password = SHA2(#{password}, 512)
+		 ]]>
+	</select>
+
+	<!-- 회원가입 -->
+	<insert id="insert" parameterType="map">
 	<![CDATA[
 		insert into user(no, id, name, password, pw_question, pw_answer, phone_number, email, birth_date, role, point, end_date, gender) 
 		values(null, 
-		AES_ENCRYPT(#{id}, SHA2("aaa", 512)), 
-		AES_ENCRYPT(#{name}, SHA2("aaa", 512)), 
-		SHA2(#{password},512), 
-		#{passwordQuestion}, 
-		AES_ENCRYPT(#{passwordAnswer},SHA2("aaa", 512)), 
-		AES_ENCRYPT(#{phoneNumber}, SHA2("aaa", 512)), 
-		AES_ENCRYPT(#{email},SHA2("aaa", 512)), 
-		#{birthDate}, 'U', #{point}, #{endDate}, #{gender})
+		AES_ENCRYPT(#{uservo.id}, SHA2(#{key}, 512)), 
+		AES_ENCRYPT(#{uservo.name}, SHA2(#{key}, 512)), 
+		SHA2(#{uservo.password},512), 
+		#{uservo.passwordQuestion}, 
+		AES_ENCRYPT(#{uservo.passwordAnswer},SHA2(#{key}, 512)), 
+		AES_ENCRYPT(#{uservo.phoneNumber}, SHA2(#{key}, 512)), 
+		AES_ENCRYPT(#{uservo.email},SHA2(#{key}, 512)), 
+		#{uservo.birthDate}, 'U', #{uservo.point}, #{uservo.endDate}, #{uservo.gender})
 	]]>
-	</insert> 
-	
+
+		<selectKey keyProperty="no" resultType="long" order="AFTER">
+			<![CDATA[
+				select last_insert_id()
+			]]>
+		</selectKey>
+	</insert>
+
 </mapper>

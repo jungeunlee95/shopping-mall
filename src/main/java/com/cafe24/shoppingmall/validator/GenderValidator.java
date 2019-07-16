@@ -9,7 +9,7 @@ import com.cafe24.shoppingmall.validator.constraints.ValidGender;
 
 public class GenderValidator implements ConstraintValidator<ValidGender, String> {
 	
-	private Pattern pattern = Pattern.compile("MALE|FEMALE|NONE");
+	private Pattern pattern = Pattern.compile("M|F");
 			
 
 	@Override

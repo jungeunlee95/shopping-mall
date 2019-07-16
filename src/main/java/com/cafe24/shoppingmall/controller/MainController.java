@@ -7,8 +7,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class MainController {
 
-	
-	@ResponseBody
 	@GetMapping({"/", "/main"})
 	public String main() {
 		System.out.println("================== test ====================");
