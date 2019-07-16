@@ -33,8 +33,8 @@ public class UserDao{
 		return sqlSession.selectOne("user.selectId", map);
 	}
 	
-	public List<UserVo> getUserList(String id) {
-		return sqlSession.selectList("user.userList", KEY);
+	public List<UserVo> getUserList() {
+		return sqlSession.selectList("user.getUserList", KEY);
 	}
 
 	public UserVo get(String id, String password) {

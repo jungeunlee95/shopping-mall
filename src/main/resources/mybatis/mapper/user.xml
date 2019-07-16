@@ -32,7 +32,7 @@
 	</select>
 
 	<!-- 회원 목록 -->
-	<select id="userList" resultType="uservo">
+	<select id="getUserList" resultType="uservo">
 	 	<![CDATA[ 
 			select no, 
 			convert(AES_DECRYPT(id, SHA2(#{key}, 512)) using utf8) as id,

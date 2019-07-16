@@ -120,6 +120,15 @@ public class UserController {
 		}
 	} 
 	
+	@ApiOperation(value="회원 목록")
+	@GetMapping(value="/userList") 
+	public ResponseEntity<JSONResult> userList() {
+		List<UserVo> list = userService.getUserList();
+
+		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(list));			
+
+	} 
+	
 	
 
 	

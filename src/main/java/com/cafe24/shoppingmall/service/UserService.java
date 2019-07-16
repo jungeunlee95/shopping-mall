@@ -1,4 +1,6 @@
 package com.cafe24.shoppingmall.service;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +32,11 @@ public class UserService{
 	public UserVo getUser(String email) {
 		UserVo userVo = userDao.get(email);
 		return userVo;
+	} 
+	
+	public List<UserVo> getUserList() {
+		List<UserVo> list = userDao.getUserList();
+		return list;
 	} 
 
 }

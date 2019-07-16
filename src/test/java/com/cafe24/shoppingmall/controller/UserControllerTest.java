@@ -51,7 +51,7 @@ public class UserControllerTest {
 		mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
 	}
 	
-	//@Ignore
+	@Ignore
 	@Test
 	@Rollback(true)
 	public void testJoinSuccess() throws Exception {
@@ -76,7 +76,7 @@ public class UserControllerTest {
 		.andExpect(status().isOk()).andDo(print());
 	}
 	
-	//@Ignore
+	@Ignore
 	@Test
 	public void testJoinUserId() throws Exception {
 
@@ -101,7 +101,7 @@ public class UserControllerTest {
 		.andExpect(jsonPath("$.message", is("잘못된 아이디 형식입니다.") ));
 	} 
 	
-	//@Ignore
+	@Ignore
 	@Test
 	public void testJoinUserName() throws Exception {
 		
@@ -126,7 +126,7 @@ public class UserControllerTest {
 		.andExpect(jsonPath("$.message", is("잘못된 이름 형식입니다.") ));
 	}
 	
-	//@Ignore
+	@Ignore
 	@Test
 	public void testJoinUserPw() throws Exception {
 		
@@ -150,7 +150,7 @@ public class UserControllerTest {
 		.andExpect(jsonPath("$.message", is("잘못된 비밀번호 형식입니다.") ));
 	}
 	
-	//@Ignore
+	@Ignore
 	@Test
 	public void testJoinUserEmail() throws Exception {
 		
@@ -174,7 +174,7 @@ public class UserControllerTest {
 		.andExpect(jsonPath("$.message", is("잘못된 이메일 형식입니다.") ));
 	}
 	
-	//@Ignore
+	@Ignore
 	@Test
 	public void testJoinUserGender() throws Exception {
 		
@@ -199,7 +199,7 @@ public class UserControllerTest {
 	}
 
 	
-	//@Ignore
+	@Ignore
 	@Test
 	public void testCheckId() throws Exception {
 
@@ -229,7 +229,7 @@ public class UserControllerTest {
         //  false : 회원가입 가능, true : 중복 아이디 존재
 	}
 	
-	//@Ignore
+	@Ignore
 	@Test
 	public void testlogin() throws Exception {
 		
@@ -279,7 +279,7 @@ public class UserControllerTest {
 
 	}
 	
-
+	@Ignore
 	@Test
 	public void findId() throws Exception {
 
@@ -294,6 +294,18 @@ public class UserControllerTest {
 		.andExpect(status().isOk()).andDo(print())
 		.andExpect(jsonPath("$.result", is("success") ))
 		.andExpect(jsonPath("$.data", is("leeap1003"))); 
+	}
+
+	@Test
+	public void userList() throws Exception {
+		
+		ResultActions resultActions = 
+				mockMvc
+				.perform(get("/api/user/userList")
+				.contentType(MediaType.APPLICATION_JSON));
+		
+		resultActions 
+		.andExpect(status().isOk()).andDo(print()); 
 	}
 }
 
