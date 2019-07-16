@@ -22,13 +22,12 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import com.cafe24.shoppingmall.config.test.AppConfig;
-import com.cafe24.shoppingmall.config.test.WebConfig;
+import com.cafe24.shoppingmall.config.WebConfig;
 import com.cafe24.shoppingmall.vo.UserVo;
 import com.google.gson.Gson;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes={AppConfig.class, WebConfig.class})
+@ContextConfiguration(classes={WebConfig.class})
 @WebAppConfiguration
 public class UserControllerTest {
 

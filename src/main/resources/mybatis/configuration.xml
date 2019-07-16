@@ -4,6 +4,6 @@
 	<typeAliases>
 	</typeAliases>
 	<mappers>
-		<mapper resource="com/cafe24/config/app/mybatis/mapper/test.xml" />
+		<mapper resource="mybatis/mapper/test.xml" />
 	</mappers>
 </configuration>

@@ -5,6 +5,6 @@
 		<typeAlias alias="uservo" type="com.cafe24.shoppingmall.vo.UserVo" />
 	</typeAliases>
 	<mappers>
-		<mapper resource="com/cafe24/config/app/mybatis/mapper/user_test.xml" />
+		<mapper resource="mybatis/mapper/user_test.xml" />
 	</mappers>
 </configuration>  
