@@ -67,14 +67,14 @@
 	<![CDATA[
 		insert into user(no, id, name, password, pw_question, pw_answer, phone_number, email, birth_date, role, point, end_date, gender) 
 		values(null, 
-		AES_ENCRYPT(#{uservo.id}, SHA2(#{key}, 512)), 
-		AES_ENCRYPT(#{uservo.name}, SHA2(#{key}, 512)), 
-		SHA2(#{uservo.password},512), 
-		#{uservo.passwordQuestion}, 
-		AES_ENCRYPT(#{uservo.passwordAnswer},SHA2(#{key}, 512)), 
-		AES_ENCRYPT(#{uservo.phoneNumber}, SHA2(#{key}, 512)), 
-		AES_ENCRYPT(#{uservo.email},SHA2(#{key}, 512)), 
-		#{uservo.birthDate}, 'U', #{uservo.point}, #{uservo.endDate}, #{uservo.gender})
+		AES_ENCRYPT(#{id}, SHA2(#{key}, 512)), 
+		AES_ENCRYPT(#{name}, SHA2(#{key}, 512)), 
+		SHA2(#{password},512), 
+		#{passwordQuestion}, 
+		AES_ENCRYPT(#{passwordAnswer},SHA2(#{key}, 512)), 
+		AES_ENCRYPT(#{phoneNumber}, SHA2(#{key}, 512)), 
+		AES_ENCRYPT(#{email},SHA2(#{key}, 512)), 
+		#{birthDate}, 'U', #{point}, #{endDate}, #{gender})
 	]]>
 
 		<selectKey keyProperty="no" resultType="long" order="AFTER">
@@ -84,4 +84,16 @@
 		</selectKey>
 	</insert>
 
+	<!-- 회원 정보 수정 -->
+	<update id="modify" parameterType="uservo">
+	<![CDATA[
+		update user set 
+		password = SHA2(#{password},512), 
+		pw_question = #{passwordQuestion}, 
+		pw_answer = AES_ENCRYPT(#{passwordAnswer},SHA2(#{key}, 512)), 
+		birth_date = #{birthDate},
+		gender = #{gender}
+		where no = 2
+	]]>
+	</update>
 </mapper>

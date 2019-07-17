@@ -1,0 +1,37 @@
+server:
+   port: 8088
+   servlet:
+      context-path: /shoppingmall 
+       
+spring:
+   profile:
+      active: develope
+   datasource:
+      driver-class-name: org.mariadb.jdbc.Driver
+      url: jdbc:mariadb://192.168.1.52:3307/shoppingmall
+      username: shoppingmall
+      password: shoppingmall   
+   devtools:
+      livereload:
+         enabled: true
+   mvc:
+      view:
+         prefix: /WEB-INF/views/
+         suffix: .jsp
+   http:
+      encoding:
+         charset: UTF-8
+         enabled: true
+         forced: true
+         forced-request: true
+         forced-response: true
+   aop:
+      auto: true
+   aop-proxy-target-class: true
+   servlet:
+      multipart:
+         enabled: true
+         max-file-size: 50MB
+         max-request-size: 50MB
+mybatis:
+   config-location: classpath:mybatis/configuration.xml

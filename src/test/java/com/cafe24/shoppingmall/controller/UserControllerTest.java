@@ -215,7 +215,7 @@ public class UserControllerTest {
 		.andExpect(jsonPath("$.result", is("success") ))
 		.andExpect(jsonPath("$.data", is(true))); 
 		
-		id = "leeap1004";
+		id = "leeap1000";
 		
 		resultActions = 
 				mockMvc
@@ -296,6 +296,7 @@ public class UserControllerTest {
 		.andExpect(jsonPath("$.data", is("leeap1003"))); 
 	}
 
+	@Ignore
 	@Test
 	public void userList() throws Exception {
 		
@@ -306,6 +307,30 @@ public class UserControllerTest {
 		
 		resultActions 
 		.andExpect(status().isOk()).andDo(print()); 
+	}
+	
+	@Test
+	public void modifyUser() throws Exception {
+		UserVo userVo = new UserVo();
+		userVo.setNo(2L);
+		userVo.setId("leeap1004");
+		userVo.setName("이정은"); 
+		userVo.setPassword("Gkdlfn123");
+		userVo.setPasswordQuestion(22);
+		userVo.setPasswordAnswer("바보");
+		userVo.setPhoneNumber("010-9274-3036");
+		userVo.setEmail("leeap1004@gmail.com");
+		userVo.setBirthDate("1992-07-08");
+		userVo.setGender("M");
+		
+		// 이름 검사
+		ResultActions resultActions = 
+				mockMvc
+				.perform(post("/api/user/modify")
+						.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(userVo)));
+		resultActions 
+		.andExpect(status().isOk()).andDo(print());
+
 	}
 }
 

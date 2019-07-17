@@ -19,10 +19,8 @@ public class UserDao{
 	private SqlSession sqlSession;
 
 	public UserVo insert(UserVo vo) { 
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("key", KEY);
-		map.put("uservo", vo);
-		sqlSession.insert("user.insert", map); 
+		vo.setKey(KEY);
+		sqlSession.insert("user.insert", vo); 
 		return vo;
 	}
 
@@ -52,6 +50,14 @@ public class UserDao{
 		map.put("email", email);
 		UserVo vo = sqlSession.selectOne("user.findId", map);
 		return vo;
+	}
+
+	public UserVo update(UserVo userVo) {
+		System.out.println("==============================");
+		System.out.println(userVo);
+		userVo.setKey(KEY);
+		sqlSession.update("user.modify", userVo); 
+		return userVo;
 	}
 
 

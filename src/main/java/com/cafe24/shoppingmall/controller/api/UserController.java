@@ -40,10 +40,11 @@ public class UserController {
 	
 	@ApiOperation(value="회원가입")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name="userVo", value="userId: 아이디 - 필수값 \n password: 비밀번호 - 필수값 \n name: 이름 - 필수값 \n"
+		@ApiImplicitParam(name="userVo", value="id: 아이디 - 필수값 \n password: 비밀번호 - 필수값 \n name: 이름 - 필수값 \n"
 				+ "passwordQuestion: 비밀번호 질문 - 필수값 \n"
 				+ "passwordAnswer: 비밀번호 대답 - 필수값 \n"
 				+ "phoneNumber: 전화번호 - 필수값 \n"
+				+ "birthDate: 생일 - 선택값 \n"
 				+ "email: 이메일 - 선택값 \n", required=true, dataType="UserVo", defaultValue="")
 	})
 	@PostMapping(value="/join") 
@@ -127,6 +128,32 @@ public class UserController {
 
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(list));			
 
+	} 
+	
+	@ApiOperation(value="회원 정보 수정")
+	@ApiImplicitParams({
+		@ApiImplicitParam(name="userVo", value="no: 회원번호 \n id: 아이디  \n password: 비밀번호 \n name: 이름  \n"
+				+ "passwordQuestion: 비밀번호 질문 \n"
+				+ "passwordAnswer: 비밀번호 대답 \n"
+				+ "phoneNumber: 전화번호 \n"
+				+ "birthDate: 생일 \n"
+				+ "email: 이메일 \n", required=true, dataType="UserVo", defaultValue="")
+	})
+	@PostMapping(value="/modify") 
+	public ResponseEntity<JSONResult> modifyUser(@RequestBody @Valid UserVo userVo,
+								BindingResult result) {
+		
+		// java @valid 유효성 검증
+		if(result.hasErrors()) {
+			List<ObjectError> allErrors = result.getAllErrors();
+			for(ObjectError error : allErrors) {
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(JSONResult.fail(error.getDefaultMessage()));
+			}
+		}
+
+		// id 중복검사
+		UserVo vo = userService.modifyUser(userVo);
+		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(vo));
 	} 
 	
 	

@@ -1,6 +1,8 @@
 package com.cafe24.shoppingmall.service;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,6 +39,11 @@ public class UserService{
 	public List<UserVo> getUserList() {
 		List<UserVo> list = userDao.getUserList();
 		return list;
+	}
+
+	public UserVo modifyUser(UserVo userVo) {
+		UserVo vo = userDao.update(userVo);
+		return vo;
 	} 
 
 }

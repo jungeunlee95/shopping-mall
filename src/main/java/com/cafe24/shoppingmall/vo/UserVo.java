@@ -12,7 +12,7 @@ import com.cafe24.shoppingmall.validator.constraints.ValidPassword;
 import com.cafe24.shoppingmall.validator.constraints.ValidPhoneNumber;
 
 public class UserVo {
-
+	private String key;
 	private Long no;
 
 	@ValidId
@@ -52,7 +52,7 @@ public class UserVo {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
+	
 	public UserVo(Long no, String id, String name, String gender, String password, int passwordQuestion,
 			String passwordAnswer, String phoneNumber, String email, String birthDate, String role, String point,
 			String endDate) {
@@ -78,6 +78,10 @@ public class UserVo {
 
 	public void setNo(Long no) {
 		this.no = no;
+	}
+	
+	public void setKey(String key) {
+		this.key = key;
 	}
 
 	public String getId() {
