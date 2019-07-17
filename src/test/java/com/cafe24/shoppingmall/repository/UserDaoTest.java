@@ -3,7 +3,6 @@ package com.cafe24.shoppingmall.repository;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -11,12 +10,14 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.cafe24.shoppingmall.vo.UserVo;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@TestPropertySource("classpath:application_test.properties")
 public class UserDaoTest {
 
 	@Autowired 
