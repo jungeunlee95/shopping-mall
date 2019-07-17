@@ -44,6 +44,11 @@ public class UserService{
 	public UserVo modifyUser(UserVo userVo) {
 		UserVo vo = userDao.update(userVo);
 		return vo;
+	}
+
+	public Boolean deleteUser(Long no) {
+		return userDao.deleteUser(no);
+		
 	} 
 
 }

@@ -4,21 +4,21 @@ server:
       context-path: /shoppingmall 
        
 spring:
-   profile:
-      active: develope
+   profiles:
+      active: dev
    datasource:
       driver-class-name: org.mariadb.jdbc.Driver
       url: jdbc:mariadb://192.168.1.52:3307/shoppingmall
       username: shoppingmall
       password: shoppingmall   
-   devtools:
+   devtools: 
       livereload:
          enabled: true
    mvc:
       view:
          prefix: /WEB-INF/views/
          suffix: .jsp
-   http:
+   http: 
       encoding:
          charset: UTF-8
          enabled: true

@@ -13,7 +13,10 @@ public class ProductVo {
 	private int orderNo;
 	private String contents;
 	private Long categoryNo;
-
+	
+//	private List<OptionVo> optionList;
+//	private List<OptionChildVo> optionChildList;
+	
 	public ProductVo() {
 		super();
 	}

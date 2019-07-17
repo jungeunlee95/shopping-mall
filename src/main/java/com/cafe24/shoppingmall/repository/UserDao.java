@@ -60,5 +60,9 @@ public class UserDao{
 		return userVo;
 	}
 
+	public Boolean deleteUser(Long no) {
+		return 1==sqlSession.delete("user.delete", no); 
+	}
+
 
 }

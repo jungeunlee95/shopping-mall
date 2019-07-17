@@ -51,14 +51,14 @@ public class UserControllerTest {
 		mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
 	}
 	
-	@Ignore
+	//@Ignore
 	@Test
 	@Rollback(true)
 	public void testJoinSuccess() throws Exception {
 		 
 		UserVo userVo = new UserVo();
-		userVo.setId("leeap1004");
-		userVo.setName("이정은"); 
+		userVo.setId("leeap1005");
+		userVo.setName("이정응"); 
 		userVo.setGender("F");
 		userVo.setPassword("Gkdlfn123");
 		userVo.setPasswordQuestion(1);
@@ -215,7 +215,7 @@ public class UserControllerTest {
 		.andExpect(jsonPath("$.result", is("success") ))
 		.andExpect(jsonPath("$.data", is(true))); 
 		
-		id = "leeap1000";
+		id = "leeap1003";
 		
 		resultActions = 
 				mockMvc
@@ -309,17 +309,19 @@ public class UserControllerTest {
 		.andExpect(status().isOk()).andDo(print()); 
 	}
 	
+	@Ignore
 	@Test
+	@Rollback(false)
 	public void modifyUser() throws Exception {
 		UserVo userVo = new UserVo();
-		userVo.setNo(2L);
-		userVo.setId("leeap1004");
+		userVo.setNo(7L);
+		userVo.setId("leeap1000");
 		userVo.setName("이정은"); 
-		userVo.setPassword("Gkdlfn123");
+		userVo.setPassword("Wjddms1234");
 		userVo.setPasswordQuestion(22);
-		userVo.setPasswordAnswer("바보");
+		userVo.setPasswordAnswer("바보~");
 		userVo.setPhoneNumber("010-9274-3036");
-		userVo.setEmail("leeap1004@gmail.com");
+		userVo.setEmail("leeap1003@gmail.com");
 		userVo.setBirthDate("1992-07-08");
 		userVo.setGender("M");
 		
@@ -330,7 +332,22 @@ public class UserControllerTest {
 						.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(userVo)));
 		resultActions 
 		.andExpect(status().isOk()).andDo(print());
-
+	}
+	
+	@Ignore
+	@Test
+	@Rollback(false)
+	public void deleteUser() throws Exception {
+		
+		Long no = 2L;
+		
+		ResultActions resultActions = 
+				mockMvc
+				.perform(get("/api/user/deleteUser?no={no}", no)
+				.contentType(MediaType.APPLICATION_JSON));
+		
+		resultActions 
+		.andExpect(status().isOk()).andDo(print()); 
 	}
 }
 

@@ -156,6 +156,16 @@ public class UserController {
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(vo));
 	} 
 	
+	@ApiOperation(value="회원삭제")
+	@ApiImplicitParams({
+		@ApiImplicitParam(name="no", value="no : 번호", required=true, dataType="Long", defaultValue="")
+	})
+	@GetMapping(value="/deleteUser") 
+	public ResponseEntity<JSONResult> deleteUser(@RequestParam(value = "no") Long no) {
+		// 일치하는 email없으면 false
+		userService.deleteUser(no);
+		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success("OK"));
+	} 
 	
 
 	

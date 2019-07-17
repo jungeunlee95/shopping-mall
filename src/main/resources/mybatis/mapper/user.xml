@@ -93,7 +93,14 @@
 		pw_answer = AES_ENCRYPT(#{passwordAnswer},SHA2(#{key}, 512)), 
 		birth_date = #{birthDate},
 		gender = #{gender}
-		where no = 2
+		where no = #{no}
 	]]>
 	</update>
+	
+	<!-- 회원 삭제 -->
+	<delete id="delete" parameterType="long">
+	<![CDATA[
+		delete from user where no = #{no }
+	]]>
+	</delete>
 </mapper>
