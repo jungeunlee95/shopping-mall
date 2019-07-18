@@ -10,14 +10,14 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
-import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -139,7 +139,7 @@ public class UserController {
 				+ "birthDate: 생일 \n"
 				+ "email: 이메일 \n", required=true, dataType="UserVo", defaultValue="")
 	})
-	@PostMapping(value="/modify") 
+	@PutMapping(value="/modify") 
 	public ResponseEntity<JSONResult> modifyUser(@RequestBody @Valid UserVo userVo,
 								BindingResult result) {
 		
@@ -155,12 +155,12 @@ public class UserController {
 		UserVo vo = userService.modifyUser(userVo);
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(vo));
 	} 
-	
+	 
 	@ApiOperation(value="회원삭제")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name="no", value="no : 번호", required=true, dataType="Long", defaultValue="")
 	})
-	@GetMapping(value="/deleteUser") 
+	@DeleteMapping(value="/deleteUser") 
 	public ResponseEntity<JSONResult> deleteUser(@RequestParam(value = "no") Long no) {
 		// 일치하는 email없으면 false
 		userService.deleteUser(no);

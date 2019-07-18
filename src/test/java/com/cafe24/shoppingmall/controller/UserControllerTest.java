@@ -3,6 +3,8 @@ package com.cafe24.shoppingmall.controller;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -328,7 +330,7 @@ public class UserControllerTest {
 		// 이름 검사
 		ResultActions resultActions = 
 				mockMvc
-				.perform(post("/api/user/modify")
+				.perform(put("/api/user/modify")
 						.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(userVo)));
 		resultActions 
 		.andExpect(status().isOk()).andDo(print());
@@ -343,7 +345,7 @@ public class UserControllerTest {
 		
 		ResultActions resultActions = 
 				mockMvc
-				.perform(get("/api/user/deleteUser?no={no}", no)
+				.perform(delete("/api/user/deleteUser?no={no}", no)
 				.contentType(MediaType.APPLICATION_JSON));
 		
 		resultActions 
