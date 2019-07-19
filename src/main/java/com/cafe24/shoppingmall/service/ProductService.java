@@ -52,9 +52,10 @@ public class ProductService {
 	 * @return
 	 */
 	public Boolean addProduct(ProductVo productVo) {
-		int result = 0; 
-		int result2 = 0;
-		int result3 = 0;
+		// 트랜잭션 적용하면 사라질 코드
+		int result = 0;  // 상품등록 성공 확인
+		int result2 = 0; // 카테고리 등록 성공 확인
+		int result3 = 0; // 옵션 등록 성공 확인
  
 		// 옵션 사용 X -> 카테고리만 등록
 		result = productDao.addProduct(productVo);
@@ -63,9 +64,10 @@ public class ProductService {
 		}
 
 		// 옵션 사용 O -> 옵션 등록
-		if(result==1 && productVo.isOption()){ //옵션 사용 O
+		if(result==1 && productVo.isOption()){
 			result3 = productDao.addOptionValue(productVo.getNo(), productVo.getOptionValueList());
 		}
+		
 		return result==1 && result2==productVo.getCategoryList().size() && result3==productVo.getOptionValueList().size();
 	} 
 

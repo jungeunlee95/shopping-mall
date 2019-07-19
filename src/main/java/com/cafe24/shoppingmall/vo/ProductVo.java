@@ -4,20 +4,20 @@ import java.util.List;
 
 public class ProductVo {
 
-	private Long no;
-	private String code;
-	private String name;
-	private int price;
-	private String regDate;
-	private boolean show;
-	private boolean option;
-	private int shippingFee;
-	private int orderNo;
-	private String contents;
-
-	private List<OptionVo> optionList;
-	private List<OptionValueVo> optionValueList;
-	private List<CategoryVo> categoryList;
+	private Long no;								// 상품 번호
+	private String code;							// 상품 코드
+	private String name;							// 상품 이름
+	private int price;								// 상품 가격
+	private String regDate;							// 등록일
+	private boolean show;							// 진열 여부
+	private boolean option;							// 옵션 여부
+	private int shippingFee;						// 배송비
+	private int orderNo;							// 진열 순위
+	private String contents;						// 본문 내용
+	
+	private List<OptionVo> optionList;				// 옵션(상위) 리스트
+	private List<OptionValueVo> optionValueList;	// 옵션(하위) 리스트
+	private List<CategoryVo> categoryList;			// 카테고리 리스트
 
 	public ProductVo() {
 		super();

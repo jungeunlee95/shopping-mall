@@ -1,6 +1,7 @@
 package com.cafe24.shoppingmall.controller;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -69,7 +70,7 @@ public class AdminProductControllerTest {
 		// 이름 검사
 		ResultActions resultActions = 
 				mockMvc
-				.perform(post("/api/admin/product/add")
+				.perform(get("/api/admin/product/add")
 				.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(productVo)));
 		resultActions 
 		.andExpect(status().isOk()).andDo(print());  
@@ -136,7 +137,7 @@ public class AdminProductControllerTest {
 		// 이름 검사
 		ResultActions resultActions = 
 				mockMvc
-				.perform(post("/api/admin/product/add")
+				.perform(get("/api/admin/product/add")
 						.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(productVo)));
 		resultActions 
 		.andExpect(status().isOk()).andDo(print());  
@@ -154,7 +155,7 @@ public class AdminProductControllerTest {
 		// 이름 검사
 		ResultActions resultActions = 
 				mockMvc
-				.perform(post("/api/admin/product/addOption")
+				.perform(get("/api/admin/product/addOption")
 				.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(optionVo)));
 		resultActions 
 		.andExpect(status().isOk()).andDo(print());  
@@ -184,7 +185,7 @@ public class AdminProductControllerTest {
 		// 이름 검사
 		ResultActions resultActions = 
 				mockMvc
-				.perform(post("/api/admin/product/addOptionValue")
+				.perform(get("/api/admin/product/addOptionValue")
 				.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(optionValueVoList)));
 		resultActions 
 		.andExpect(status().isOk()).andDo(print());  
