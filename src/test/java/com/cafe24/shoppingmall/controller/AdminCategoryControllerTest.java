@@ -41,6 +41,21 @@ public class AdminCategoryControllerTest {
 		mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
 	}
 	
+
+	@Test
+	public void getList() throws Exception {
+
+		ResultActions resultActions = 
+				mockMvc
+				.perform(get("/api/admin/category/list")
+				.contentType(MediaType.APPLICATION_JSON)); 
+		
+		resultActions 
+		.andExpect(status().isOk()).andDo(print());
+		
+	}
+	
+	
 	// 상위 카테고리 중복 비교
 	@Ignore
 	@Test
@@ -170,6 +185,7 @@ public class AdminCategoryControllerTest {
 		.andExpect(status().isOk()).andDo(print()); 
 	}
 	
+	@Ignore
 	@Test
 	public void deleteCategory() throws Exception {
 		Long no = 12L;   

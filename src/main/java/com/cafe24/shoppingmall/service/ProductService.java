@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cafe24.shoppingmall.repository.ProductDao;
+import com.cafe24.shoppingmall.vo.OptionValueVo;
+import com.cafe24.shoppingmall.vo.OptionVo;
 import com.cafe24.shoppingmall.vo.ProductVo;
 
 @Service
@@ -43,4 +45,48 @@ public class ProductService {
 		List<ProductVo> list = productDao.getList(userId);
 		return list;
 	}
+
+	/**
+	 * 상품 등록
+	 * @param productVo
+	 * @return
+	 */
+	public Boolean addProduct(ProductVo productVo) {
+		int result = 0; 
+		int result2 = 0;
+		int result3 = 0;
+ 
+		// 옵션 사용 X -> 카테고리만 등록
+		result = productDao.addProduct(productVo);
+		if(result==1) {
+			result2 =productDao.addCategoryAndProduct(productVo.getNo(), productVo.getCategoryList());
+		}
+
+		// 옵션 사용 O -> 옵션 등록
+		if(result==1 && productVo.isOption()){ //옵션 사용 O
+			result3 = productDao.addOptionValue(productVo.getNo(), productVo.getOptionValueList());
+		}
+		return result==1 && result2==productVo.getCategoryList().size() && result3==productVo.getOptionValueList().size();
+	} 
+
+	public OptionVo addOption(OptionVo optionVo) {
+		// 옵션 이름이 이미 테이블에 존재하는지 검사
+		List<OptionVo> optionList = productDao.getOption(optionVo.getName());
+		if(optionList.size()<1) {
+			productDao.addOption(optionVo);
+			return optionVo;
+		}
+		return optionList.get(0);
+	}
 }
+
+
+
+
+
+
+
+
+
+
+

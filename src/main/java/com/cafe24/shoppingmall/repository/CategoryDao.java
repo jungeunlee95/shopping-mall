@@ -48,5 +48,9 @@ public class CategoryDao{
 		return count;
 	}
 
+	public List<CategoryVo> get() {
+		return sqlSession.selectList("category.getList");
+	}
+
 
 }

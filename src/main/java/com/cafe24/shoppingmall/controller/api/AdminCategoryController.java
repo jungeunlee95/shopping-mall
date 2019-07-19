@@ -1,5 +1,7 @@
 package com.cafe24.shoppingmall.controller.api;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +30,13 @@ public class AdminCategoryController {
 	@Autowired
 	private CategoryService categoryService;
 	
+	@ApiOperation(value="목록 가져오기")
+	@GetMapping(value="/list") 
+	public ResponseEntity<JSONResult> getList() {
+
+		List<CategoryVo> list = categoryService.getCategoryList();
+		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(list));
+	} 
 	
 	@ApiOperation(value="상위 카테고리 이름 중복 검사")
 	@ApiImplicitParams({

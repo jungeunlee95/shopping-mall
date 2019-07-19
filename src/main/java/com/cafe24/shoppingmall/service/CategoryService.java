@@ -1,5 +1,7 @@
 package com.cafe24.shoppingmall.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,5 +39,9 @@ public class CategoryService {
 
 	public Boolean deleteCategory(Long no) {
 		return categoryDao.delete(no)==1;
+	}
+
+	public List<CategoryVo> getCategoryList() {
+		return categoryDao.get();
 	}
 }
