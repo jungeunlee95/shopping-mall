@@ -40,7 +40,7 @@ public class AdminCategoryController {
 	
 	@ApiOperation(value="상위 카테고리 이름 중복 검사")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name="name", value="name : 아이디", required=true, dataType="String", defaultValue="")
+		@ApiImplicitParam(name="name", value="name : 이름", required=true, dataType="String", defaultValue="")
 	})
 	@GetMapping(value="/checkName") 
 	public ResponseEntity<JSONResult> checkName(@RequestParam(value="name") String name) {

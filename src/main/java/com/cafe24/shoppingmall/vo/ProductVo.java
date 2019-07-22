@@ -4,37 +4,37 @@ import java.util.List;
 
 public class ProductVo {
 
-	private Long no;								// 상품 번호
-	private String code;							// 상품 코드
-	private String name;							// 상품 이름
-	private int price;								// 상품 가격
-	private String regDate;							// 등록일
-	private boolean show;							// 진열 여부
-	private boolean option;							// 옵션 여부
-	private int shippingFee;						// 배송비
-	private int orderNo;							// 진열 순위
-	private String contents;						// 본문 내용
-	
-	private List<OptionVo> optionList;				// 옵션(상위) 리스트
-	private List<OptionValueVo> optionValueList;	// 옵션(하위) 리스트
-	private List<CategoryVo> categoryList;			// 카테고리 리스트
+	private Long no; // 상품 번호
+	private String code; // 상품 코드
+	private String name; // 상품 이름
+	private int price; // 상품 가격
+	private String regDate; // 등록일
+	private boolean isShow; // 진열 여부
+	private boolean isOption; // 옵션 여부
+	private int shippingFee; // 배송비
+	private int orderNo; // 진열 순위
+	private String contents; // 본문 내용
+
+	private List<OptionVo> optionList; // 옵션(상위) 리스트
+	private List<OptionValueVo> optionValueList; // 옵션(하위) 리스트
+	private List<CategoryVo> categoryList; // 카테고리 리스트
 
 	public ProductVo() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public ProductVo(Long no, String code, String name, int price, String regDate, boolean show, boolean option,
-			int shippingFee, int orderNo, String contents, List<OptionVo> optionList, List<OptionValueVo> optionValueList,
-			List<CategoryVo> categoryList) {
+	public ProductVo(Long no, String code, String name, int price, String regDate, boolean isShow, boolean isOption,
+			int shippingFee, int orderNo, String contents, List<OptionVo> optionList,
+			List<OptionValueVo> optionValueList, List<CategoryVo> categoryList) {
 		super();
 		this.no = no;
 		this.code = code;
 		this.name = name;
 		this.price = price;
 		this.regDate = regDate;
-		this.show = show;
-		this.option = option;
+		this.isShow = isShow;
+		this.isOption = isOption;
 		this.shippingFee = shippingFee;
 		this.orderNo = orderNo;
 		this.contents = contents;
@@ -84,19 +84,19 @@ public class ProductVo {
 	}
 
 	public boolean isShow() {
-		return show;
+		return isShow;
 	}
 
-	public void setShow(boolean show) {
-		this.show = show;
+	public void setShow(boolean isShow) {
+		this.isShow = isShow;
 	}
 
 	public boolean isOption() {
-		return option;
+		return isOption;
 	}
 
-	public void setOption(boolean option) {
-		this.option = option;
+	public void setOption(boolean isOption) {
+		this.isOption = isOption;
 	}
 
 	public int getShippingFee() {
@@ -141,7 +141,7 @@ public class ProductVo {
 
 	public List<CategoryVo> getCategoryList() {
 		return categoryList;
-	} 
+	}
 
 	public void setCategoryList(List<CategoryVo> categoryList) {
 		this.categoryList = categoryList;
@@ -150,9 +150,9 @@ public class ProductVo {
 	@Override
 	public String toString() {
 		return "ProductVo [no=" + no + ", code=" + code + ", name=" + name + ", price=" + price + ", regDate=" + regDate
-				+ ", show=" + show + ", option=" + option + ", shippingFee=" + shippingFee + ", orderNo=" + orderNo
-				+ ", contents=" + contents + ", optionList=" + optionList + ", optionValueList=" + optionValueList
-				+ ", categoryList=" + categoryList + "]";
+				+ ", isShow=" + isShow + ", isOption=" + isOption + ", shippingFee=" + shippingFee + ", orderNo="
+				+ orderNo + ", contents=" + contents + ", optionList=" + optionList + ", optionValueList="
+				+ optionValueList + ", categoryList=" + categoryList + "]";
 	}
 
 }

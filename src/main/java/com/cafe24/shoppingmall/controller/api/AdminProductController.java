@@ -28,7 +28,7 @@ public class AdminProductController {
 	
 	@ApiOperation(value="상품 등록")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name="name", value="name : 아이디", required=true, dataType="String", defaultValue="")
+		@ApiImplicitParam()
 	})
 	@GetMapping(value="/add") 
 	public ResponseEntity<JSONResult> addProduct(@RequestBody ProductVo productVo) {
@@ -39,7 +39,7 @@ public class AdminProductController {
 	
 	@ApiOperation(value="상품 상위 옵션 등록")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name="name", value="name : 옵션이름", required=true, dataType="String", defaultValue="")
+		@ApiImplicitParam()
 	})
 	@GetMapping(value="/addOption") 
 	public ResponseEntity<JSONResult> addOption(@RequestBody OptionVo optionVo) {

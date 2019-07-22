@@ -2,13 +2,42 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="product">
+
+	<!-- 상품 리스트 -->
+	<select id="getList" resultType="productvo">
+	<![CDATA[
+		select no, code, name, price, reg_date regDate, isshow isShow, isoption isOption, shipping_fee shippingFee, order_no orderNo
+		from product
+		order by no desc
+		limit 0, 5
+	]]>
+	</select>	
+	
+	<!-- 카테고리 상품 리스트 , 조건 검색어-->
+	<select id="getList" resultType="productvo">
+	<![CDATA[
+		select no, code, name, price, reg_date regDate, isshow isShow, isoption isOption, shipping_fee shippingFee, order_no orderNo
+		from product
+		where no in (select product_no from category_product where category_no=1)
+	]]>
+	<if test="keyword != null AND keyword != ''">
+	<![CDATA[
+		and name like '%1%'
+	]]>
+	</if>
+	<![CDATA[
+		order by no desc
+		limit 0, 5
+	]]>
+	</select>	
+
 	
 	<!-- 상품 등록 -->
 	<insert id="addProduct" parameterType="productvo">
 	 	<![CDATA[  
 			insert into product
 			values(null, "코드번호나중에", 
-			#{name }, #{price }, now(), #{show }, #{option }, #{shippingFee }, 1, #{contents })
+			#{name }, #{price }, now(), #{isShow }, #{isOption }, #{shippingFee }, 1, #{contents })
 		 ]]>
 		 
 	 	<selectKey keyProperty="no" resultType="long" order="AFTER">
@@ -55,66 +84,6 @@
 			<![CDATA[ (null, #{productNo }, #{optionValue.optionNo }, #{optionValue.value }) ]]>
 		</foreach> 
 	</insert>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	<!-- 상위 카테고리 중복 검사 -->
-	<select id="getName" resultType="categoryvo" parameterType="string">
-	 	<![CDATA[ 
-			select * 
-			from category
-			where name = #{name } 
-			and depth=1
-		 ]]>
-	</select>
-	
-	<!-- 하위 카테고리 중복 검사 -->
-	<select id="getName2" resultType="categoryvo" parameterType="categoryvo">
-	 	<![CDATA[ 
-			select * 
-			from category
-			where group_no= #{groupNo }
-			and depth= #{depth }
-			and name = #{name }
-		 ]]>
-	</select>
 
-	<!-- 상위 카테고리 등록 -->	
-	<insert id="insert" parameterType="string">
-	<![CDATA[  
-		insert into category(no, name, depth, group_no, order_no) 
-		values(null, #{name }, 1, (select max(group_no)+1 from category category_as), 1)
-	]]>
-	</insert>
-	
-	<!-- 하위 카테고리 등록 -->	
-	<insert id="insertLow" parameterType="categoryvo">
-	<![CDATA[  
-		insert into category(no, name, depth, group_no, order_no) 
-		values(null, #{name }, (#{depth }+1), #{groupNo }, 1)  
-	]]>
-	</insert>
-	
-	<!-- 카테고리 수정 -->	
-	<update id="modify" parameterType="categoryvo">
-	<![CDATA[  
-		update category set name=#{name } where no =#{no }
-	]]> 
-	</update>
-	
-	<!-- 카테고리 삭제 -->
-	<delete id="delete" parameterType="long">
-	<![CDATA[
-		delete from category where no= #{no }
-	]]>
-	</delete>
 
 </mapper>
