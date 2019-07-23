@@ -15,6 +15,7 @@ public class ProductVo {
 	private int orderNo; // 진열 순위
 	private String contents; // 본문 내용
 
+	private List<OptionNameVo> optionNameList; // 옵션(상위) 리스트
 	private List<OptionVo> optionList; // 옵션(상위) 리스트
 	private List<OptionValueVo> optionValueList; // 옵션(하위) 리스트
 	private List<CategoryVo> categoryList; // 카테고리 리스트
@@ -25,7 +26,7 @@ public class ProductVo {
 	}
 
 	public ProductVo(Long no, String code, String name, int price, String regDate, boolean isShow, boolean isOption,
-			int shippingFee, int orderNo, String contents, List<OptionVo> optionList,
+			int shippingFee, int orderNo, String contents, List<OptionNameVo> optionNameList, List<OptionVo> optionList,
 			List<OptionValueVo> optionValueList, List<CategoryVo> categoryList) {
 		super();
 		this.no = no;
@@ -38,6 +39,7 @@ public class ProductVo {
 		this.shippingFee = shippingFee;
 		this.orderNo = orderNo;
 		this.contents = contents;
+		this.optionNameList = optionNameList;
 		this.optionList = optionList;
 		this.optionValueList = optionValueList;
 		this.categoryList = categoryList;
@@ -123,6 +125,14 @@ public class ProductVo {
 		this.contents = contents;
 	}
 
+	public List<OptionNameVo> getOptionNameList() {
+		return optionNameList;
+	}
+
+	public void setOptionNameList(List<OptionNameVo> optionNameList) {
+		this.optionNameList = optionNameList;
+	}
+
 	public List<OptionVo> getOptionList() {
 		return optionList;
 	}
@@ -151,8 +161,8 @@ public class ProductVo {
 	public String toString() {
 		return "ProductVo [no=" + no + ", code=" + code + ", name=" + name + ", price=" + price + ", regDate=" + regDate
 				+ ", isShow=" + isShow + ", isOption=" + isOption + ", shippingFee=" + shippingFee + ", orderNo="
-				+ orderNo + ", contents=" + contents + ", optionList=" + optionList + ", optionValueList="
-				+ optionValueList + ", categoryList=" + categoryList + "]";
+				+ orderNo + ", contents=" + contents + ", optionNameList=" + optionNameList + ", optionList="
+				+ optionList + ", optionValueList=" + optionValueList + ", categoryList=" + categoryList + "]";
 	}
 
 }

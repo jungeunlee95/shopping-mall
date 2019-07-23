@@ -32,18 +32,6 @@ public class CartController {
 	@Autowired
 	private CartService CartService;
 	
-	@ApiOperation(value="장바구니 목록 가져오기")
-	@ApiImplicitParams({
-		@ApiImplicitParam(name="userId", value="userId: 회원아이디", required=true, dataType="String", defaultValue="")
-	})
-	@GetMapping(value = "/{userId}")
-	public JSONResult getCartList(@PathVariable(value="userId") String userId) {
-		
-		// 상품 list return
-		List<ProductVo> list = productService.getProductList(userId);
-		return JSONResult.success(list);
-	}
-
 	@ApiOperation(value="장바구니에 상품 추가하기")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name="userId", value="userId: 회원아이디", required=true, dataType="String", defaultValue=""),
@@ -55,6 +43,18 @@ public class CartController {
 		// 해당 회원(userId)의 장바구니에 상품(optionNo)추가
 		boolean result = CartService.addCart(userId, optionNo);
 		return JSONResult.success(result);
+	}
+	
+	@ApiOperation(value="장바구니 목록 가져오기")
+	@ApiImplicitParams({
+		@ApiImplicitParam(name="userId", value="userId: 회원아이디", required=true, dataType="String", defaultValue="")
+	})
+	@GetMapping(value = "/{userId}")
+	public JSONResult getCartList(@PathVariable(value="userId") String userId) {
+		
+		// 상품 list return
+		List<ProductVo> list = productService.getProductList(userId);
+		return JSONResult.success(list);
 	}
 	
 	/**

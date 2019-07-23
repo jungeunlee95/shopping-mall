@@ -44,7 +44,7 @@ public class ProductController {
 		@ApiImplicitParam(name="categoryNo", value="categoryNo: 카테고리 번호", required=true, dataType="Long", defaultValue=""),
 		@ApiImplicitParam(name="keyword", value="keyword: 검색어 입력 값", required=false, dataType="String", defaultValue="")
 	})
-	@GetMapping(value = "detail/{productNo}")
+	@GetMapping(value = "/detail/{productNo}")
 	public JSONResult getProductDetail(
 			@PathVariable(value = "productNo") Long productNo,
 			@RequestParam(value="categoryNo", required = false, defaultValue = "") Long categoryNo,

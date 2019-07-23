@@ -5,6 +5,7 @@ public class OptionValueVo {
 	private Long no;
 	private Long productNo;
 	private Long optionNo;
+	private String optionName;
 	private String value;
 
 	public OptionValueVo() {
@@ -12,11 +13,12 @@ public class OptionValueVo {
 		// TODO Auto-generated constructor stub
 	}
 
-	public OptionValueVo(Long no, Long productNo, Long optionNo, String value) {
+	public OptionValueVo(Long no, Long productNo, Long optionNo, String optionName, String value) {
 		super();
 		this.no = no;
 		this.productNo = productNo;
 		this.optionNo = optionNo;
+		this.optionName = optionName;
 		this.value = value;
 	}
 
@@ -44,6 +46,14 @@ public class OptionValueVo {
 		this.optionNo = optionNo;
 	}
 
+	public String getOptionName() {
+		return optionName;
+	}
+
+	public void setOptionName(String optionName) {
+		this.optionName = optionName;
+	}
+
 	public String getValue() {
 		return value;
 	}
@@ -54,8 +64,8 @@ public class OptionValueVo {
 
 	@Override
 	public String toString() {
-		return "OptionValueVo [no=" + no + ", productNo=" + productNo + ", optionNo=" + optionNo + ", value=" + value
-				+ "]";
+		return "OptionValueVo [no=" + no + ", productNo=" + productNo + ", optionNo=" + optionNo + ", optionName="
+				+ optionName + ", value=" + value + "]";
 	}
 
 }

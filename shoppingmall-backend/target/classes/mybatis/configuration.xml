@@ -5,6 +5,7 @@
 		<typeAlias alias="cartvo" type="com.cafe24.shoppingmall.vo.CartVo" />
 		<typeAlias alias="categoryvo" type="com.cafe24.shoppingmall.vo.CategoryVo" />
 		<typeAlias alias="optionvaluevo" type="com.cafe24.shoppingmall.vo.OptionValueVo" />
+		<typeAlias alias="optionnamevo" type="com.cafe24.shoppingmall.vo.OptionNameVo" />
 		<typeAlias alias="optionvo" type="com.cafe24.shoppingmall.vo.OptionVo" />
 		<typeAlias alias="productvo" type="com.cafe24.shoppingmall.vo.ProductVo" />
 		<typeAlias alias="uservo" type="com.cafe24.shoppingmall.vo.UserVo" />

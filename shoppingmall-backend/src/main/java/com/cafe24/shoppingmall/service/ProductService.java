@@ -82,6 +82,7 @@ public class ProductService {
 	}
 
 	public ProductVo getProductDetail(Long productNo) {
+		ProductVo vo = productDao.getProductDetail(productNo);
 		return productDao.getProductDetail(productNo);
 	}
 }

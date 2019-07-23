@@ -80,7 +80,8 @@ public class ProductDao{
 	}
 
 	public ProductVo getProductDetail(Long productNo) {
-		return sqlSession.selectOne("product.getProductDetail", productNo);
+		ProductVo vo = sqlSession.selectOne("product.getProductDetail", productNo);
+		return vo;
 	}
 
 
