@@ -34,16 +34,18 @@ public class CartController {
 	
 	@ApiOperation(value="장바구니에 상품 추가하기")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name="userId", value="userId: 회원아이디", required=true, dataType="String", defaultValue=""),
-		@ApiImplicitParam(name="optionNo", value="optionNo: 상품의 옵션 번호", required=true, dataType="Long", defaultValue="")
+		@ApiImplicitParam(name="userNo", value="userNo: 회원번호", required=true, dataType="Long", defaultValue=""),
+		@ApiImplicitParam(name="productOptionNo", value="productOptionNo: 상품의 옵션 번호", required=true, dataType="Long", defaultValue="")
 	})
-	@PostMapping(value = "/{userId}/{optionNo}")
-	public JSONResult addCart(@PathVariable(value="userId") String userId,
-							  @PathVariable(value="optionNo") Long optionNo) {
+	@PostMapping(value = "/{userNo}/{productOptionNo}")
+	public JSONResult addCart(@PathVariable(value="userNo") Long userNo,
+							  @PathVariable(value="productOptionNo") Long productOptionNo,
+							  @RequestParam(value="quantity", required = false, defaultValue = "1") Long quantity) {
 		// 해당 회원(userId)의 장바구니에 상품(optionNo)추가
-		boolean result = CartService.addCart(userId, optionNo);
+		boolean result = CartService.addCart(userNo, productOptionNo, quantity);
 		return JSONResult.success(result);
 	}
+	
 	
 	@ApiOperation(value="장바구니 목록 가져오기")
 	@ApiImplicitParams({

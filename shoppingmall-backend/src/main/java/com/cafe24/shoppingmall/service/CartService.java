@@ -16,12 +16,13 @@ public class CartService{
 
 	/**
 	 * 회원 장바구니에 상품 추가
-	 * @param userId
+	 * @param userNo
 	 * @param optionNo
+	 * @param quantity 
 	 * @return
 	 */
-	public boolean addCart(String userId, Long optionNo) {
-		boolean result = cartDao.add(userId, optionNo);
+	public boolean addCart(Long userNo, Long optionNo, Long quantity) {
+		boolean result = cartDao.add(userNo, optionNo, quantity);
 		return result;
 	}
 
