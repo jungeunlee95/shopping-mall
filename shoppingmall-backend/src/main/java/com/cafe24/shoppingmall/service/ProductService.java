@@ -22,8 +22,8 @@ public class ProductService {
 	 * @param keyword
 	 * @return
 	 */
-	public List<ProductVo> getProductList(Long categodyNo, String keyword) {
-		List<ProductVo> list = productDao.getList(categodyNo, keyword);
+	public List<ProductVo> getProductList(Long categoryNo, String keyword) {
+		List<ProductVo> list = productDao.getList(categoryNo, keyword);
 		return list;
 	}
 
@@ -79,6 +79,10 @@ public class ProductService {
 			return optionVo;
 		}
 		return optionList.get(0);
+	}
+
+	public ProductVo getProductDetail(Long productNo) {
+		return productDao.getProductDetail(productNo);
 	}
 }
 

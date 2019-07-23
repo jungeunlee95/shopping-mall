@@ -18,16 +18,23 @@
 	<![CDATA[
 		select no, code, name, price, reg_date regDate, isshow isShow, isoption isOption, shipping_fee shippingFee, order_no orderNo
 		from product
-		where no in (select product_no from category_product where category_no=1)
+		where no in (select product_no from category_product where category_no=#{categoryNo })
 	]]>
-	<if test="keyword != null AND keyword != ''">
-	<![CDATA[
-		and name like '%1%'
-	]]>
-	</if>
+		<if test="keyword != null and keyword != ''">
+		<![CDATA[
+			and name like CONCAT('%',#{keyword },'%')
+		]]>
+		</if>
 	<![CDATA[
 		order by no desc
 		limit 0, 5
+	]]>
+	</select>	
+	
+	<!-- 상품 상세 정보-->
+	<select id="getProductDetail" parameterType="long" resultType="productvo">
+	<![CDATA[
+
 	]]>
 	</select>	
 

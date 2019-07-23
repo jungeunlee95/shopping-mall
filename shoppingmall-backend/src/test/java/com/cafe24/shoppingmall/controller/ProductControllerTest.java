@@ -46,7 +46,7 @@ public class ProductControllerTest {
 		ResultActions resultActions = 
 				mockMvc
 				.perform(get("/api/product/{categoryNo}", categoryNo)
-				.param("keyword","상의")		
+				.param("keyword","1")		
 				.contentType(MediaType.APPLICATION_JSON)); 
 		
 		resultActions 

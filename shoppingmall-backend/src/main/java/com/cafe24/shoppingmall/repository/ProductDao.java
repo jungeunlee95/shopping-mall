@@ -35,10 +35,11 @@ public class ProductDao{
 	}
 	
 	
-	public List<ProductVo> getList(Long categodyNo, String keyword) {
-		List<ProductVo> list = new ArrayList<ProductVo>(); 
-		
-		return list;
+	public List<ProductVo> getList(Long categoryNo, String keyword) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("categoryNo", keyword);
+		map.put("keyword", keyword);
+		return sqlSession.selectList("product.getList2", map);
 	}
 
 	public List<ProductVo> getList() {
@@ -76,6 +77,10 @@ public class ProductDao{
 		map.put("optionValueList", optionValueList);
 		
 		return sqlSession.insert("product.addOptionValue", map);
+	}
+
+	public ProductVo getProductDetail(Long productNo) {
+		return sqlSession.selectOne("product.getProductDetail", productNo);
 	}
 
 
