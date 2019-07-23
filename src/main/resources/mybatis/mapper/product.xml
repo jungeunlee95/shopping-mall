@@ -14,7 +14,7 @@
 	</select>	
 	
 	<!-- 카테고리 상품 리스트 , 조건 검색어-->
-	<select id="getList" resultType="productvo">
+	<select id="getList2" resultType="productvo">
 	<![CDATA[
 		select no, code, name, price, reg_date regDate, isshow isShow, isoption isOption, shipping_fee shippingFee, order_no orderNo
 		from product
