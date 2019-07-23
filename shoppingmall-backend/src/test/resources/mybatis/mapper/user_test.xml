@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="user_test">
+
+	<delete id="delete">
+	 	<![CDATA[ delete from user ]]>
+	</delete>
+	
+	<select id="count" resultType="int">
+	 	<![CDATA[ select count(*) from user ]]>
+	</select>
+	
+	<select id="userList" resultType="uservo">
+	 	<![CDATA[ 
+			select no, 
+			convert(AES_DECRYPT(id, SHA2("aaa", 512)) using utf8) as id,
+			convert(AES_DECRYPT(name, SHA2("aaa", 512))using utf8) as name,
+			pw_question as passwordQuestion,
+			convert(AES_DECRYPT(pw_answer, SHA2("aaa", 512)) using utf8) as passwordAnswer,
+			convert(AES_DECRYPT(phone_number, SHA2("aaa", 512)) using utf8) as phoneNumber,
+			convert(AES_DECRYPT(email, SHA2("aaa", 512)) using utf8) as email,
+			DATE_FORMAT(birth_date,'%Y-%m-%d') as birthDate, role, point, end_date as endDate, gender
+			from user
+		 ]]>
+	</select>
+	
+	<insert id="insert" parameterType="uservo">
+	<![CDATA[
+		insert into user(no, id, name, password, pw_question, pw_answer, phone_number, email, birth_date, role, point, end_date, gender) 
+		values(null, 
+		AES_ENCRYPT(#{id}, SHA2("aaa", 512)), 
+		AES_ENCRYPT(#{name}, SHA2("aaa", 512)), 
+		SHA2(#{password},512), 
+		#{passwordQuestion}, 
+		AES_ENCRYPT(#{passwordAnswer},SHA2("aaa", 512)), 
+		AES_ENCRYPT(#{phoneNumber}, SHA2("aaa", 512)), 
+		AES_ENCRYPT(#{email},SHA2("aaa", 512)), 
+		#{birthDate}, 'U', #{point}, #{endDate}, #{gender})
+	]]>
+	
+	<selectKey keyProperty="no" resultType="long" order="AFTER">
+	<![CDATA[
+		select last_insert_id()
+	]]>
+	</selectKey>
+	</insert> 
+	
+</mapper>

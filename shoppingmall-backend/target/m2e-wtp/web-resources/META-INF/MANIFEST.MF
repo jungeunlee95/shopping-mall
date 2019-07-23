@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: shoppingmall-backend
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: BIT
+Implementation-Vendor-Id: com.cafe24
+Build-Jdk: 1.8.0_211
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
+ ot-starter-parent/shoppingmall-backend
+Created-By: Maven Integration for Eclipse
+

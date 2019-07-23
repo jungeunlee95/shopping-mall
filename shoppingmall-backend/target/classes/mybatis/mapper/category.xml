@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="category">
+	
+	<!-- 카테고리 목록 가져오기 -->
+	<select id="getList" resultType="categoryvo">
+	 	<![CDATA[ 
+			select no, name, depth, group_no groupNo, order_no orderNo 
+			from category
+			order by group_no, no, order_no
+		 ]]>
+	</select>
+	
+	<!-- 상위 카테고리 중복 검사 -->
+	<select id="getName" resultType="categoryvo" parameterType="string">
+	 	<![CDATA[ 
+			select * 
+			from category
+			where name = #{name } 
+			and depth=1
+		 ]]>
+	</select>
+	
+	<!-- 하위 카테고리 중복 검사 -->
+	<select id="getName2" resultType="categoryvo" parameterType="categoryvo">
+	 	<![CDATA[ 
+			select * 
+			from category
+			where group_no= #{groupNo }
+			and depth= #{depth }
+			and name = #{name }
+		 ]]>
+	</select>
+
+	<!-- 상위 카테고리 등록 -->	
+	<insert id="insert" parameterType="string">
+	<![CDATA[  
+		insert into category(no, name, depth, group_no, order_no) 
+		values(null, #{name }, 1, (select max(group_no)+1 from category category_as), 1)
+	]]>
+	</insert>
+	
+	<!-- 하위 카테고리 등록 -->	
+	<insert id="insertLow" parameterType="categoryvo">
+	<![CDATA[  
+		insert into category(no, name, depth, group_no, order_no) 
+		values(null, #{name }, (#{depth }+1), #{groupNo }, 1)  
+	]]>
+	</insert>
+	
+	<!-- 카테고리 수정 -->	
+	<update id="modify" parameterType="categoryvo">
+	<![CDATA[  
+		update category set name=#{name } where no =#{no }
+	]]> 
+	</update>
+	
+	<!-- 카테고리 삭제 -->
+	<delete id="delete" parameterType="long">
+	<![CDATA[
+		delete from category where no= #{no }
+	]]>
+	</delete>
+
+</mapper>
