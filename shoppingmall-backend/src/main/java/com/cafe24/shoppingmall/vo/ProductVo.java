@@ -85,19 +85,19 @@ public class ProductVo {
 		this.regDate = regDate;
 	}
 
-	public boolean isShow() {
+	public boolean getIsShow() {
 		return isShow;
 	}
 
-	public void setShow(boolean isShow) {
+	public void setIsShow(boolean isShow) {
 		this.isShow = isShow;
 	}
 
-	public boolean isOption() {
+	public boolean getIsOption() {
 		return isOption;
 	}
 
-	public void setOption(boolean isOption) {
+	public void setIsOption(boolean isOption) {
 		this.isOption = isOption;
 	}
 
@@ -160,7 +160,7 @@ public class ProductVo {
 	@Override
 	public String toString() {
 		return "ProductVo [no=" + no + ", code=" + code + ", name=" + name + ", price=" + price + ", regDate=" + regDate
-				+ ", isShow=" + isShow + ", isOption=" + isOption + ", shippingFee=" + shippingFee + ", orderNo="
+				+ ", isShow=" + isShow + ", option=" + isOption + ", shippingFee=" + shippingFee + ", orderNo="
 				+ orderNo + ", contents=" + contents + ", optionNameList=" + optionNameList + ", optionList="
 				+ optionList + ", optionValueList=" + optionValueList + ", categoryList=" + categoryList + "]";
 	}

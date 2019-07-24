@@ -57,7 +57,7 @@ public class ProductControllerTest {
 	
 	@Test
 	public void testGetProductDetail() throws Exception {
-		int productNo = 1;
+		Long productNo = 34L;
 		ResultActions resultActions = 
 				mockMvc
 				.perform(get("/api/product/detail/{productNo}", productNo)	

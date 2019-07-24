@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.cafe24.shoppingmall.vo.CategoryVo;
+import com.cafe24.shoppingmall.vo.OptionNameVo;
 import com.cafe24.shoppingmall.vo.OptionValueVo;
 import com.cafe24.shoppingmall.vo.OptionVo;
 import com.cafe24.shoppingmall.vo.ProductVo;
@@ -82,6 +83,22 @@ public class ProductDao{
 	public ProductVo getProductDetail(Long productNo) {
 		ProductVo vo = sqlSession.selectOne("product.getProductDetail", productNo);
 		return vo;
+	}
+
+	public int delete(Long no) {
+		return sqlSession.delete("product.delete", no);
+	}
+
+	public Boolean modify(ProductVo productVo) {
+		Boolean result = sqlSession.update("product.modify", productVo)==1;
+		return result;
+	}
+
+	public int addProductOption(List<OptionNameVo> optionNameVoList) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("optionNameVoList", optionNameVoList);
+		int result = sqlSession.insert("product.addOptionNameVoList", map);
+		return result;
 	}
 
 

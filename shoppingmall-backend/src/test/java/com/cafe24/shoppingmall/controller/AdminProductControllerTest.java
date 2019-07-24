@@ -1,7 +1,9 @@
 package com.cafe24.shoppingmall.controller;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -22,6 +24,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.cafe24.shoppingmall.vo.CategoryVo;
+import com.cafe24.shoppingmall.vo.OptionNameVo;
 import com.cafe24.shoppingmall.vo.OptionValueVo;
 import com.cafe24.shoppingmall.vo.OptionVo;
 import com.cafe24.shoppingmall.vo.ProductVo;
@@ -50,8 +53,8 @@ public class AdminProductControllerTest {
 		productVo.setCode("aaa"); 
 		productVo.setName("곰돌이티셔츠2"); 
 		productVo.setPrice(20000);
-		productVo.setShow(true);
-		productVo.setOption(false);
+		productVo.setIsShow(true);
+		productVo.setIsOption(false);
 		productVo.setShippingFee(2500);
 		productVo.setOrderNo(1);
 		productVo.setContents("<h1>아직 안 함</h1>");
@@ -70,21 +73,23 @@ public class AdminProductControllerTest {
 		// 이름 검사
 		ResultActions resultActions = 
 				mockMvc
-				.perform(get("/api/admin/product/add")
+				.perform(put("/api/admin/product/add")
 				.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(productVo)));
 		resultActions 
 		.andExpect(status().isOk()).andDo(print());  
 	}
 	
 	// 옵션 O 상품 등록
+
+//	@Ignore
 	@Test
 	public void addProduct2() throws Exception {
 		ProductVo productVo = new ProductVo();
-		productVo.setCode("aaa"); 
-		productVo.setName("치마바지"); 
+		productVo.setCode("bbb"); 
+		productVo.setName("흰색셔츠"); 
 		productVo.setPrice(20000);
-		productVo.setShow(true);
-		productVo.setOption(true);
+		productVo.setIsShow(true);
+		productVo.setIsOption(true);
 		productVo.setShippingFee(3000);
 		productVo.setOrderNo(1);
 		productVo.setContents("<h1>11아직 안 함</h1>");
@@ -92,10 +97,11 @@ public class AdminProductControllerTest {
 		// ----------------------- 카테고리 등록-------------------------
 		List<CategoryVo> categoryList = new ArrayList<CategoryVo>();
 		CategoryVo categoryVo = new CategoryVo();
-		categoryVo.setNo(7L);
+		categoryVo.setNo(3L);
 		
 		CategoryVo categoryVo2 = new CategoryVo();
-		categoryVo2.setNo(8L);
+		categoryVo2.setNo(4L);
+		
 		categoryList.add(categoryVo);
 		categoryList.add(categoryVo2);
 		
@@ -133,12 +139,12 @@ public class AdminProductControllerTest {
 		productVo.setOptionValueList(optionValueList);
 		// ----------------------------------------------------------
 		
-		
 		// 이름 검사
 		ResultActions resultActions = 
 				mockMvc
-				.perform(get("/api/admin/product/add")
-						.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(productVo)));
+				.perform(put("/api/admin/product/add")
+						.contentType(MediaType.APPLICATION_JSON)
+						.content(new Gson().toJson(productVo)));
 		resultActions 
 		.andExpect(status().isOk()).andDo(print());  
 	}
@@ -150,7 +156,7 @@ public class AdminProductControllerTest {
 	public void addOption() throws Exception {
 
 		OptionVo optionVo = new OptionVo();
-		optionVo.setName("사이즈");
+		optionVo.setName("색상");
 		
 		// 이름 검사
 		ResultActions resultActions = 
@@ -170,12 +176,12 @@ public class AdminProductControllerTest {
 		List<OptionValueVo> optionValueVoList = new ArrayList<OptionValueVo>();
 		
 		OptionValueVo optionValueVo = new OptionValueVo();
-		optionValueVo.setProductNo(1L); // 나중에 가져올거임
+		optionValueVo.setProductNo(30L); // 나중에 가져올거임
 		optionValueVo.setOptionNo(1L);
 		optionValueVo.setValue("검정색");
 		
 		OptionValueVo optionValueVo2 = new OptionValueVo();
-		optionValueVo2.setProductNo(1L); // 나중에 가져올거임
+		optionValueVo2.setProductNo(30L); // 나중에 가져올거임
 		optionValueVo2.setOptionNo(1L);
 		optionValueVo2.setValue("분홍색");
 		
@@ -192,7 +198,81 @@ public class AdminProductControllerTest {
 		
 	}
 	
+	@Ignore
+	@Test
+	public void testDeleteProduct() throws Exception {
+		Long no = 2L;
+		ResultActions resultActions = 
+				mockMvc
+				.perform(delete("/api/admin/product/delete/{no}", no)
+				.contentType(MediaType.APPLICATION_JSON)); 
+		
+		resultActions 
+		.andExpect(status().isOk()).andDo(print());
+		
+	}
 	
+	@Ignore
+	@Test
+	public void testModifyProduct() throws Exception {
+		ProductVo vo = new ProductVo();
+		vo.setNo(4L);
+		vo.setCode("aaa");
+		vo.setName("짱짱바지3");
+		vo.setPrice(40000);
+		vo.setRegDate("2019-07-22 21:05:22");
+		vo.setIsShow(false);
+		vo.setIsOption(false);
+		vo.setShippingFee(4000);
+		vo.setOrderNo(3);
+		vo.setContents("ㅋㅋ");
+
+		ResultActions resultActions = 
+				mockMvc
+				.perform(put("/api/admin/product/modify")
+				.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
+		resultActions 
+		.andExpect(status().isOk()).andDo(print());  
+		
+	}
+	
+	// 옵션(검정/L) 추가
+	@Test
+	public void testAddProductOption() throws Exception {
+		OptionNameVo vo = new OptionNameVo();
+		vo.setProductNo(34L);
+		vo.setProductOptionName("검정/M");
+		vo.setAdditionalAmount(0L);
+		vo.setUseStock(true);
+		vo.setStock(500L);
+		
+		OptionNameVo vo2 = new OptionNameVo();
+		vo2.setProductNo(34L);
+		vo2.setProductOptionName("검정/S");
+		vo2.setAdditionalAmount(0L);
+		vo2.setUseStock(true);
+		vo2.setStock(500L);
+		
+		OptionNameVo vo3 = new OptionNameVo();
+		vo3.setProductNo(34L);
+		vo3.setProductOptionName("초록/S");
+		vo3.setAdditionalAmount(0L);
+		vo3.setUseStock(true);
+		vo3.setStock(500L);
+		
+		List<OptionNameVo> list = new ArrayList<OptionNameVo>();
+		list.add(vo);
+		list.add(vo2);
+		list.add(vo3);
+		
+		ResultActions resultActions = 
+				mockMvc
+				.perform(post("/api/admin/product/addProductOption")
+						.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(list)));
+		resultActions 
+		.andExpect(status().isOk()).andDo(print());  
+		
+	}
 	
 }
 

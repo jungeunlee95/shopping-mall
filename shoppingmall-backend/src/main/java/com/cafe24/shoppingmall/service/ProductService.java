@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cafe24.shoppingmall.repository.ProductDao;
+import com.cafe24.shoppingmall.vo.OptionNameVo;
 import com.cafe24.shoppingmall.vo.OptionValueVo;
 import com.cafe24.shoppingmall.vo.OptionVo;
 import com.cafe24.shoppingmall.vo.ProductVo;
@@ -62,9 +63,8 @@ public class ProductService {
 		if(result==1) {
 			result2 =productDao.addCategoryAndProduct(productVo.getNo(), productVo.getCategoryList());
 		}
-
 		// 옵션 사용 O -> 옵션 등록
-		if(result==1 && productVo.isOption()){
+		if(result==1 && productVo.getIsOption()){
 			result3 = productDao.addOptionValue(productVo.getNo(), productVo.getOptionValueList());
 		}
 		
@@ -82,8 +82,22 @@ public class ProductService {
 	}
 
 	public ProductVo getProductDetail(Long productNo) {
-		ProductVo vo = productDao.getProductDetail(productNo);
 		return productDao.getProductDetail(productNo);
+	}
+
+	public Boolean deleteProduct(Long no) {
+		Boolean result = productDao.delete(no)==1;
+		return result;
+	}
+
+	public ProductVo modifyProduct(ProductVo productVo) {
+		productDao.modify(productVo);
+		ProductVo vo = productDao.getProductDetail(productVo.getNo());
+		return vo;
+	}
+
+	public boolean addProductOption(List<OptionNameVo> optionNameVoList) {
+		return productDao.addProductOption(optionNameVoList)==optionNameVoList.size();
 	}
 }
 

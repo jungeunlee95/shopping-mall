@@ -8,13 +8,13 @@
 		<result  column="code" property="code" />
 		<result  column="name" property="name" />
 		<result  column="price" property="price" />
-		<result  column="reg_date" property="regDate" />
-		<result  column="isshow" property="isShow" />
-		<result  column="isoption" property="isOption" />
-		<result  column="shipping_fee" property="shippingFee" />
-		<result  column="order_no" property="orderNo" />
-		<result  column="productoption_name" property="productoptionName" />
-		<result  column="additional_amount" property="additionalAmount" />
+		<result  column="regDate" property="regDate" />
+		<result  column="isShow" property="isShow" />
+		<result  column="isOption" property="isOption" />
+		<result  column="shippingFee" property="shippingFee" />
+		<result  column="orderNo" property="orderNo" />
+		<result  column="productoptionName" property="productoptionName" />
+		<result  column="additionalAmount" property="additionalAmount" />
 		<collection property="optionNameList" column="no" select="getProductOptionName" />
 		<collection property="optionValueList" column="no" select="getProductOption" />
 		<!-- property: vo 이름, column: 변수이름, select: select id -->
@@ -50,12 +50,14 @@
 	<!-- 상품 상세 정보 -->
 	<select id="getProductDetail" parameterType="long" resultMap="productMap">
 	<![CDATA[
-		select no, code, name, price, reg_date regDate, isshow isShow, 
-				isoption isOption, shipping_fee shippingFee, order_no orderNo
+		select no, code, name, price, reg_date as 'regDate', isshow as isShow, 
+				isoption as isOption, shipping_fee as shippingFee, order_no as orderNo,
+				contents
 		from product 
 		where no = #{productNo }
 	]]>
 	</select>
+	
 	<!-- 상품 상세 정보 옵션 가져오기 -->
 	<select id="getProductOption" parameterType="long" resultType="optionvaluevo">
 	<![CDATA[
@@ -102,6 +104,14 @@
 			<![CDATA[ (null, #{category.no } , #{productNo}) ]]>
 		</foreach>
 	</insert>
+	
+	<!-- 최종 옵션 등록-->
+	<insert id="addOptionNameVoList" parameterType="map">
+	 	<![CDATA[ insert into productoption values ]]>
+		<foreach collection="optionNameVoList" item="optionname" separator=",">
+			<![CDATA[ (null, #{optionname.productNo } , #{optionname.productOptionName }, #{optionname.additionalAmount }, #{optionname.useStock }, #{optionname.stock }) ]]>
+		</foreach>
+	</insert>
 
 	<!-- 옵션 중복 체크 -->
 	<select id="getOption" parameterType="string"
@@ -135,5 +145,22 @@
 		</foreach>
 	</insert>
 
+	<!-- 상품 삭제 -->
+	<delete id="delete" parameterType="long">
+	<![CDATA[
+		delete from product where no = #{no }
+	]]>
+	</delete>
+	
+	<!-- 상품 수정 -->
+	<update id="modify" parameterType="productvo">
+		<![CDATA[
+			update product
+			set name = #{name }, price = #{price }, isshow= #{isShow }, 
+			isoption= #{isOption }, shipping_fee= #{shippingFee }, order_no= #{orderNo }, 
+			contents= #{contents }
+			where no = #{no }
+		]]>
+	</update>
 
 </mapper>
