@@ -97,7 +97,19 @@ public class ProductService {
 	}
 
 	public boolean addProductOption(List<OptionNameVo> optionNameVoList) {
+		productDao.deleteOption(optionNameVoList.get(0).getProductNo());
 		return productDao.addProductOption(optionNameVoList)==optionNameVoList.size();
+	}
+
+	public List<OptionValueVo> getLowOption(Long productNo) {
+		List<OptionValueVo> optionValueVoList = productDao.getLowOption(productNo);
+		return optionValueVoList;
+	}
+
+	public boolean modifyOptionValue(Long productNo, List<OptionValueVo> optionValueVoList) {
+		productDao.deleteOptionValue(productNo);
+		productDao.addOptionValue(productNo, optionValueVoList);
+		return false;
 	}
 }
 

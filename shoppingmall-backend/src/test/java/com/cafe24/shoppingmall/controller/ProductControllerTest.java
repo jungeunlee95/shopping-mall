@@ -55,6 +55,7 @@ public class ProductControllerTest {
 		
 	}
 	
+//	@Ignore
 	@Test
 	public void testGetProductDetail() throws Exception {
 		Long productNo = 34L;
@@ -67,4 +68,31 @@ public class ProductControllerTest {
 		.andExpect(status().isOk()).andDo(print());
 		
 	}
+	
+	// 상품 하위 옵션 가져오기
+	@Ignore
+	@Test
+	public void testGetLowOption() throws Exception {
+		Long productNo = 35L;
+		ResultActions resultActions = 
+				mockMvc
+				.perform(get("/api/product/getlowoption/{productNo}", productNo)	
+						.contentType(MediaType.APPLICATION_JSON)); 
+		
+		resultActions 
+		.andExpect(status().isOk()).andDo(print());
+		
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+

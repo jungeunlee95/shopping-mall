@@ -101,5 +101,20 @@ public class ProductDao{
 		return result;
 	}
 
+	public List<OptionValueVo> getLowOption(Long productNo) {
+		List<OptionValueVo> list = sqlSession.selectList("product.getLowOption", productNo);
+		return list;
+	}
+
+	public int deleteOptionValue(Long productNo) {
+		int result = sqlSession.delete("product.deleteOptionValue", productNo);
+		return result;
+	}
+
+	public int deleteOption(Long productNo) {
+		int result = sqlSession.delete("product.deleteOption", productNo);
+		return result;
+	}
+
 
 }

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cafe24.shoppingmall.dto.JSONResult;
 import com.cafe24.shoppingmall.service.ProductService;
+import com.cafe24.shoppingmall.vo.OptionValueVo;
 import com.cafe24.shoppingmall.vo.ProductVo;
 
 import io.swagger.annotations.ApiImplicitParam;
@@ -53,5 +54,16 @@ public class ProductController {
 		// 해당 카테고리의 list return
 		ProductVo product = productService.getProductDetail(productNo);
 		return JSONResult.success(product);
+	}
+	
+	@ApiOperation(value="상품 하위 옵션 가져오기")
+	@ApiImplicitParams({
+		
+	})
+	@GetMapping(value = "/getlowoption/{productNo}")
+	public JSONResult getLowOption(@PathVariable(value = "productNo") Long productNo) {
+		
+		List<OptionValueVo> optionValueVoList = productService.getLowOption(productNo);
+		return JSONResult.success(optionValueVoList);
 	}
 }

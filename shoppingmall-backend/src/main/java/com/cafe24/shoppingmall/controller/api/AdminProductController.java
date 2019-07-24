@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cafe24.shoppingmall.dto.JSONResult;
 import com.cafe24.shoppingmall.service.ProductService;
 import com.cafe24.shoppingmall.vo.OptionNameVo;
+import com.cafe24.shoppingmall.vo.OptionValueVo;
 import com.cafe24.shoppingmall.vo.OptionVo;
 import com.cafe24.shoppingmall.vo.ProductVo;
 
@@ -85,6 +86,19 @@ public class AdminProductController {
 	public ResponseEntity<JSONResult> modifyProduct(@RequestBody ProductVo productVo) {
 		
 		ProductVo result = productService.modifyProduct(productVo);
+		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(result));
+	} 
+	
+	@ApiOperation(value="하위 옵션 수정")
+	@ApiImplicitParams({
+		@ApiImplicitParam()
+	})
+	@PutMapping(value="/modifyOptionValue/{productNo}") 
+	public ResponseEntity<JSONResult> modifyOptionValue(
+			@RequestBody List<OptionValueVo> optionValueVoList,
+			@PathVariable(value="productNo") Long productNo) {
+		
+		boolean result = productService.modifyOptionValue(productNo, optionValueVoList);
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(result));
 	} 
 	

@@ -237,24 +237,25 @@ public class AdminProductControllerTest {
 	}
 	
 	// 옵션(검정/L) 추가
+//	@Ignore
 	@Test
 	public void testAddProductOption() throws Exception {
 		OptionNameVo vo = new OptionNameVo();
-		vo.setProductNo(34L);
+		vo.setProductNo(35L);
 		vo.setProductOptionName("검정/M");
 		vo.setAdditionalAmount(0L);
 		vo.setUseStock(true);
 		vo.setStock(500L);
 		
 		OptionNameVo vo2 = new OptionNameVo();
-		vo2.setProductNo(34L);
+		vo2.setProductNo(35L);
 		vo2.setProductOptionName("검정/S");
 		vo2.setAdditionalAmount(0L);
 		vo2.setUseStock(true);
 		vo2.setStock(500L);
 		
 		OptionNameVo vo3 = new OptionNameVo();
-		vo3.setProductNo(34L);
+		vo3.setProductNo(35L);
 		vo3.setProductOptionName("초록/S");
 		vo3.setAdditionalAmount(0L);
 		vo3.setUseStock(true);
@@ -269,6 +270,53 @@ public class AdminProductControllerTest {
 				mockMvc
 				.perform(post("/api/admin/product/addProductOption")
 						.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(list)));
+		resultActions 
+		.andExpect(status().isOk()).andDo(print());  
+		
+	}
+	
+	// 옵션 수정
+	@Ignore
+	@Test
+	public void testModifyOptionValue() throws Exception {
+		// ----------------------- 옵션 등록-------------------------
+		List<OptionValueVo> optionValueList = new ArrayList<OptionValueVo>();
+
+		OptionValueVo optionValueVo = new OptionValueVo();
+		optionValueVo.setOptionNo(1L);
+		optionValueVo.setValue("핑꾸");
+		// ============= 옵션 값 등록 ===============
+		optionValueList.add(optionValueVo);
+		
+		OptionValueVo optionValueVo2 = new OptionValueVo();
+		optionValueVo2.setOptionNo(1L);
+		optionValueVo2.setValue("노랭");
+		// ============= 옵션 값 등록 ===============
+		optionValueList.add(optionValueVo2);
+	
+		OptionValueVo optionValueVo3 = new OptionValueVo();
+		optionValueVo3.setOptionNo(2L);
+		optionValueVo3.setValue("XXL");
+		// ============= 옵션 값 등록 ===============
+		optionValueList.add(optionValueVo3);
+		
+		OptionValueVo optionValueVo4 = new OptionValueVo();
+		optionValueVo4.setOptionNo(2L);
+		optionValueVo4.setValue("XL");
+		// ============= 옵션 값 등록 ===============
+		optionValueList.add(optionValueVo4);
+		
+		OptionValueVo optionValueVo5 = new OptionValueVo();
+		optionValueVo5.setOptionNo(2L);
+		optionValueVo5.setValue("L");
+		// ============= 옵션 값 등록 ===============
+		optionValueList.add(optionValueVo5);
+		
+		Long productNo = 34L;
+		ResultActions resultActions = 
+				mockMvc
+				.perform(put("/api/admin/product/modifyOptionValue/{productNo}", productNo)
+						.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(optionValueList)));
 		resultActions 
 		.andExpect(status().isOk()).andDo(print());  
 		

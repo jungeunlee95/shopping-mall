@@ -162,5 +162,32 @@
 			where no = #{no }
 		]]>
 	</update>
+	
+	<!-- 하위 옵션 목록 -->
+	<select id="getLowOption" parameterType="long" resultType="optionvaluevo">
+	<![CDATA[
+		select ov.no no, ov.product_no productNo, ov.optionname_no optionNo, o.name optionName, ov.value 
+		from optionvalue ov, option o 
+		where o.no = ov.optionname_no
+		and product_no=#{no }
+		order by optionname_no, no
+	]]>
+	</select>
+	
+	<!-- 하위 옵션 삭제 -->	
+	<delete id="deleteOptionValue" parameterType="long">
+	<![CDATA[
+		delete from optionvalue
+		where product_no=#{no }
+	]]>
+	</delete>
+	
+	<!-- 최종 옵션 삭제 -->	
+	<delete id="deleteOption" parameterType="long">
+	<![CDATA[
+		delete from productoption
+		where product_no=#{no }
+	]]>
+	</delete>
 
 </mapper>
