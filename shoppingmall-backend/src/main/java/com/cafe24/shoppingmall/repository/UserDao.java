@@ -68,5 +68,17 @@ public class UserDao{
 		return sqlSession.insert("user.insertAddress", userAddressVo);
 	}
 
+	public List<UserAddressVo> getUserAddressList(Long userNo) {
+		return sqlSession.selectList("user.getAddressList", userNo);
+	}
+	
+	public UserAddressVo getUserAddress(Long addressNo) {
+		return sqlSession.selectOne("user.getAddress", addressNo);
+	}
+
+	public int deleteAddress(Long addressNo) {
+		return sqlSession.delete("user.deleteAddress", addressNo);
+	}
+
 
 }

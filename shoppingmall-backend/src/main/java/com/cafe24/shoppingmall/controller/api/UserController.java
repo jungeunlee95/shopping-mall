@@ -179,6 +179,37 @@ public class UserController {
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(result));
 	} 
 	
+	
+	@ApiOperation(value="회원 주소지 리스트 가져오기")
+	@ApiImplicitParams({
+		@ApiImplicitParam(name="userNo", value="userNo : 회원번호", required=true, dataType="Long", defaultValue="")
+	})
+	@GetMapping(value="/getAddressList") 
+	public ResponseEntity<JSONResult> getAddressList(@RequestParam(value = "userNo") Long userNo) {
+		List<UserAddressVo> result = userService.getAddressList(userNo);
+		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(result));
+	} 
+	
+	@ApiOperation(value="회원 주소지 가져오기")
+	@ApiImplicitParams({
+		@ApiImplicitParam(name="addressNo", value="addressNo : 주소지번호", required=true, dataType="Long", defaultValue="")
+	})
+	@GetMapping(value="/getAddress") 
+	public ResponseEntity<JSONResult> getAddress(@RequestParam(value = "addressNo") Long addressNo) {
+		UserAddressVo result = userService.getAddress(addressNo);
+		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(result));
+	} 
+	
+	@ApiOperation(value="회원 주소지 삭제하기")
+	@ApiImplicitParams({
+		@ApiImplicitParam(name="addressNo", value="addressNo : 주소지번호", required=true, dataType="Long", defaultValue="")
+	})
+	@DeleteMapping(value="/deleteAddress") 
+	public ResponseEntity<JSONResult> deleteAddress(@RequestParam(value = "addressNo") Long addressNo) {
+		Boolean result = userService.deleteAddress(addressNo);
+		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(result));
+	} 
+	
 
 	
 }

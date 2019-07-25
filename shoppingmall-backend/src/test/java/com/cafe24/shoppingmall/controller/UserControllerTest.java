@@ -352,7 +352,7 @@ public class UserControllerTest {
 		.andExpect(status().isOk()).andDo(print()); 
 	}
 	
-
+	@Ignore
 	@Test
 	public void testAddUserAddress() throws Exception {
 		 
@@ -368,6 +368,57 @@ public class UserControllerTest {
 				mockMvc
 				.perform(post("/api/user/addAddress")
 				.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
+		resultActions 
+		.andExpect(status().isOk()).andDo(print());
+	}
+	
+	// 주소지 리스트 가져오기
+	@Ignore
+	@Test
+	public void getUserAddressList() throws Exception {
+		String userNo = "2";
+		
+		ResultActions resultActions =
+				mockMvc
+				.perform(get("/api/user/getAddressList")
+				.param("userNo", userNo)	
+				.contentType(MediaType.APPLICATION_JSON));
+		
+
+		resultActions 
+		.andExpect(status().isOk()).andDo(print());
+	}
+	
+	// 주소지 가져오기
+	@Ignore
+	@Test
+	public void getUserAddress() throws Exception {
+		String addressNo = "1";
+		
+		ResultActions resultActions =
+				mockMvc
+				.perform(get("/api/user/getAddress")
+						.param("addressNo", addressNo)	
+						.contentType(MediaType.APPLICATION_JSON));
+		
+		
+		resultActions 
+		.andExpect(status().isOk()).andDo(print());
+	}
+	
+	// 주소지 삭제
+	@Ignore
+	@Test
+	public void deleteAddress() throws Exception {
+		String addressNo = "1";
+		
+		ResultActions resultActions =
+				mockMvc
+				.perform(delete("/api/user/deleteAddress")
+						.param("addressNo", addressNo)	
+						.contentType(MediaType.APPLICATION_JSON));
+		
+		
 		resultActions 
 		.andExpect(status().isOk()).andDo(print());
 	}

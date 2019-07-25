@@ -55,6 +55,19 @@ public class UserService{
 	public Boolean addAddress(UserAddressVo userAddressVo) {
 		Boolean result =  userDao.insertUserAddress(userAddressVo)==1;
 		return result;
+	}
+
+	public List<UserAddressVo> getAddressList(Long userNo) {
+		return userDao.getUserAddressList(userNo);
+	} 
+	
+	public UserAddressVo getAddress(Long addressNo) {
+		return userDao.getUserAddress(addressNo);
+	}
+
+	public Boolean deleteAddress(Long addressNo) {
+		Boolean result =  userDao.deleteAddress(addressNo)==1;
+		return result;
 	} 
 
 }
