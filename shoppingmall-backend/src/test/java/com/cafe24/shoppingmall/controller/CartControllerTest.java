@@ -26,6 +26,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.cafe24.shoppingmall.config.WebConfig;
+import com.cafe24.shoppingmall.vo.CartVo;
 import com.cafe24.shoppingmall.vo.UserVo;
 import com.google.gson.Gson;
 
@@ -43,21 +44,68 @@ public class CartControllerTest {
 		mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
 	}
 	
-	
+	@Ignore
 	@Test
-	public void testAddCart() throws Exception {
-		Long userNo = 3L;
-		Long productOptionNo = 3L;
+	public void testNonUserAddCart() throws Exception {
+		CartVo vo = new CartVo();
+		vo.setNonUserNo("AA1234BB");
+		vo.setProductOptionNo(10L);
+		vo.setQuantity(5L);
+		
 		ResultActions resultActions = 
 				mockMvc
-				.perform(post("/api/cart/{userNo}/{productOptionNo}", userNo, productOptionNo)
-				.param("quantity","40")	
-				.contentType(MediaType.APPLICATION_JSON)); 
-		
+				.perform(post("/api/cart/add")
+						.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
 		resultActions 
 		.andExpect(status().isOk()).andDo(print());
-		
 	}
+	
+	@Ignore
+	@Test
+	public void testUserAddCart() throws Exception {
+		CartVo vo = new CartVo();
+		vo.setUserNo(2L);
+		vo.setProductOptionNo(10L);
+		vo.setQuantity(500L);
+		
+		ResultActions resultActions = 
+				mockMvc
+				.perform(post("/api/cart/add")
+						.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
+		resultActions 
+		.andExpect(status().isOk()).andDo(print());
+	}
+	
+	@Ignore
+	@Test
+	public void testUserGetList() throws Exception {
+		CartVo vo = new CartVo();
+		vo.setUserNo(2L);
+		
+		ResultActions resultActions = 
+				mockMvc
+				.perform(get("/api/cart/getList")
+						.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
+		resultActions 
+		.andExpect(status().isOk()).andDo(print());
+	}
+	
+	@Test
+	public void testNonUserGetList() throws Exception {
+		CartVo vo = new CartVo();
+		vo.setNonUserNo("AA1234BB");
+		
+		ResultActions resultActions = 
+				mockMvc
+				.perform(get("/api/cart/getList")
+						.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
+		resultActions 
+		.andExpect(status().isOk()).andDo(print());
+	}
+	
+	
+	
+	
 	
 	@Ignore
 	@Test

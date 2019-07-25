@@ -60,6 +60,7 @@ public class ProductService {
  
 		// 옵션 사용 X -> 카테고리만 등록
 		result = productDao.addProduct(productVo);
+		
 		if(result==1) {
 			result2 =productDao.addCategoryAndProduct(productVo.getNo(), productVo.getCategoryList());
 		}

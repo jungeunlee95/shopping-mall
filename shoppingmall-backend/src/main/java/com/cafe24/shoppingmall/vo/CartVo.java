@@ -3,17 +3,34 @@ package com.cafe24.shoppingmall.vo;
 public class CartVo {
 
 	private Long no;
+	private Long productOptionNo;
+	private Long userNo;
+	private String nonUserNo;
+	private String productName;
 	private String image;
-	private int productName;
-	private String optionName;
-	private boolean price;
-	private String quantity;
-	private boolean shippingFee;
-	private int shoppingFee;
+	private Long price;
+	private Long quantity;
+	private Long sumPrice;
+	private Long shippingFee;
 
 	public CartVo() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+
+	public CartVo(Long no, Long productOptionNo, Long userNo, String nonUserNo, String productName, String image,
+			Long price, Long quantity, Long sumPrice, Long shippingFee) {
+		super();
+		this.no = no;
+		this.productOptionNo = productOptionNo;
+		this.userNo = userNo;
+		this.nonUserNo = nonUserNo;
+		this.productName = productName;
+		this.image = image;
+		this.price = price;
+		this.quantity = quantity;
+		this.sumPrice = sumPrice;
+		this.shippingFee = shippingFee;
 	}
 
 	public Long getNo() {
@@ -24,6 +41,38 @@ public class CartVo {
 		this.no = no;
 	}
 
+	public Long getProductOptionNo() {
+		return productOptionNo;
+	}
+
+	public void setProductOptionNo(Long productOptionNo) {
+		this.productOptionNo = productOptionNo;
+	}
+
+	public Long getUserNo() {
+		return userNo;
+	}
+
+	public void setUserNo(Long userNo) {
+		this.userNo = userNo;
+	}
+
+	public String getNonUserNo() {
+		return nonUserNo;
+	}
+
+	public void setNonUserNo(String nonUserNo) {
+		this.nonUserNo = nonUserNo;
+	}
+
+	public String getProductName() {
+		return productName;
+	}
+
+	public void setProductName(String productName) {
+		this.productName = productName;
+	}
+
 	public String getImage() {
 		return image;
 	}
@@ -32,72 +81,43 @@ public class CartVo {
 		this.image = image;
 	}
 
-	public int getProductName() {
-		return productName;
-	}
-
-	public void setProductName(int productName) {
-		this.productName = productName;
-	}
-
-	public String getOptionName() {
-		return optionName;
-	}
-
-	public void setOptionName(String optionName) {
-		this.optionName = optionName;
-	}
-
-	public boolean isPrice() {
+	public Long getPrice() {
 		return price;
 	}
 
-	public void setPrice(boolean price) {
+	public void setPrice(Long price) {
 		this.price = price;
 	}
 
-	public String getQuantity() {
+	public Long getQuantity() {
 		return quantity;
 	}
 
-	public void setQuantity(String quantity) {
+	public void setQuantity(Long quantity) {
 		this.quantity = quantity;
 	}
 
-	public boolean isShippingFee() {
+	public Long getSumPrice() {
+		return sumPrice;
+	}
+
+	public void setSumPrice(Long sumPrice) {
+		this.sumPrice = sumPrice;
+	}
+
+	public Long getShippingFee() {
 		return shippingFee;
 	}
 
-	public void setShippingFee(boolean shippingFee) {
+	public void setShippingFee(Long shippingFee) {
 		this.shippingFee = shippingFee;
-	}
-
-	public int getShoppingFee() {
-		return shoppingFee;
-	}
-
-	public void setShoppingFee(int shoppingFee) {
-		this.shoppingFee = shoppingFee;
-	}
-
-	public CartVo(Long no, String image, int productName, String optionName, boolean price, String quantity,
-			boolean shippingFee, int shoppingFee) {
-		super();
-		this.no = no;
-		this.image = image;
-		this.productName = productName;
-		this.optionName = optionName;
-		this.price = price;
-		this.quantity = quantity;
-		this.shippingFee = shippingFee;
-		this.shoppingFee = shoppingFee;
 	}
 
 	@Override
 	public String toString() {
-		return "CartVo [no=" + no + ", image=" + image + ", productName=" + productName + ", optionName=" + optionName
-				+ ", price=" + price + ", quantity=" + quantity + ", shippingFee=" + shippingFee + ", shoppingFee="
-				+ shoppingFee + "]";
+		return "CartVo [no=" + no + ", productOptionNo=" + productOptionNo + ", userNo=" + userNo + ", nonUserNo="
+				+ nonUserNo + ", productName=" + productName + ", image=" + image + ", price=" + price + ", quantity="
+				+ quantity + ", sumPrice=" + sumPrice + ", shippingFee=" + shippingFee + "]";
 	}
 
 }

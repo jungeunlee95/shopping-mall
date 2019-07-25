@@ -3,12 +3,84 @@
 
 <mapper namespace="cart">
 	
-	<!-- 장바구니 추가 -->	
-	<insert id="insert" parameterType="map">
-	<![CDATA[  
-		insert into cart
-		values(null, #{optionNo }, #{userNo }, #{quantity })
-	]]>
+	<!-- 장바구니 새 물품 추가 -->	
+	<insert id="insertNew" parameterType="cartvo">
+		<if test="userNo != null and userNo != ''">
+			<![CDATA[
+				insert into cart(no, productoption_no, user_no, quantity) 
+				values(null, #{productOptionNo } , #{userNo }, #{quantity })
+			]]>
+		</if> 
+		<if test="nonUserNo != null and nonUserNo != ''">
+			<![CDATA[
+				insert into cart(no, productoption_no, nonuser_no, quantity, user_no)
+				values(null, #{productOptionNo } , #{nonUserNo }, #{quantity }, 0)
+			]]>
+		</if> 
 	</insert>
+	
+	<!-- 장바구니 기존 물품 추가 -->	
+	<update id="plusQuantity" parameterType="cartvo">
+	<![CDATA[  
+		update cart 
+		set quantity = quantity + #{quantity }
+		where productoption_no =#{productOptionNo }
+	]]>
+		<if test="userNo != null and userNo != ''">
+			<![CDATA[
+				and user_no = #{userNo }
+			]]>
+		</if> 
+		<if test="nonUserNo != null and nonUserNo != ''">
+			<![CDATA[
+				and nonuser_no = #{nonUserNo }
+			]]>
+		</if> 
+	</update>
+	
+	<!-- 장바구니에 담긴 상품인지 체크 -->	
+	<select id="count" parameterType="cartvo" resultType="int">
+	<![CDATA[  
+		select count(*)
+		from cart
+		where productoption_no = #{productOptionNo }
+	]]> 
+		<if test="userNo != null and userNo != ''">
+			<![CDATA[
+				and user_no = #{userNo }
+			]]>
+		</if> 
+		<if test="nonUserNo != null and nonUserNo != ''">
+			<![CDATA[
+				and nonuser_no = #{nonUserNo }
+			]]>
+		</if> 
+	</select>
+	
+	<!-- 장바구니에 담긴 상품 리스트 가져오기 -->	
+	<select id="getList" parameterType="cartvo" resultType="cartvo">
+	<![CDATA[  
+		select c.no, c.productoption_no productoptionNo, p.name, po.productoption_name productName,
+			   sum(c.quantity) quantity, p.price, sum(c.quantity)*price sumPrice
+		from cart c, productoption po, product p
+		where c.productoption_no = po.no
+		and po.product_no = p.no
+	]]> 
+	
+		<if test="userNo != null and userNo != ''">
+			<![CDATA[
+				and user_no = #{userNo }
+			]]>
+		</if> 
+		<if test="nonUserNo != null and nonUserNo != ''">
+			<![CDATA[
+				and nonuser_no = #{nonUserNo }
+			]]>
+		</if> 
+		
+	<![CDATA[
+		group by productoptionNo
+	]]>
+	</select>
 
 </mapper>

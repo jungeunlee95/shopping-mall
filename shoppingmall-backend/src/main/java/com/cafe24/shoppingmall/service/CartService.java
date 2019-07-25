@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cafe24.shoppingmall.repository.CartDao;
+import com.cafe24.shoppingmall.vo.CartVo;
 import com.cafe24.shoppingmall.vo.ProductVo;
 
 @Service
@@ -14,46 +15,25 @@ public class CartService{
 	@Autowired
 	private CartDao cartDao;
 
-	/**
-	 * 회원 장바구니에 상품 추가
-	 * @param userNo
-	 * @param optionNo
-	 * @param quantity 
-	 * @return
-	 */
-	public boolean addCart(Long userNo, Long optionNo, Long quantity) {
-		boolean result = cartDao.add(userNo, optionNo, quantity);
+	// 장바구니 상품 추가
+	public boolean addCart(CartVo cartVo) {
+		boolean result = false;
+		if(cartDao.checkCart(cartVo)==0) {
+			result = cartDao.addCart(cartVo)==1;			
+		}else {
+			result = cartDao.plusQuantity(cartVo)==1;			
+		}
+		return result;
+	}
+	
+
+	// 장바구니 목록 가져오기 
+	public List<CartVo> getCartList(CartVo cartVo) {
+		List<CartVo> result = cartDao.getCartList(cartVo);			
 		return result;
 	}
 
-	/**
-	 * 해당회원 장바구니 상품 옵션 변경
-	 * @param userId
-	 * @param cartNo
-	 * @param optionNo
-	 * @return
-	 */
-	public boolean modifyCartOption(String userId, Long cartNo, Long optionNo) {
-		boolean result = cartDao.modifyOption(userId, cartNo, optionNo);
-		return result;
-	}
 
-	/**
-	 * 해당회원 장바구니 상품 수량 변경
-	 * @param userId
-	 * @param cartNo
-	 * @param quantity
-	 * @return
-	 */
-	public boolean modifyCartQuantity(String userId, Long cartNo, Long quantity) {
-		boolean result = cartDao.modifyQuantity(userId, cartNo, quantity);
-		return result;
-	}
-
-	public boolean deleteCart(String userId, Long cartNo) {
-		boolean result = cartDao.delete(userId, cartNo);
-		return result;
-	}
 
 
 }

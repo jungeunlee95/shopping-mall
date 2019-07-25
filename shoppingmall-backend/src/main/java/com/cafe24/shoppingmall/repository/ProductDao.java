@@ -24,6 +24,7 @@ public class ProductDao{
 	
 	public int addProduct(ProductVo productVo) {
 		int result = sqlSession.insert("product.addProduct", productVo);
+
 		return result;
 	}
 	
