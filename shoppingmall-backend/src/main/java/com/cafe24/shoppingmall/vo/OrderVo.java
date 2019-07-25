@@ -1,5 +1,7 @@
 package com.cafe24.shoppingmall.vo;
 
+import java.util.List;
+
 public class OrderVo {
 	private String key;
 
@@ -16,13 +18,16 @@ public class OrderVo {
 	private String regDate;
 	private String message;
 
+	private List<OrderDetailVo> productOptionList;
+
 	public OrderVo() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
 	public OrderVo(String key, Long no, Long userNo, Long orderNo, String name, String gender, String password,
-			String phoneNumber, String email, String address, Long totalPrice, String regDate, String message) {
+			String phoneNumber, String email, String address, Long totalPrice, String regDate, String message,
+			List<OrderDetailVo> productOptionList) {
 		super();
 		this.key = key;
 		this.no = no;
@@ -37,6 +42,7 @@ public class OrderVo {
 		this.totalPrice = totalPrice;
 		this.regDate = regDate;
 		this.message = message;
+		this.productOptionList = productOptionList;
 	}
 
 	public String getKey() {
@@ -143,12 +149,20 @@ public class OrderVo {
 		this.message = message;
 	}
 
+	public List<OrderDetailVo> getProductOptionList() {
+		return productOptionList;
+	}
+
+	public void setProductOptionList(List<OrderDetailVo> productOptionList) {
+		this.productOptionList = productOptionList;
+	}
+
 	@Override
 	public String toString() {
 		return "OrderVo [key=" + key + ", no=" + no + ", userNo=" + userNo + ", orderNo=" + orderNo + ", name=" + name
 				+ ", gender=" + gender + ", password=" + password + ", phoneNumber=" + phoneNumber + ", email=" + email
 				+ ", address=" + address + ", totalPrice=" + totalPrice + ", regDate=" + regDate + ", message="
-				+ message + "]";
+				+ message + ", productOptionList=" + productOptionList + "]";
 	}
 
 }

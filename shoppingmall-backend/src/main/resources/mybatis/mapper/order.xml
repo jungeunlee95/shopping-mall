@@ -3,4 +3,61 @@
 
 <mapper namespace="order">
 
+	<insert id="insertOrder" parameterType="ordervo">
+		<if test="userNo != null and userNo != ''">
+			<![CDATA[
+				insert into orders(no, user_no, order_no, name, gender, phone_number, 
+				email, address, total_price, reg_date, message) values(null,
+				#{userNo }, concat(
+					DATE_FORMAT(now(),'%Y%m%d'), '-',
+					lpad( ((select count(*) from orders ALIAS_FOR_SUBQUERY
+					where DATE_FORMAT(reg_date, '%y%m%d') = DATE_FORMAT(now(), '%y%m%d') )+1), '6', '0' )
+				), 
+				AES_ENCRYPT(#{name }, SHA2(#{key }, 512)), #{gender },  
+				AES_ENCRYPT(#{phoneNumber }, SHA2(#{key }, 512)), 
+				AES_ENCRYPT(#{email }, SHA2(#{key }, 512)),
+				AES_ENCRYPT(#{address }, SHA2(#{key }, 512)), #{totalPrice }, now(), #{message }
+				)
+			]]>
+		</if> 
+		<if test="userNo == null and userNo == ''">
+			<![CDATA[
+				insert into orders values(null,
+				0, concat(
+					DATE_FORMAT(now(),'%Y%m%d'), '-',
+					lpad( ((select count(*) from orders ALIAS_FOR_SUBQUERY
+					where DATE_FORMAT(reg_date, '%y%m%d') = DATE_FORMAT(now(), '%y%m%d') )+1), '6', '0' )
+				), 
+				AES_ENCRYPT(#{name }, SHA2(#{key }, 512)), #{gender },  
+				SHA2(#{password },512), 
+				AES_ENCRYPT(#{phoneNumber }, SHA2(#{key }, 512)), 
+				AES_ENCRYPT(#{email }, SHA2(#{key }, 512)),
+				AES_ENCRYPT(#{address }, SHA2(#{key }, 512)), #{totalPrice }, now(), #{message }
+				)
+			]]>
+		</if> 
+		
+		<selectKey keyProperty="no" resultType="long" order="AFTER">
+			<![CDATA[
+				select last_insert_id()
+			]]>
+		</selectKey>
+	</insert>
+	
+	
+	<insert id="insertOrderDetail" parameterType="map">
+		<![CDATA[ insert into orderdetail values ]]>
+		<foreach collection="orderDetailList" item="option" separator=",">
+		<![CDATA[
+			(null, #{no },
+			(select product_no from productoption where no = #{option.productOptionNo }) , 
+			(select name from product where no = (select product_no from productoption where no = #{option.productOptionNo })),
+			(select productoption_name from productoption where no = #{option.productOptionNo }), 
+			#{option.quantity }, "배송준비중", 
+			(select price from product where no = (select product_no from productoption where no = #{option.productOptionNo }))
+			)
+		]]>
+		</foreach>
+		
+	</insert>
 </mapper>

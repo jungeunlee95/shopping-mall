@@ -4,7 +4,9 @@ public class OrderDetailVo {
 
 	private Long no;
 	private Long orderNo;
+	private Long orderStringNo;
 	private Long productNo;
+	private Long productOptionNo;
 	private String productName;
 	private String productOptionName;
 	private Long quantity;
@@ -15,12 +17,14 @@ public class OrderDetailVo {
 		// TODO Auto-generated constructor stub
 	}
 
-	public OrderDetailVo(Long no, Long orderNo, Long productNo, String productName, String productOptionName,
-			Long quantity, Long price) {
+	public OrderDetailVo(Long no, Long orderNo, Long orderStringNo, Long productNo, Long productOptionNo,
+			String productName, String productOptionName, Long quantity, Long price) {
 		super();
 		this.no = no;
 		this.orderNo = orderNo;
+		this.orderStringNo = orderStringNo;
 		this.productNo = productNo;
+		this.productOptionNo = productOptionNo;
 		this.productName = productName;
 		this.productOptionName = productOptionName;
 		this.quantity = quantity;
@@ -43,12 +47,28 @@ public class OrderDetailVo {
 		this.orderNo = orderNo;
 	}
 
+	public Long getOrderStringNo() {
+		return orderStringNo;
+	}
+
+	public void setOrderStringNo(Long orderStringNo) {
+		this.orderStringNo = orderStringNo;
+	}
+
 	public Long getProductNo() {
 		return productNo;
 	}
 
 	public void setProductNo(Long productNo) {
 		this.productNo = productNo;
+	}
+
+	public Long getProductOptionNo() {
+		return productOptionNo;
+	}
+
+	public void setProductOptionNo(Long productOptionNo) {
+		this.productOptionNo = productOptionNo;
 	}
 
 	public String getProductName() {
@@ -85,9 +105,9 @@ public class OrderDetailVo {
 
 	@Override
 	public String toString() {
-		return "OrderDetailVo [no=" + no + ", orderNo=" + orderNo + ", productNo=" + productNo + ", productName="
-				+ productName + ", productOptionName=" + productOptionName + ", quantity=" + quantity + ", price="
-				+ price + "]";
+		return "OrderDetailVo [no=" + no + ", orderNo=" + orderNo + ", orderStringNo=" + orderStringNo + ", productNo="
+				+ productNo + ", productOptionNo=" + productOptionNo + ", productName=" + productName
+				+ ", productOptionName=" + productOptionName + ", quantity=" + quantity + ", price=" + price + "]";
 	}
 
 }
