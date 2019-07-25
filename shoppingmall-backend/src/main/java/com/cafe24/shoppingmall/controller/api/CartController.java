@@ -4,6 +4,7 @@ package com.cafe24.shoppingmall.controller.api;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -72,14 +73,13 @@ public class CartController {
 	
 	@ApiOperation(value="장바구니 상품 삭제")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name="userNo", value="userNo: 회원번호", required=false, dataType="long", defaultValue=""),
-		@ApiImplicitParam(name="nonUserNo", value="nonUserNo: 비회원번호", required=false, dataType="string", defaultValue=""),
-		@ApiImplicitParam(name="productOptionNo", value="productOptionNo: 상품옵션번호", required=false, dataType="long", defaultValue="")
+		@ApiImplicitParam(name="no", value="no: 장바구니 번호", required=true, dataType="long", defaultValue="")
+		
 	})
-	@GetMapping(value = "/delete")
-	public JSONResult deleteCart(@RequestBody CartVo cartVo) {
-		List<OptionNameVo> list = productService.getOptionList(no);
-		return JSONResult.success(list);
+	@DeleteMapping(value = "/delete")
+	public JSONResult deleteCart(@RequestBody List<Integer> noList) {
+		Boolean result = cartService.deleteCart(noList);
+		return JSONResult.success(result);
 	}
 	
 	

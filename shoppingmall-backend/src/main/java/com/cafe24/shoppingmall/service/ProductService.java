@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.cafe24.shoppingmall.repository.ProductDao;
 import com.cafe24.shoppingmall.vo.OptionNameVo;
@@ -12,6 +13,7 @@ import com.cafe24.shoppingmall.vo.OptionVo;
 import com.cafe24.shoppingmall.vo.ProductVo;
 
 @Service
+@Transactional
 public class ProductService {
 
 	@Autowired

@@ -83,22 +83,15 @@
 	]]>
 	</select>
 	
-		<!-- 장바구니에 담긴 상품인지 체크 -->	
+	<!-- 장바구니상품 삭제-->	
 	<delete id="delete" parameterType="cartvo">
-	<![CDATA[  
-		delete from cart
-		where productoption_no = #{productOptionNo }
-	]]> 
-		<if test="userNo != null and userNo != ''">
-			<![CDATA[
-				and user_no = #{userNo }
-			]]>
-		</if> 
-		<if test="nonUserNo != null and nonUserNo != ''">
-			<![CDATA[
-				and nonuser_no = #{nonUserNo }
-			]]>
-		</if> 
+		<![CDATA[ delete from cart where no in ( ]]>
+		
+		<foreach collection="noList" item="no" separator=",">
+			<![CDATA[  #{no } ]]>
+		</foreach>
+		
+		<![CDATA[ ) ]]>
 	</delete>
 
 </mapper>

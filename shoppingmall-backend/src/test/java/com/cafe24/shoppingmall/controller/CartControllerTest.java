@@ -1,14 +1,14 @@
 package com.cafe24.shoppingmall.controller;
 
-import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.Matchers.is;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -16,18 +16,13 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import com.cafe24.shoppingmall.config.WebConfig;
 import com.cafe24.shoppingmall.vo.CartVo;
-import com.cafe24.shoppingmall.vo.UserVo;
 import com.google.gson.Gson;
 
 @RunWith(SpringRunner.class)
@@ -104,7 +99,7 @@ public class CartControllerTest {
 		.andExpect(status().isOk()).andDo(print());
 	}
 	
-
+	@Ignore
 	@Test
 	public void getOptionList() throws Exception {
 		String no = "8";
@@ -116,6 +111,21 @@ public class CartControllerTest {
 				.contentType(MediaType.APPLICATION_JSON));
 		
 
+		resultActions 
+		.andExpect(status().isOk()).andDo(print());
+	}
+	
+
+	@Test
+	public void testDeleteCart() throws Exception {
+		
+		List<Integer> list = new ArrayList<Integer>();
+		list.add(18);
+		
+		ResultActions resultActions = 
+				mockMvc
+				.perform(delete("/api/cart/delete")
+				.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(list)));
 		resultActions 
 		.andExpect(status().isOk()).andDo(print());
 	}

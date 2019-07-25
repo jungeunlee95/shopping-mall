@@ -34,6 +34,12 @@ public class CartService{
 	}
 
 
+	public Boolean deleteCart(List<Integer> noList) {
+		boolean result = cartDao.delete(noList)==noList.size();			
+		return result;
+	}
+
+
 
 
 }

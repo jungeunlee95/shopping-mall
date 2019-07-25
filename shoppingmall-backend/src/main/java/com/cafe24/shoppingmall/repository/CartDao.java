@@ -1,6 +1,8 @@
 package com.cafe24.shoppingmall.repository;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +35,12 @@ public class CartDao{
 	// 장바구니 리스트 가져오기
 	public List<CartVo> getCartList(CartVo cartVo) {
 		return sqlSession.selectList("cart.getList", cartVo);
+	}
+
+	public int delete(List<Integer> noList) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("noList", noList);
+		return sqlSession.delete("cart.delete", map);
 	}
 	
 	
