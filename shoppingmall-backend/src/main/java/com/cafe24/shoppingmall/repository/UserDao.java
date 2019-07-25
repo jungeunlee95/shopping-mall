@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.cafe24.shoppingmall.vo.UserAddressVo;
 import com.cafe24.shoppingmall.vo.UserVo;
 
 @Repository
@@ -53,8 +54,6 @@ public class UserDao{
 	}
 
 	public UserVo update(UserVo userVo) {
-		System.out.println("==============================");
-		System.out.println(userVo);
 		userVo.setKey(KEY);
 		sqlSession.update("user.modify", userVo); 
 		return userVo;
@@ -62,6 +61,11 @@ public class UserDao{
 
 	public Boolean deleteUser(Long no) {
 		return 1==sqlSession.delete("user.delete", no); 
+	}
+
+	public int insertUserAddress(UserAddressVo userAddressVo) {
+		userAddressVo.setKey(KEY);
+		return sqlSession.insert("user.insertAddress", userAddressVo);
 	}
 
 

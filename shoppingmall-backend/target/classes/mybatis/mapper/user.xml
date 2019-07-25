@@ -103,4 +103,14 @@
 		delete from user where no = #{no }
 	]]>
 	</delete>
+	
+	<!-- 회원 주소지 추가  -->
+	<select id="insertAddress" parameterType="useraddressvo">
+	<![CDATA[
+		insert into address values(null, #{userNo }, 
+		AES_ENCRYPT(#{addressCode } , SHA2(#{key }, 512)),  
+		AES_ENCRYPT(#{address }, SHA2(#{key }, 512)), 
+		AES_ENCRYPT(#{addressDetail }, SHA2(#{key }, 512)),  #{addressCheck });
+	]]>
+	</select>
 </mapper>

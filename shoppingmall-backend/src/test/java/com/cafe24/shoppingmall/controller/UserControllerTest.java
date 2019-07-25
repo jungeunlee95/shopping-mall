@@ -34,13 +34,13 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.cafe24.shoppingmall.config.WebConfig;
+import com.cafe24.shoppingmall.vo.UserAddressVo;
 import com.cafe24.shoppingmall.vo.UserVo;
 import com.google.gson.Gson;
 
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@Transactional
 public class UserControllerTest {
 
 	private MockMvc mockMvc;
@@ -222,7 +222,7 @@ public class UserControllerTest {
 		resultActions = 
 				mockMvc
 				.perform(get("/api/user/checkId?id={id}", id)
-						.contentType(MediaType.APPLICATION_JSON));
+				.contentType(MediaType.APPLICATION_JSON));
 		
 		resultActions 
 		.andExpect(status().isOk()).andDo(print())
@@ -350,6 +350,26 @@ public class UserControllerTest {
 		
 		resultActions 
 		.andExpect(status().isOk()).andDo(print()); 
+	}
+	
+
+	@Test
+	public void testAddUserAddress() throws Exception {
+		 
+		UserAddressVo vo = new UserAddressVo();
+		vo.setUserNo(3L);
+		vo.setAddressCode("16929");
+		vo.setAddress("서울시 강남구 어디건물");
+		vo.setAddressDetail("몇동 몇호");
+		vo.setAddressCheck("회사");
+		
+		// 이름 검사
+		ResultActions resultActions = 
+				mockMvc
+				.perform(post("/api/user/addAddress")
+				.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
+		resultActions 
+		.andExpect(status().isOk()).andDo(print());
 	}
 }
 

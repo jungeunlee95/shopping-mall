@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cafe24.shoppingmall.dto.JSONResult;
 import com.cafe24.shoppingmall.service.UserService;
+import com.cafe24.shoppingmall.vo.UserAddressVo;
 import com.cafe24.shoppingmall.vo.UserVo;
 
 import io.swagger.annotations.ApiImplicitParam;
@@ -165,6 +166,17 @@ public class UserController {
 		// 일치하는 email없으면 false
 		userService.deleteUser(no);
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success("OK"));
+	} 
+	
+	
+	@ApiOperation(value="회원 주소지 등록")
+	@ApiImplicitParams({
+		@ApiImplicitParam(name="no", value="no : 번호", required=true, dataType="Long", defaultValue="")
+	})
+	@PostMapping(value="/addAddress") 
+	public ResponseEntity<JSONResult> addAddress(@RequestBody UserAddressVo userAddressVo) {
+		Boolean result = userService.addAddress(userAddressVo);
+		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(result));
 	} 
 	
 

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cafe24.shoppingmall.repository.UserDao;
+import com.cafe24.shoppingmall.vo.UserAddressVo;
 import com.cafe24.shoppingmall.vo.UserVo;
 
 @Service
@@ -49,6 +50,11 @@ public class UserService{
 	public Boolean deleteUser(Long no) {
 		return userDao.deleteUser(no);
 		
+	}
+
+	public Boolean addAddress(UserAddressVo userAddressVo) {
+		Boolean result =  userDao.insertUserAddress(userAddressVo)==1;
+		return result;
 	} 
 
 }
