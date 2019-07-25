@@ -60,8 +60,11 @@ public class OrderControllerTest {
 		mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
 	}
 	
+	
+	// 회원 주문
+	@Ignore
 	@Test
-	public void addProduct() throws Exception {
+	public void testUserOrder() throws Exception {
 		OrderVo vo = new OrderVo();
 		vo.setUserNo(2L);
 		vo.setName("이정은");
@@ -71,6 +74,44 @@ public class OrderControllerTest {
 		vo.setAddress("서울 어디 아파트~ 몇동 몇호~");
 		vo.setTotalPrice(50000L);
 		vo.setMessage("경비실에 맡겨주세요");
+		
+		List<OrderDetailVo> list = new ArrayList<OrderDetailVo>();
+		OrderDetailVo vo1 = new OrderDetailVo();
+		vo1.setProductOptionNo(8L);
+		vo1.setQuantity(3L);
+		
+		OrderDetailVo vo2 = new OrderDetailVo();
+		vo2.setProductOptionNo(9L);
+		vo2.setQuantity(1L);
+		
+		OrderDetailVo vo3 = new OrderDetailVo();
+		vo3.setProductOptionNo(10L);
+		vo3.setQuantity(10L);
+		
+		list.add(vo1);
+		list.add(vo2);
+		list.add(vo3);
+		
+		vo.setProductOptionList(list);
+		
+		ResultActions resultActions = 
+				mockMvc
+				.perform(post("/api/order/add")
+				.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
+		resultActions 
+		.andExpect(status().isOk()).andDo(print());  
+	}
+	
+	// 비회원주문
+	@Test
+	public void testNonUserOrder() throws Exception {
+		OrderVo vo = new OrderVo();
+		vo.setName("이정인");
+		vo.setGender("M");
+		vo.setPhoneNumber("010-3333-4444");
+		vo.setEmail("bbb@bbb.bbb");
+		vo.setAddress("경기 어디 아파트~ 몇동 몇호~");
+		vo.setTotalPrice(30000L);
 		
 		List<OrderDetailVo> list = new ArrayList<OrderDetailVo>();
 		OrderDetailVo vo1 = new OrderDetailVo();
