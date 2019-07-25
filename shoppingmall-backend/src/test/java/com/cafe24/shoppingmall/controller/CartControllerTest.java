@@ -66,7 +66,7 @@ public class CartControllerTest {
 		CartVo vo = new CartVo();
 		vo.setUserNo(2L);
 		vo.setProductOptionNo(10L);
-		vo.setQuantity(500L);
+		vo.setQuantity(200L);
 		
 		ResultActions resultActions = 
 				mockMvc
@@ -90,6 +90,7 @@ public class CartControllerTest {
 		.andExpect(status().isOk()).andDo(print());
 	}
 	
+	@Ignore
 	@Test
 	public void testNonUserGetList() throws Exception {
 		CartVo vo = new CartVo();
@@ -98,80 +99,30 @@ public class CartControllerTest {
 		ResultActions resultActions = 
 				mockMvc
 				.perform(get("/api/cart/getList")
-						.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
+				.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
 		resultActions 
 		.andExpect(status().isOk()).andDo(print());
 	}
 	
-	
-	
-	
-	
-	@Ignore
+
 	@Test
-	public void testGetCart() throws Exception {
-		String userId = "leeap1004";
-		ResultActions resultActions = 
-				mockMvc
-				.perform(get("/api/cart/{userId}", userId)
-				.contentType(MediaType.APPLICATION_JSON)); 
+	public void getOptionList() throws Exception {
+		String no = "8";
 		
+		ResultActions resultActions =
+				mockMvc
+				.perform(get("/api/cart/getOptionList")
+				.param("no", no)	
+				.contentType(MediaType.APPLICATION_JSON));
+		
+
 		resultActions 
 		.andExpect(status().isOk()).andDo(print());
-		
 	}
 	
-	@Ignore
-	@Test
-	public void testModifyCartOption() throws Exception {
-		// leeap1004회원의 장바구니 2번의 옵션을 1로 변경
-		String userId = "leeap1004";
-		String cartNo = "2";
-		String optionNo = "1";
-		ResultActions resultActions = 
-				mockMvc
-				.perform(post("/api/cart/modify/{userId}/{cartNo}", userId, cartNo)
-				.param("optionNo", optionNo)
-				.contentType(MediaType.APPLICATION_JSON)); 
-		
-		resultActions 
-		.andExpect(status().isOk()).andDo(print());
-		
-	}
 	
-	@Ignore
-	@Test
-	public void testModifyCartQuantity() throws Exception {
-		// leeap1004회원의 장바구니 2번의 옵션의 수량을 3으로 변경
-		String userId = "leeap1004";
-		String cartNo = "2";
-		String quantity = "3";
-		ResultActions resultActions = 
-				mockMvc
-				.perform(post("/api/cart/modify/{userId}/{cartNo}", userId, cartNo)
-						.param("quantity", quantity)
-						.contentType(MediaType.APPLICATION_JSON)); 
-		
-		resultActions 
-		.andExpect(status().isOk()).andDo(print());
-		
-	}
 	
-	@Ignore
-	@Test
-	public void testDeleteCart() throws Exception {
-		// leeap1004회원의 장바구니 2L번의 옵션을 삭제
-		String userId = "leeap1004";
-		String cartNo = "2";
-		ResultActions resultActions = 
-				mockMvc
-				.perform(delete("/api/cart/delete/{userId}/{cartNo}", userId, cartNo)
-				.contentType(MediaType.APPLICATION_JSON)); 
-		
-		resultActions 
-		.andExpect(status().isOk()).andDo(print());
-		
-	}
+	
 }
 
 

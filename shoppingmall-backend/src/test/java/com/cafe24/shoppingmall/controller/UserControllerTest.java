@@ -73,7 +73,7 @@ public class UserControllerTest {
 		ResultActions resultActions = 
 				mockMvc
 				.perform(post("/api/user/join")
-						.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(userVo)));
+				.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(userVo)));
 		resultActions 
 		.andExpect(status().isOk()).andDo(print());
 	}

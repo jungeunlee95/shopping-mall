@@ -117,5 +117,10 @@ public class ProductDao{
 		return result;
 	}
 
+	public List<OptionNameVo> getOptionList(Long no) {
+		List<OptionNameVo> list = sqlSession.selectList("product.getOptionList", no);
+		return list;
+	}
+
 
 }

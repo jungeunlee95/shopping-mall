@@ -28,6 +28,15 @@
 		order by no desc
 	]]>
 	</select>
+	
+	<!-- 상품의 옵션 리스트 -->
+	<select id="getOptionList" parameterType="long" resultType="optionnamevo">
+	<![CDATA[
+		select * 
+		from productoption
+		where product_no in ( select product_no from productoption where no = #{no } )
+	]]>
+	</select>
 
 	<!-- 카테고리 상품 리스트 , 조건 검색어 -->
 	<select id="getList2" resultType="productvo">

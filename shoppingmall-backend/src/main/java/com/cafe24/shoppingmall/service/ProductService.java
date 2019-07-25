@@ -112,6 +112,11 @@ public class ProductService {
 		productDao.addOptionValue(productNo, optionValueVoList);
 		return false;
 	}
+
+	public List<OptionNameVo> getOptionList(Long no) {
+		List<OptionNameVo> result = productDao.getOptionList(no);
+		return result;
+	}
 }
 
 

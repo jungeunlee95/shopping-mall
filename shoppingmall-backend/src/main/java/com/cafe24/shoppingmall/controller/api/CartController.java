@@ -4,13 +4,10 @@ package com.cafe24.shoppingmall.controller.api;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,7 +15,7 @@ import com.cafe24.shoppingmall.dto.JSONResult;
 import com.cafe24.shoppingmall.service.CartService;
 import com.cafe24.shoppingmall.service.ProductService;
 import com.cafe24.shoppingmall.vo.CartVo;
-import com.cafe24.shoppingmall.vo.ProductVo;
+import com.cafe24.shoppingmall.vo.OptionNameVo;
 
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -57,6 +54,31 @@ public class CartController {
 	public JSONResult getCartList(@RequestBody CartVo cartVo) {
 		// 상품 list return
 		List<CartVo> list = cartService.getCartList(cartVo);
+		return JSONResult.success(list);
+	}
+	
+	@ApiOperation(value="장바구니 상품의 옵션 목록 가져오기")
+	@ApiImplicitParams({
+		@ApiImplicitParam(name="no", value="no: 상품옵션번호", required=false, dataType="long", defaultValue="")
+	})
+	@GetMapping(value = "/getOptionList")
+	public JSONResult getOptionList(
+			@RequestParam(value="no", required = true, defaultValue = "") Long no
+			) {
+		// 상품의 옵션 list return
+		List<OptionNameVo> list = productService.getOptionList(no);
+		return JSONResult.success(list);
+	}
+	
+	@ApiOperation(value="장바구니 상품 삭제")
+	@ApiImplicitParams({
+		@ApiImplicitParam(name="userNo", value="userNo: 회원번호", required=false, dataType="long", defaultValue=""),
+		@ApiImplicitParam(name="nonUserNo", value="nonUserNo: 비회원번호", required=false, dataType="string", defaultValue=""),
+		@ApiImplicitParam(name="productOptionNo", value="productOptionNo: 상품옵션번호", required=false, dataType="long", defaultValue="")
+	})
+	@GetMapping(value = "/delete")
+	public JSONResult deleteCart(@RequestBody CartVo cartVo) {
+		List<OptionNameVo> list = productService.getOptionList(no);
 		return JSONResult.success(list);
 	}
 	
