@@ -109,8 +109,9 @@ public class OrderControllerTest {
 	@Test
 	public void testNonUserOrder() throws Exception {
 		OrderVo vo = new OrderVo();
-		vo.setName("이정인");
+		vo.setName("또리");
 		vo.setGender("M");
+		vo.setPassword("1234");
 		vo.setPhoneNumber("010-3333-4444");
 		vo.setEmail("bbb@bbb.bbb");
 		vo.setAddress("경기 어디 아파트~ 몇동 몇호~");
@@ -188,18 +189,36 @@ public class OrderControllerTest {
 	
 	@Ignore
 	@Test
-	public void testGetOrderListByNo() throws Exception {
-		Long no = 2L;
+	public void testGetOrderListByUser() throws Exception {
+		OrderVo vo = new OrderVo();
+		vo.setNo(2L);
+		
 		ResultActions resultActions = 
 				mockMvc
-				.perform(get("/api/order/list/{no}", no)
-				.contentType(MediaType.APPLICATION_JSON)); 
-		
+				.perform(get("/api/order/list")
+				.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
 		resultActions 
 		.andExpect(status().isOk()).andDo(print());
 		
 	}
 	
+	@Ignore
+	@Test
+	public void testGetOrderListByNonUser() throws Exception {
+		OrderVo vo = new OrderVo();
+		vo.setOrderStringNo("20190727-000018");
+		vo.setPassword("1234");
+		
+		ResultActions resultActions = 
+				mockMvc
+				.perform(get("/api/order/list")
+						.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
+		resultActions 
+		.andExpect(status().isOk()).andDo(print());
+		
+	}
+	
+	@Ignore
 	@Test
 	public void testGetOrderDetaikList() throws Exception {
 		Long no = 27L;

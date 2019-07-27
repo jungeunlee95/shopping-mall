@@ -40,10 +40,9 @@ public class OrderController {
 	}	
 	
 	@ApiOperation(value="회원 주문 목록 가져오기")
-	@GetMapping(value="/list/{no}") 
-	public ResponseEntity<JSONResult> getList(@PathVariable(value="no") Long no) {
-
-		List<OrderVo> list = orderService.getOrderListByNo(no);
+	@GetMapping(value="/list") 
+	public ResponseEntity<JSONResult> getList(@RequestBody OrderVo orderVo) {
+		List<OrderVo> list = orderService.getOrderListByNo(orderVo);
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(list));
 	} 
 	

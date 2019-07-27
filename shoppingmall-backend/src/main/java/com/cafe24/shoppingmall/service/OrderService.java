@@ -43,8 +43,9 @@ public class OrderService {
 		return order==1 && orderDetail == orderVo.getProductOptionList().size();
 	}
 
-	public List<OrderVo> getOrderListByNo(Long no) {
-		return orderDao.getOrderListByNo(no);
+	public List<OrderVo> getOrderListByNo(OrderVo orderVo) {
+		List<OrderVo> list = orderDao.getOrderList(orderVo);
+		return list;			
 	}
 
 	public List<OrderDetailVo> getOrderDetailList(Long no) {
