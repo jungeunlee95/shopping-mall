@@ -8,7 +8,7 @@ spring:
       active: dev
    datasource:
       driver-class-name: org.mariadb.jdbc.Driver
-      url: jdbc:mariadb://192.168.1.52:3307/shoppingmall
+      url: jdbc:mariadb://192.168.1.52:3307/shoppingmall?allowMultiQueries=true
       username: shoppingmall
       password: shoppingmall   
    devtools: 

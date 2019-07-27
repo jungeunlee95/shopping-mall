@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.cafe24.shoppingmall.vo.OptionNameVo;
 import com.cafe24.shoppingmall.vo.OrderDetailVo;
 import com.cafe24.shoppingmall.vo.OrderVo;
 
@@ -29,6 +30,16 @@ public class OrderDao{
 		map.put("no", no);
 		map.put("orderDetailList", orderDetailList);
 		return sqlSession.insert("order.insertOrderDetail", map);
+	}
+
+	public OptionNameVo stockCheck(Long productOptionNo) {
+		return sqlSession.selectOne("order.stockCheck", productOptionNo);
+	}
+
+	public int reduceStock(List<OrderDetailVo> productOptionList) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("productOptionList", productOptionList);
+		return sqlSession.update("order.reduceStock", map);
 	}
 
 

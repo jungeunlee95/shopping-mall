@@ -61,7 +61,7 @@ public class OrderControllerTest {
 	}
 	
 	
-	// 회원 주문
+	// 회원 주문 성공
 	@Ignore
 	@Test
 	public void testUserOrder() throws Exception {
@@ -99,10 +99,13 @@ public class OrderControllerTest {
 				.perform(post("/api/order/add")
 				.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
 		resultActions 
-		.andExpect(status().isOk()).andDo(print());  
+		.andExpect(status().isOk()).andDo(print())
+		.andExpect(jsonPath("$.result", is("success") ))
+		.andExpect(jsonPath("$.data", is(true))); 
 	}
 	
-	// 비회원주문
+	// 비회원주문 성공
+//	@Ignore
 	@Test
 	public void testNonUserOrder() throws Exception {
 		OrderVo vo = new OrderVo();
@@ -137,9 +140,51 @@ public class OrderControllerTest {
 				.perform(post("/api/order/add")
 				.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
 		resultActions 
-		.andExpect(status().isOk()).andDo(print());  
+		.andExpect(status().isOk()).andDo(print())
+		.andExpect(jsonPath("$.result", is("success") ))
+		.andExpect(jsonPath("$.data", is(true))); 
 	}
 	
+	// 재고 부족  test
+	@Ignore
+	@Test
+	public void testCheckStockOrder() throws Exception {
+		OrderVo vo = new OrderVo();
+		vo.setName("이정인");
+		vo.setGender("M");
+		vo.setPhoneNumber("010-3333-4444");
+		vo.setEmail("bbb@bbb.bbb");
+		vo.setAddress("경기 어디 아파트~ 몇동 몇호~");
+		vo.setTotalPrice(30000L);
+		
+		List<OrderDetailVo> list = new ArrayList<OrderDetailVo>();
+		OrderDetailVo vo1 = new OrderDetailVo();
+		vo1.setProductOptionNo(8L);
+		vo1.setQuantity(3L);
+		
+		OrderDetailVo vo2 = new OrderDetailVo();
+		vo2.setProductOptionNo(9L);
+		vo2.setQuantity(10L);
+		
+		OrderDetailVo vo3 = new OrderDetailVo();
+		vo3.setProductOptionNo(10L);
+		vo3.setQuantity(10L);
+		
+		list.add(vo1);
+		list.add(vo2);
+		list.add(vo3);
+		
+		vo.setProductOptionList(list);
+		
+		ResultActions resultActions = 
+				mockMvc
+				.perform(post("/api/order/add")
+				.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
+		resultActions 
+		.andExpect(status().isOk()).andDo(print())
+		.andExpect(jsonPath("$.result", is("success") ))
+		.andExpect(jsonPath("$.data", is(false))); 
+	}
 }
 
 

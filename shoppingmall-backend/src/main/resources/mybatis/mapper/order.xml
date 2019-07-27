@@ -60,6 +60,31 @@
 			)
 		]]>
 		</foreach>
-		
 	</insert>
+	
+	<update id="reduceStock" parameterType="map">
+		<foreach collection="productOptionList" item="option" index="index" separator=";">
+		
+			update productoption 
+			set stock = stock - #{option.quantity } 
+			where no = #{option.productOptionNo }
+		
+		</foreach>
+	</update>
+	
+	<update id="updateEmployeeTrips" parameterType="java.util.List">
+	    <foreach collection="list" item="employeeTrips" index="index" separator=";">
+	        update employee_trips 
+	        set pickup_drop_time = #{employeeTrips.pickupTime} 
+	        where id = #{employeeTrips.id}
+	    </foreach>
+	</update>
+	
+	<select id="stockCheck" parameterType="long" resultType="Optionnamevo">
+	<![CDATA[
+		select use_stock useStock, stock
+		from productoption
+		where no = #{no }
+	]]>
+	</select>
 </mapper>
