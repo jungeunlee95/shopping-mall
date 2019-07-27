@@ -42,5 +42,16 @@ public class OrderDao{
 		return sqlSession.update("order.reduceStock", map);
 	}
 
+	public List<OrderVo> getOrderListByNo(Long no) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("no", no);
+		map.put("key", KEY);
+		return sqlSession.selectList("order.getOrderListByNo", map);
+	}
+
+	public List<OrderDetailVo> getOrderDetailList(Long no) {
+		return sqlSession.selectList("order.getOrderDetailList", no);
+	}
+
 
 }

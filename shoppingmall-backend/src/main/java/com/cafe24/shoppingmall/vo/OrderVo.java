@@ -7,7 +7,7 @@ public class OrderVo {
 
 	private Long no;
 	private Long userNo;
-	private Long orderNo;
+	private String orderStringNo;
 	private String name;
 	private String gender;
 	private String password;
@@ -25,14 +25,14 @@ public class OrderVo {
 		// TODO Auto-generated constructor stub
 	}
 
-	public OrderVo(String key, Long no, Long userNo, Long orderNo, String name, String gender, String password,
+	public OrderVo(String key, Long no, Long userNo, String orderStringNo, String name, String gender, String password,
 			String phoneNumber, String email, String address, Long totalPrice, String regDate, String message,
 			List<OrderDetailVo> productOptionList) {
 		super();
 		this.key = key;
 		this.no = no;
 		this.userNo = userNo;
-		this.orderNo = orderNo;
+		this.orderStringNo = orderStringNo;
 		this.name = name;
 		this.gender = gender;
 		this.password = password;
@@ -69,12 +69,12 @@ public class OrderVo {
 		this.userNo = userNo;
 	}
 
-	public Long getOrderNo() {
-		return orderNo;
+	public String getOrderStringNo() {
+		return orderStringNo;
 	}
 
-	public void setOrderNo(Long orderNo) {
-		this.orderNo = orderNo;
+	public void setOrderStringNo(String orderStringNo) {
+		this.orderStringNo = orderStringNo;
 	}
 
 	public String getName() {
@@ -159,10 +159,10 @@ public class OrderVo {
 
 	@Override
 	public String toString() {
-		return "OrderVo [key=" + key + ", no=" + no + ", userNo=" + userNo + ", orderNo=" + orderNo + ", name=" + name
-				+ ", gender=" + gender + ", password=" + password + ", phoneNumber=" + phoneNumber + ", email=" + email
-				+ ", address=" + address + ", totalPrice=" + totalPrice + ", regDate=" + regDate + ", message="
-				+ message + ", productOptionList=" + productOptionList + "]";
+		return "OrderVo [key=" + key + ", no=" + no + ", userNo=" + userNo + ", orderStringNo=" + orderStringNo
+				+ ", name=" + name + ", gender=" + gender + ", password=" + password + ", phoneNumber=" + phoneNumber
+				+ ", email=" + email + ", address=" + address + ", totalPrice=" + totalPrice + ", regDate=" + regDate
+				+ ", message=" + message + ", productOptionList=" + productOptionList + "]";
 	}
 
 }

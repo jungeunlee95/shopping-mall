@@ -4,12 +4,13 @@ public class OrderDetailVo {
 
 	private Long no;
 	private Long orderNo;
-	private Long orderStringNo;
+	private String orderStringNo;
 	private Long productNo;
 	private Long productOptionNo;
 	private String productName;
 	private String productOptionName;
 	private Long quantity;
+	private String status;
 	private Long price;
 
 	public OrderDetailVo() {
@@ -17,8 +18,8 @@ public class OrderDetailVo {
 		// TODO Auto-generated constructor stub
 	}
 
-	public OrderDetailVo(Long no, Long orderNo, Long orderStringNo, Long productNo, Long productOptionNo,
-			String productName, String productOptionName, Long quantity, Long price) {
+	public OrderDetailVo(Long no, Long orderNo, String orderStringNo, Long productNo, Long productOptionNo,
+			String productName, String productOptionName, Long quantity, String status, Long price) {
 		super();
 		this.no = no;
 		this.orderNo = orderNo;
@@ -28,6 +29,7 @@ public class OrderDetailVo {
 		this.productName = productName;
 		this.productOptionName = productOptionName;
 		this.quantity = quantity;
+		this.status = status;
 		this.price = price;
 	}
 
@@ -47,11 +49,11 @@ public class OrderDetailVo {
 		this.orderNo = orderNo;
 	}
 
-	public Long getOrderStringNo() {
+	public String getOrderStringNo() {
 		return orderStringNo;
 	}
 
-	public void setOrderStringNo(Long orderStringNo) {
+	public void setOrderStringNo(String orderStringNo) {
 		this.orderStringNo = orderStringNo;
 	}
 
@@ -95,6 +97,14 @@ public class OrderDetailVo {
 		this.quantity = quantity;
 	}
 
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
 	public Long getPrice() {
 		return price;
 	}
@@ -107,7 +117,8 @@ public class OrderDetailVo {
 	public String toString() {
 		return "OrderDetailVo [no=" + no + ", orderNo=" + orderNo + ", orderStringNo=" + orderStringNo + ", productNo="
 				+ productNo + ", productOptionNo=" + productOptionNo + ", productName=" + productName
-				+ ", productOptionName=" + productOptionName + ", quantity=" + quantity + ", price=" + price + "]";
+				+ ", productOptionName=" + productOptionName + ", quantity=" + quantity + ", status=" + status
+				+ ", price=" + price + "]";
 	}
 
 }

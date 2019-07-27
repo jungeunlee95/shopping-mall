@@ -1,5 +1,7 @@
 package com.cafe24.shoppingmall.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,6 +41,14 @@ public class OrderService {
 		int reduceStock = orderDao.reduceStock(orderVo.getProductOptionList());
 		
 		return order==1 && orderDetail == orderVo.getProductOptionList().size();
+	}
+
+	public List<OrderVo> getOrderListByNo(Long no) {
+		return orderDao.getOrderListByNo(no);
+	}
+
+	public List<OrderDetailVo> getOrderDetailList(Long no) {
+		return orderDao.getOrderDetailList(no);
 	}
 
 }

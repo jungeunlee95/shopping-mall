@@ -1,8 +1,12 @@
 package com.cafe24.shoppingmall.controller.api;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cafe24.shoppingmall.dto.JSONResult;
 import com.cafe24.shoppingmall.service.OrderService;
+import com.cafe24.shoppingmall.vo.OrderDetailVo;
 import com.cafe24.shoppingmall.vo.OrderVo;
 
 import io.swagger.annotations.ApiImplicitParam;
@@ -33,6 +38,22 @@ public class OrderController {
 		Boolean result = orderService.addOrder(orderVo);
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(result));
 	}	
+	
+	@ApiOperation(value="회원 주문 목록 가져오기")
+	@GetMapping(value="/list/{no}") 
+	public ResponseEntity<JSONResult> getList(@PathVariable(value="no") Long no) {
+
+		List<OrderVo> list = orderService.getOrderListByNo(no);
+		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(list));
+	} 
+	
+	@ApiOperation(value="회원 주문 상세 목록 가져오기")
+	@GetMapping(value="/detail/{no}") 
+	public ResponseEntity<JSONResult> getOrderDetailList(@PathVariable(value="no") Long no) {
+		
+		List<OrderDetailVo> list = orderService.getOrderDetailList(no);
+		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(list));
+	} 
 }
 
 

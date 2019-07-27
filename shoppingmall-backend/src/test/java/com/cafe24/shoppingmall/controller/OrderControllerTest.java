@@ -77,8 +77,8 @@ public class OrderControllerTest {
 		
 		List<OrderDetailVo> list = new ArrayList<OrderDetailVo>();
 		OrderDetailVo vo1 = new OrderDetailVo();
-		vo1.setProductOptionNo(8L);
-		vo1.setQuantity(3L);
+		vo1.setProductOptionNo(11L);
+		vo1.setQuantity(1L);
 		
 		OrderDetailVo vo2 = new OrderDetailVo();
 		vo2.setProductOptionNo(9L);
@@ -105,7 +105,7 @@ public class OrderControllerTest {
 	}
 	
 	// 비회원주문 성공
-//	@Ignore
+	@Ignore
 	@Test
 	public void testNonUserOrder() throws Exception {
 		OrderVo vo = new OrderVo();
@@ -184,6 +184,33 @@ public class OrderControllerTest {
 		.andExpect(status().isOk()).andDo(print())
 		.andExpect(jsonPath("$.result", is("success") ))
 		.andExpect(jsonPath("$.data", is(false))); 
+	}
+	
+	@Ignore
+	@Test
+	public void testGetOrderListByNo() throws Exception {
+		Long no = 2L;
+		ResultActions resultActions = 
+				mockMvc
+				.perform(get("/api/order/list/{no}", no)
+				.contentType(MediaType.APPLICATION_JSON)); 
+		
+		resultActions 
+		.andExpect(status().isOk()).andDo(print());
+		
+	}
+	
+	@Test
+	public void testGetOrderDetaikList() throws Exception {
+		Long no = 27L;
+		ResultActions resultActions = 
+				mockMvc
+				.perform(get("/api/order/detail/{no}", no)
+						.contentType(MediaType.APPLICATION_JSON)); 
+		
+		resultActions 
+		.andExpect(status().isOk()).andDo(print());
+		
 	}
 }
 

@@ -3,6 +3,7 @@
 
 <mapper namespace="order">
 
+	<!-- 주문 -->
 	<insert id="insertOrder" parameterType="ordervo">
 		<choose>
 			<when test="userNo != null and userNo != ''">
@@ -47,6 +48,7 @@
 	</insert>
 	
 	
+	<!-- 주문 상세 정보 -->
 	<insert id="insertOrderDetail" parameterType="map">
 		<![CDATA[ insert into orderdetail values ]]>
 		<foreach collection="orderDetailList" item="option" separator=",">
@@ -62,29 +64,51 @@
 		</foreach>
 	</insert>
 	
+	<!-- 주문 후 재고 감소 -->
 	<update id="reduceStock" parameterType="map">
 		<foreach collection="productOptionList" item="option" index="index" separator=";">
-		
+		<![CDATA[
 			update productoption 
 			set stock = stock - #{option.quantity } 
 			where no = #{option.productOptionNo }
-		
+		]]>
 		</foreach>
 	</update>
 	
-	<update id="updateEmployeeTrips" parameterType="java.util.List">
-	    <foreach collection="list" item="employeeTrips" index="index" separator=";">
-	        update employee_trips 
-	        set pickup_drop_time = #{employeeTrips.pickupTime} 
-	        where id = #{employeeTrips.id}
-	    </foreach>
-	</update>
-	
+	<!-- 재고 확인 -->
 	<select id="stockCheck" parameterType="long" resultType="Optionnamevo">
 	<![CDATA[
 		select use_stock useStock, stock
 		from productoption
 		where no = #{no }
+	]]>
+	</select>
+	
+	<!-- 주문 정보 -->
+	<select id="getOrderListByNo" parameterType="map" resultType="ordervo">
+	<![CDATA[
+		select no, user_no userNo, order_no orderStringNo,   
+		convert(AES_DECRYPT(name, SHA2(#{key }, 512)) using utf8) name,
+		gender, convert(AES_DECRYPT(phone_number, SHA2(#{key }, 512)) using utf8) phoneNumber,
+		convert(AES_DECRYPT(email, SHA2(#{key }, 512)) using utf8) email,
+		convert(AES_DECRYPT(address, SHA2(#{key }, 512)) using utf8) address,
+		total_price totalPrice, reg_date regDate, message
+		from orders
+		where user_no=#{no }
+		order by no desc
+	]]>
+	</select>
+	
+	<!-- 주문 상세 정보 -->
+	<select id="getOrderDetailList" parameterType="long" resultType="orderdetailvo">
+	<![CDATA[
+		select no, order_no orderNo, product_no productNo,
+		(select order_no from orders where no = orderNo ) orderStringNo,
+		 product_name productName,
+		productoption_name productOptionName,
+		quantity, status, price 
+		from orderdetail
+		where order_no=#{no }
 	]]>
 	</select>
 </mapper>
