@@ -88,13 +88,14 @@
 	<select id="getOrderList" parameterType="map" resultType="ordervo">
 		<![CDATA[
 			select no, user_no userNo, order_no orderStringNo,   
-			convert(AES_DECRYPT(name, SHA2("aaa", 512)) using utf8) name,
-			gender, convert(AES_DECRYPT(phone_number, SHA2("aaa", 512)) using utf8) phoneNumber,
-			convert(AES_DECRYPT(email, SHA2("aaa", 512)) using utf8) email,
-			convert(AES_DECRYPT(address, SHA2("aaa", 512)) using utf8) address,
+			convert(AES_DECRYPT(name, SHA2(#{key }, 512)) using utf8) name,
+			gender, convert(AES_DECRYPT(phone_number, SHA2(#{key }, 512)) using utf8) phoneNumber,
+			convert(AES_DECRYPT(email, SHA2(#{key }, 512)) using utf8) email,
+			convert(AES_DECRYPT(address, SHA2(#{key }, 512)) using utf8) address,
 			total_price totalPrice, reg_date regDate, message
 			from orders
 		]]>
+		
 		<choose>
 			<!-- 비회원 주문 리스트 -->
 			<when test="password != null and password != ''">
@@ -103,6 +104,7 @@
 					and password = SHA2(#{password }, 512)
 				]]>
 			</when> 
+			
 			<!-- 회원 주문 리스트 -->
 			<otherwise>
 				<![CDATA[
@@ -110,6 +112,7 @@
 				]]>
 			</otherwise>
 		</choose>
+		
 		<![CDATA[ order by no desc ]]>
 	</select>
 	
