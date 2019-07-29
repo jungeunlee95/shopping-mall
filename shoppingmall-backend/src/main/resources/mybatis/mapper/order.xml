@@ -112,7 +112,6 @@
 				]]>
 			</otherwise>
 		</choose>
-		
 		<![CDATA[ order by no desc ]]>
 	</select>
 	
