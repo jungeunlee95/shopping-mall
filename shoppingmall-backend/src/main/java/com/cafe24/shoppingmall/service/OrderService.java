@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.cafe24.shoppingmall.dto.RequestDeleteCartDto;
 import com.cafe24.shoppingmall.dto.RequestNonUserOrderDto;
 import com.cafe24.shoppingmall.dto.RequestNonUserOrderListDto;
+import com.cafe24.shoppingmall.repository.CartDao;
 import com.cafe24.shoppingmall.repository.OrderDao;
 import com.cafe24.shoppingmall.vo.OptionNameVo;
 import com.cafe24.shoppingmall.vo.OrderDetailVo;
@@ -19,6 +21,8 @@ public class OrderService {
 
 	@Autowired
 	private OrderDao orderDao;
+	@Autowired
+	private CartDao cartDao;
 
 	// =============================== 회원 ======================================= 
 	public Boolean addOrder(OrderVo orderVo) {
@@ -43,6 +47,9 @@ public class OrderService {
 		// 재고가 모두 있는 경우, 주문 후 재고 감소
 		int reduceStock = orderDao.reduceStock(orderVo.getProductOptionList());
 		
+		// 주문 완료 후 장바구니 비우기
+		int deleteCart = cartDao.deleteProduct(orderVo.getUserNo(), orderVo.getProductOptionList());		
+
 		return order==1 && orderDetail == orderVo.getProductOptionList().size();
 	}
 

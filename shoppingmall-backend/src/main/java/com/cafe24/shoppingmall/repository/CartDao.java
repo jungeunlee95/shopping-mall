@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.cafe24.shoppingmall.dto.RequestNonUserAddCartDto;
 import com.cafe24.shoppingmall.dto.RequestDeleteCartDto;
 import com.cafe24.shoppingmall.vo.CartVo;
+import com.cafe24.shoppingmall.vo.OrderDetailVo;
 
 
 @Repository
@@ -38,6 +39,16 @@ public class CartDao{
 	// 장바구니 리스트 가져오기
 	public List<CartVo> getCartList(CartVo cartVo) {
 		return sqlSession.selectList("cart.getListUser", cartVo);
+	}
+	
+	public int deleteProduct(Long userNo, List<OrderDetailVo> productOptionList) {
+		System.out.println("=======================================");
+		System.out.println(userNo + " : " + productOptionList);
+		System.out.println("=======================================");
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("userNo", userNo);
+		map.put("productOptionList", productOptionList);
+		return sqlSession.delete("cart.deleteOrderedProduct", map);
 	}
 	// =============================================================
 	
@@ -70,4 +81,5 @@ public class CartDao{
 		map.put("noList", noList);
 		return sqlSession.delete("cart.delete", map);
 	}
+
 }

@@ -77,7 +77,7 @@ public class CartControllerTest {
 	public void testUserAddCart() throws Exception {
 		CartVo vo = new CartVo();
 		vo.setUserNo(2L);
-		vo.setProductOptionNo(10L);
+		vo.setProductOptionNo(9L);
 		vo.setQuantity(200L);
 		
 		ResultActions resultActions = 

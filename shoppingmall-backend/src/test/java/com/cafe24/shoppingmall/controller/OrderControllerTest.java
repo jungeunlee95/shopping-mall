@@ -62,7 +62,7 @@ public class OrderControllerTest {
 	
 	
 	// 회원 주문 성공
-	@Ignore
+//	@Ignore
 	@Test
 	public void testUserOrder() throws Exception {
 		OrderVo vo = new OrderVo();
@@ -76,9 +76,9 @@ public class OrderControllerTest {
 		vo.setMessage("경비실에 맡겨주세요");
 		
 		List<OrderDetailVo> list = new ArrayList<OrderDetailVo>();
-		OrderDetailVo vo1 = new OrderDetailVo();
-		vo1.setProductOptionNo(11L);
-		vo1.setQuantity(1L);
+//		OrderDetailVo vo1 = new OrderDetailVo();
+//		vo1.setProductOptionNo(11L);
+//		vo1.setQuantity(1L);
 		
 		OrderDetailVo vo2 = new OrderDetailVo();
 		vo2.setProductOptionNo(9L);
@@ -88,7 +88,7 @@ public class OrderControllerTest {
 		vo3.setProductOptionNo(10L);
 		vo3.setQuantity(10L);
 		
-		list.add(vo1);
+//		list.add(vo1);
 		list.add(vo2);
 		list.add(vo3);
 		

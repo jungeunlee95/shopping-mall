@@ -95,5 +95,17 @@
 		
 		<![CDATA[ ) ]]>
 	</delete>
-
+	
+	<!-- 주문된 장바구니 물품 삭제 -->
+	<delete id="deleteOrderedProduct" parameterType="map">
+		<![CDATA[ delete from cart 
+			where user_no = #{userNo }
+			and productoption_no in ( ]]> 
+		
+		<foreach collection="productOptionList" item="list" separator=",">
+			<![CDATA[  #{list.productOptionNo } ]]>
+		</foreach>
+		<![CDATA[ ) ]]>
+	</delete>
+	
 </mapper>
