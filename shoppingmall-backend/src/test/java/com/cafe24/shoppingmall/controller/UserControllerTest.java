@@ -55,11 +55,11 @@ public class UserControllerTest {
 	
 	@Ignore
 	@Test
-	@Rollback(true)
+	@Rollback(false)
 	public void testJoinSuccess() throws Exception {
 		 
 		UserVo userVo = new UserVo();
-		userVo.setId("leeap1005");
+		userVo.setId("aleeap1005");
 		userVo.setName("이정응"); 
 		userVo.setGender("F");
 		userVo.setPassword("Gkdlfn123");
@@ -69,10 +69,10 @@ public class UserControllerTest {
 		userVo.setEmail("leeap1004@gmail.com");
 		userVo.setGender("F");
 		
-		// 이름 검사
+		// 이름 검사 
 		ResultActions resultActions = 
 				mockMvc
-				.perform(post("/api/user/join")
+				.perform(post("/api/nonuser/join")
 				.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(userVo)));
 		resultActions 
 		.andExpect(status().isOk()).andDo(print());
@@ -95,7 +95,7 @@ public class UserControllerTest {
 		// 이메일 검사
 		ResultActions resultActions = 
 				mockMvc
-				.perform(post("/api/user/join")
+				.perform(post("/api/nonuser/join")
 				.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(userVo)));
 		
 		resultActions 
@@ -120,7 +120,7 @@ public class UserControllerTest {
 		// 이름 검사
 		ResultActions resultActions = 
 				mockMvc
-				.perform(post("/api/user/join")
+				.perform(post("/api/nonuser/join")
 						.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(userVo)));
 		
 		resultActions 
@@ -144,7 +144,7 @@ public class UserControllerTest {
 		// 이름 검사 
 		ResultActions resultActions = 
 				mockMvc
-				.perform(post("/api/user/join")
+				.perform(post("/api/nonuser/join")
 				.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(userVo)));
 		
 		resultActions 
@@ -168,7 +168,7 @@ public class UserControllerTest {
 		// 이름 검사
 		ResultActions resultActions = 
 				mockMvc
-				.perform(post("/api/user/join")
+				.perform(post("/api/nonuser/join")
 						.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(userVo)));
 		
 		resultActions 
@@ -192,7 +192,7 @@ public class UserControllerTest {
 		// 이름 검사
 		ResultActions resultActions = 
 				mockMvc
-				.perform(post("/api/user/join")
+				.perform(post("/api/nonuser/join")
 				.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(userVo)));
 		
 		resultActions 
@@ -209,7 +209,7 @@ public class UserControllerTest {
 		
 		ResultActions resultActions = 
 				mockMvc
-				.perform(get("/api/user/checkId?id={id}", id)
+				.perform(get("/api/nonuser/checkId?id={id}", id)
 				.contentType(MediaType.APPLICATION_JSON));
 		
 		resultActions 
@@ -221,7 +221,7 @@ public class UserControllerTest {
 		
 		resultActions = 
 				mockMvc
-				.perform(get("/api/user/checkId?id={id}", id)
+				.perform(get("/api/nonuser/checkId?id={id}", id)
 				.contentType(MediaType.APPLICATION_JSON));
 		
 		resultActions 
@@ -242,7 +242,7 @@ public class UserControllerTest {
 		
 		ResultActions resultActions = 
 				mockMvc
-				.perform(get("/api/user/login")
+				.perform(get("/api/nonuser/login")
 				.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(userVo)));
 		
 		resultActions 
@@ -256,7 +256,7 @@ public class UserControllerTest {
 		
 		resultActions = 
 				mockMvc
-				.perform(get("/api/user/login")
+				.perform(get("/api/nonuser/login")
 						.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(userVo)));
 
 		resultActions  
@@ -272,7 +272,7 @@ public class UserControllerTest {
 		
 		resultActions = 
 				mockMvc
-				.perform(get("/api/user/login")
+				.perform(get("/api/nonuser/login")
 				.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(userVo)));
 
 		resultActions  
@@ -289,7 +289,7 @@ public class UserControllerTest {
 		
 		ResultActions resultActions = 
 				mockMvc
-				.perform(get("/api/user/findId?email={email}", email)
+				.perform(get("/api/nonuser/findId?email={email}", email)
 				.contentType(MediaType.APPLICATION_JSON));
 		
 		resultActions 
@@ -304,7 +304,7 @@ public class UserControllerTest {
 		
 		ResultActions resultActions = 
 				mockMvc
-				.perform(get("/api/user/userList")
+				.perform(get("/api/admin/user/userList")
 				.contentType(MediaType.APPLICATION_JSON));
 		
 		resultActions 

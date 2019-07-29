@@ -35,7 +35,6 @@
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
 		
-
 		<!-- MyBatis Starter -->
 		<dependency>
 			<groupId>org.mybatis.spring.boot</groupId>
