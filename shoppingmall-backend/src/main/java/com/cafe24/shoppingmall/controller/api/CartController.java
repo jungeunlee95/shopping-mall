@@ -56,19 +56,6 @@ public class CartController {
 		return JSONResult.success(list);
 	}
 	
-	@ApiOperation(value="장바구니 상품의 옵션 목록 가져오기")
-	@ApiImplicitParams({
-		@ApiImplicitParam(name="no", value="no: 상품옵션번호", required=false, dataType="long", defaultValue="")
-	})
-	@GetMapping(value = "/getOptionList")
-	public JSONResult getOptionList(
-			@RequestParam(value="no", required = true, defaultValue = "") Long no
-			) {
-		// 상품의 옵션 list return
-		List<OptionNameVo> list = productService.getOptionList(no);
-		return JSONResult.success(list);
-	}
-	
 	@ApiOperation(value="장바구니 상품 삭제")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name="no", value="no: 장바구니 번호", required=true, dataType="long", defaultValue="")

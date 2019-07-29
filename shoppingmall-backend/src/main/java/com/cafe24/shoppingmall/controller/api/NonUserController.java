@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cafe24.shoppingmall.dto.JSONResult;
+import com.cafe24.shoppingmall.dto.NonUserAddCartDto;
 import com.cafe24.shoppingmall.service.CartService;
 import com.cafe24.shoppingmall.service.OrderService;
 import com.cafe24.shoppingmall.service.ProductService;
@@ -148,20 +149,30 @@ public class NonUserController {
 		@ApiImplicitParam(name="productOptionNo", value="productOptionNo: 상품의 옵션 번호", required=true, dataType="Long", defaultValue=""),
 		@ApiImplicitParam(name="quantity", value="quantity: 수량", required=true, dataType="Long", defaultValue="")
 	})
-	@PostMapping(value = "/add")
-	public JSONResult addNonUserCart(@RequestBody CartVo cartVo) {
-		boolean result = cartService.addCart(cartVo);
-		return JSONResult.success(result);
+	@PostMapping(value = "/cart/add")
+	public ResponseEntity<JSONResult> addNonUserCart(@RequestBody @Valid NonUserAddCartDto nonUserAddCartDto
+			, BindingResult bindingResult) {
+		// java @valid 유효성 검증
+		if(bindingResult.hasErrors()) {
+			List<ObjectError> allErrors = bindingResult.getAllErrors();
+			for(ObjectError error : allErrors) {
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(JSONResult.fail(error.getDefaultMessage()));
+			}
+		}
+		
+		boolean result = cartService.addCart(nonUserAddCartDto);
+		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(result));
 	}
 	
 	@ApiOperation(value="장바구니 목록 가져오기")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name="nonUserNo", value="nonUserId: 비회원번호", required=false, dataType="String", defaultValue="")
 	})
-	@GetMapping(value = "/getList")
-	public JSONResult getCartList(@RequestBody CartVo cartVo) {
+	@GetMapping(value = "/cart/getList")
+	public JSONResult getCartList(@RequestBody @Valid NonUserAddCartDto nonUserAddCartDto
+			, BindingResult bindingResult) {
 		// 상품 list return
-		List<CartVo> list = cartService.getCartList(cartVo);
+		List<CartVo> list = cartService.getCartList(nonUserAddCartDto);
 		return JSONResult.success(list);
 	}
 	
@@ -169,7 +180,7 @@ public class NonUserController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name="no", value="no: 상품옵션번호", required=false, dataType="long", defaultValue="")
 	})
-	@GetMapping(value = "/getOptionList")
+	@GetMapping(value = "/cart/getOptionList")
 	public JSONResult getOptionList(
 			@RequestParam(value="no", required = true, defaultValue = "") Long no
 			) {
@@ -183,7 +194,7 @@ public class NonUserController {
 		@ApiImplicitParam(name="no", value="no: 장바구니 번호", required=true, dataType="long", defaultValue="")
 		
 	})
-	@DeleteMapping(value = "/delete")
+	@DeleteMapping(value = "/cart/delete")
 	public JSONResult deleteCart(@RequestBody List<Integer> noList) {
 		Boolean result = cartService.deleteCart(noList);
 		return JSONResult.success(result);
@@ -196,7 +207,7 @@ public class NonUserController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name="CategoryVo", value="name : 카테고리 이름 \n ", required=true, dataType="CategoryVo", defaultValue="")
 	})
-	@PostMapping(value="/add") 
+	@PostMapping(value="/order/add") 
 	public ResponseEntity<JSONResult> add(@RequestBody OrderVo orderVo) {
 		
 		Boolean result = orderService.addOrder(orderVo);
@@ -204,14 +215,14 @@ public class NonUserController {
 	}	
 	
 	@ApiOperation(value="주문 목록 가져오기")
-	@GetMapping(value="/list") 
+	@GetMapping(value="/order/list") 
 	public ResponseEntity<JSONResult> getList(@RequestBody OrderVo orderVo) {
 		List<OrderVo> list = orderService.getOrderListByNo(orderVo);
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(list));
 	} 
 	
 	@ApiOperation(value="주문 상세 목록 가져오기")
-	@GetMapping(value="/detail/{no}") 
+	@GetMapping(value="/order/detail/{no}") 
 	public ResponseEntity<JSONResult> getOrderDetailList(@PathVariable(value="no") Long no) {
 		
 		List<OrderDetailVo> list = orderService.getOrderDetailList(no);

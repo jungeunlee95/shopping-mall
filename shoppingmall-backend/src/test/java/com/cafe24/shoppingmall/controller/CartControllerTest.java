@@ -45,11 +45,11 @@ public class CartControllerTest {
 		CartVo vo = new CartVo();
 		vo.setNonUserNo("AA1234BB");
 		vo.setProductOptionNo(10L);
-		vo.setQuantity(5L);
+		vo.setQuantity(105L);
 		
 		ResultActions resultActions = 
 				mockMvc
-				.perform(post("/api/cart/add")
+				.perform(post("/api/nonuser/cart/add")
 						.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
 		resultActions 
 		.andExpect(status().isOk()).andDo(print());
@@ -91,9 +91,9 @@ public class CartControllerTest {
 		CartVo vo = new CartVo();
 		vo.setNonUserNo("AA1234BB");
 		
-		ResultActions resultActions = 
+		ResultActions resultActions =  
 				mockMvc
-				.perform(get("/api/cart/getList")
+				.perform(get("/api/nonuser/cart/getList")
 				.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
 		resultActions 
 		.andExpect(status().isOk()).andDo(print());
@@ -106,7 +106,7 @@ public class CartControllerTest {
 		
 		ResultActions resultActions =
 				mockMvc
-				.perform(get("/api/cart/getOptionList")
+				.perform(get("/api/nonuser/cart/getOptionList")
 				.param("no", no)	
 				.contentType(MediaType.APPLICATION_JSON));
 		
@@ -116,6 +116,7 @@ public class CartControllerTest {
 	}
 	
 
+	@Ignore
 	@Test
 	public void testDeleteCart() throws Exception {
 		

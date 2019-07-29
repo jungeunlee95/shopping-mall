@@ -3,82 +3,84 @@
 
 <mapper namespace="cart">
 	
-	<!-- 장바구니 새 물품 추가 -->	
-	<insert id="insertNew" parameterType="cartvo">
-		<if test="userNo != null and userNo != ''">
-			<![CDATA[
-				insert into cart(no, productoption_no, user_no, quantity) 
-				values(null, #{productOptionNo } , #{userNo }, #{quantity })
-			]]>
-		</if> 
-		<if test="nonUserNo != null and nonUserNo != ''">
-			<![CDATA[
-				insert into cart(no, productoption_no, nonuser_no, quantity, user_no)
-				values(null, #{productOptionNo } , #{nonUserNo }, #{quantity }, 0)
-			]]>
-		</if> 
+	<!-- 장바구니 새 물품 추가 회원 -->	
+	<insert id="insertUser" parameterType="cartvo">
+		<![CDATA[
+			insert into cart(no, productoption_no, user_no, quantity) 
+			values(null, #{productOptionNo } , #{userNo }, #{quantity })
+		]]>
 	</insert>
 	
-	<!-- 장바구니 기존 물품 추가 -->	
-	<update id="plusQuantity" parameterType="cartvo">
+	<!-- 장바구니 새 물품 추가 비회원 -->	
+	<insert id="insertNonUser" parameterType="cartvo">
+	<![CDATA[
+		insert into cart(no, productoption_no, nonuser_no, quantity, user_no)
+		values(null, #{productOptionNo } , #{nonUserNo }, #{quantity }, 0)
+	]]>
+	</insert>
+	
+	<!-- 장바구니 기존 물품 추가 - 회원 -->	
+	<update id="plusQuantityUser" parameterType="cartvo">
 	<![CDATA[  
 		update cart 
 		set quantity = quantity + #{quantity }
 		where productoption_no =#{productOptionNo }
+		and user_no = #{userNo }
 	]]>
-		<if test="userNo != null and userNo != ''">
-			<![CDATA[
-				and user_no = #{userNo }
-			]]>
-		</if> 
-		<if test="nonUserNo != null and nonUserNo != ''">
-			<![CDATA[
-				and nonuser_no = #{nonUserNo }
-			]]>
-		</if> 
 	</update>
 	
-	<!-- 장바구니에 담긴 상품인지 체크 -->	
-	<select id="count" parameterType="cartvo" resultType="int">
+	<!-- 장바구니 기존 물품 추가 - 비회원 -->	
+	<update id="plusQuantityNonUser" parameterType="cartvo">
+	<![CDATA[  
+		update cart 
+		set quantity = quantity + #{quantity }
+		where productoption_no =#{productOptionNo }
+		and nonuser_no = #{nonUserNo }
+	]]>
+	</update>
+	
+	<!-- 장바구니에 담긴 상품인지 체크 - 회원 -->	
+	<select id="countUser" parameterType="cartvo" resultType="int">
 	<![CDATA[  
 		select count(*)
 		from cart
 		where productoption_no = #{productOptionNo }
-	]]> 
-		<if test="userNo != null and userNo != ''">
-			<![CDATA[
-				and user_no = #{userNo }
-			]]>
-		</if> 
-		<if test="nonUserNo != null and nonUserNo != ''">
-			<![CDATA[
-				and nonuser_no = #{nonUserNo }
-			]]>
-		</if> 
+		and user_no = #{userNo }
+	]]>
 	</select>
 	
-	<!-- 장바구니에 담긴 상품 리스트 가져오기 -->	
-	<select id="getList" parameterType="cartvo" resultType="cartvo">
+	<!-- 장바구니에 담긴 상품인지 체크 - 비회원 -->	
+	<select id="countNonUser" parameterType="cartvo" resultType="int">
+	<![CDATA[  
+		select count(*)
+		from cart
+		where productoption_no = #{productOptionNo }
+		and nonuser_no = #{nonUserNo }
+	]]>
+	</select>
+	
+	<!-- 장바구니에 담긴 상품 리스트 가져오기 - 회원 -->	
+	<select id="getListUser" parameterType="cartvo" resultType="cartvo">
 	<![CDATA[  
 		select c.no, c.productoption_no productoptionNo, p.name, po.productoption_name productName,
 			   sum(c.quantity) quantity, p.price, sum(c.quantity)*price sumPrice
 		from cart c, productoption po, product p
 		where c.productoption_no = po.no
 		and po.product_no = p.no
-	]]> 
+		and user_no = #{userNo }
+		group by productoptionNo
+	]]>
+	</select>
 	
-		<if test="userNo != null and userNo != ''">
-			<![CDATA[
-				and user_no = #{userNo }
-			]]>
-		</if> 
-		<if test="nonUserNo != null and nonUserNo != ''">
-			<![CDATA[
-				and nonuser_no = #{nonUserNo }
-			]]>
-		</if> 
-		
-	<![CDATA[
+	<!-- 장바구니에 담긴 상품 리스트 가져오기 - 비회원 -->	
+	<select id="getListNonUser" parameterType="cartvo" resultType="cartvo">
+	<![CDATA[  
+		select c.no, c.productoption_no productoptionNo, p.name, po.productoption_name productName,
+			   sum(c.quantity) quantity, p.price, sum(c.quantity)*price sumPrice
+		from cart c, productoption po, product p
+		where c.productoption_no = po.no
+		and po.product_no = p.no
+		and nonuser_no = #{nonUserNo }
 		group by productoptionNo
 	]]>
 	</select>
