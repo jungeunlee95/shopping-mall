@@ -24,7 +24,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cafe24.shoppingmall.dto.JSONResult;
-import com.cafe24.shoppingmall.dto.NonUserAddCartDto;
+import com.cafe24.shoppingmall.dto.RequestDeleteCartDto;
+import com.cafe24.shoppingmall.dto.RequestNonUserAddCartDto;
+import com.cafe24.shoppingmall.dto.RequestNonUserOrderDto;
+import com.cafe24.shoppingmall.dto.RequestNonUserOrderListDto;
 import com.cafe24.shoppingmall.service.CartService;
 import com.cafe24.shoppingmall.service.OrderService;
 import com.cafe24.shoppingmall.service.ProductService;
@@ -140,7 +143,7 @@ public class NonUserController {
 
 	
 	//==================================================================================
-	// 비회원 장바구니 관리
+	// 								비회원 장바구니 관리
 	//==================================================================================
 	
 	@ApiOperation(value="장바구니에 상품 추가하기")
@@ -150,7 +153,7 @@ public class NonUserController {
 		@ApiImplicitParam(name="quantity", value="quantity: 수량", required=true, dataType="Long", defaultValue="")
 	})
 	@PostMapping(value = "/cart/add")
-	public ResponseEntity<JSONResult> addNonUserCart(@RequestBody @Valid NonUserAddCartDto nonUserAddCartDto
+	public ResponseEntity<JSONResult> addNonUserCart(@RequestBody @Valid RequestNonUserAddCartDto nonUserAddCartDto
 			, BindingResult bindingResult) {
 		// java @valid 유효성 검증
 		if(bindingResult.hasErrors()) {
@@ -169,7 +172,7 @@ public class NonUserController {
 		@ApiImplicitParam(name="nonUserNo", value="nonUserId: 비회원번호", required=false, dataType="String", defaultValue="")
 	})
 	@GetMapping(value = "/cart/getList")
-	public JSONResult getCartList(@RequestBody @Valid NonUserAddCartDto nonUserAddCartDto
+	public JSONResult getCartList(@RequestBody @Valid RequestNonUserAddCartDto nonUserAddCartDto
 			, BindingResult bindingResult) {
 		// 상품 list return
 		List<CartVo> list = cartService.getCartList(nonUserAddCartDto);
@@ -195,39 +198,40 @@ public class NonUserController {
 		
 	})
 	@DeleteMapping(value = "/cart/delete")
-	public JSONResult deleteCart(@RequestBody List<Integer> noList) {
+	public JSONResult deleteCart(@RequestBody List<RequestDeleteCartDto> noList) {
 		Boolean result = cartService.deleteCart(noList);
 		return JSONResult.success(result);
 	}
 	
+	
 	//==================================================================================
-	// 비회원 주문 관리
+	// 									비회원 주문 관리
 	//==================================================================================
-	@ApiOperation(value="주문하기")
+	@ApiOperation(value="비회원 주문하기")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name="CategoryVo", value="name : 카테고리 이름 \n ", required=true, dataType="CategoryVo", defaultValue="")
 	})
 	@PostMapping(value="/order/add") 
-	public ResponseEntity<JSONResult> add(@RequestBody OrderVo orderVo) {
+	public ResponseEntity<JSONResult> add(@RequestBody RequestNonUserOrderDto requestNonUserOrderDto) {
 		
-		Boolean result = orderService.addOrder(orderVo);
+		Boolean result = orderService.addOrder(requestNonUserOrderDto);
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(result));
 	}	
 	
-	@ApiOperation(value="주문 목록 가져오기")
+	@ApiOperation(value="비회원 주문 목록 가져오기")
 	@GetMapping(value="/order/list") 
-	public ResponseEntity<JSONResult> getList(@RequestBody OrderVo orderVo) {
-		List<OrderVo> list = orderService.getOrderListByNo(orderVo);
+	public ResponseEntity<JSONResult> getList(@RequestBody RequestNonUserOrderListDto requestNonUserOrderListDto) {
+		List<OrderVo> list = orderService.getOrderListByNo(requestNonUserOrderListDto);
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(list));
 	} 
 	
-	@ApiOperation(value="주문 상세 목록 가져오기")
+	@ApiOperation(value="비회원 주문 상세 목록 가져오기")
 	@GetMapping(value="/order/detail/{no}") 
 	public ResponseEntity<JSONResult> getOrderDetailList(@PathVariable(value="no") Long no) {
 		
 		List<OrderDetailVo> list = orderService.getOrderDetailList(no);
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(list));
-	} 
+	}
 }
 
 

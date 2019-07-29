@@ -2,23 +2,23 @@ package com.cafe24.shoppingmall.dto;
 
 import javax.validation.constraints.NotNull;
 
-public class NonUserAddCartDto {
+public class RequestNonUserAddCartDto {
 
-	@NotNull
+	@NotNull( message = "오류입니다.")
 	private String nonUserNo;
 	
-	@NotNull
+	@NotNull( message = "상품옵션 번호를 선택해주세요.")
 	private Long productOptionNo;
 	
-	@NotNull
+	@NotNull( message = "수량을 입력해주세요.")
 	private Long quantity;
 
-	public NonUserAddCartDto() {
+	public RequestNonUserAddCartDto() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
  
-	public NonUserAddCartDto(String nonUserNo, Long productOptionNo, Long quantity) {
+	public RequestNonUserAddCartDto(String nonUserNo, Long productOptionNo, Long quantity) {
 		super();
 		this.nonUserNo = nonUserNo;
 		this.productOptionNo = productOptionNo;

@@ -28,7 +28,7 @@ public class OrderController {
 	@Autowired
 	private OrderService orderService;
 	
-	@ApiOperation(value="주문하기")
+	@ApiOperation(value="회원 주문하기")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name="CategoryVo", value="name : 카테고리 이름 \n ", required=true, dataType="CategoryVo", defaultValue="")
 	})

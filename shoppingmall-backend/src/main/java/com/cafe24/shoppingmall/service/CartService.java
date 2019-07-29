@@ -5,7 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cafe24.shoppingmall.dto.NonUserAddCartDto;
+import com.cafe24.shoppingmall.dto.RequestNonUserAddCartDto;
+import com.cafe24.shoppingmall.dto.RequestDeleteCartDto;
 import com.cafe24.shoppingmall.repository.CartDao;
 import com.cafe24.shoppingmall.vo.CartVo;
 
@@ -37,7 +38,7 @@ public class CartService{
 	
 	// ========================== 비회원 =============================
 	// 비회원 장바구니 상품 추가
-	public boolean addCart(NonUserAddCartDto nonUserAddCartDto) {
+	public boolean addCart(RequestNonUserAddCartDto nonUserAddCartDto) {
 		boolean result = false;
 		if(cartDao.checkCart(nonUserAddCartDto)==0) {
 			result = cartDao.addCart(nonUserAddCartDto)==1;			
@@ -49,13 +50,13 @@ public class CartService{
 	
 	
 	// 장바구니 목록 가져오기 
-	public List<CartVo> getCartList(NonUserAddCartDto nonUserAddCartDto) {
+	public List<CartVo> getCartList(RequestNonUserAddCartDto nonUserAddCartDto) {
 		List<CartVo> result = cartDao.getCartList(nonUserAddCartDto);			
 		return result;
 	}
 	// ===========================================================
 
-	public Boolean deleteCart(List<Integer> noList) {
+	public Boolean deleteCart(List<RequestDeleteCartDto> noList) {
 		boolean result = cartDao.delete(noList)==noList.size();			
 		return result;
 	}

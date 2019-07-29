@@ -90,7 +90,7 @@
 		<![CDATA[ delete from cart where no in ( ]]>
 		
 		<foreach collection="noList" item="no" separator=",">
-			<![CDATA[  #{no } ]]>
+			<![CDATA[  #{no.no } ]]>
 		</foreach>
 		
 		<![CDATA[ ) ]]>

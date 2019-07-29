@@ -8,6 +8,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.cafe24.shoppingmall.dto.RequestNonUserOrderDto;
+import com.cafe24.shoppingmall.dto.RequestNonUserOrderListDto;
 import com.cafe24.shoppingmall.vo.OptionNameVo;
 import com.cafe24.shoppingmall.vo.OrderDetailVo;
 import com.cafe24.shoppingmall.vo.OrderVo;
@@ -20,9 +22,10 @@ public class OrderDao{
 	@Autowired 
 	private SqlSession sqlSession;
 
+	// =============================== 회원 =======================================
 	public int addOrder(OrderVo orderVo) {
 		orderVo.setKey(KEY);
-		return sqlSession.insert("order.insertOrder", orderVo);
+		return sqlSession.insert("order.insertOrderUser", orderVo);
 	}
 
 	public int addOrderDetail(Long no, List<OrderDetailVo> orderDetailList) {
@@ -42,16 +45,31 @@ public class OrderDao{
 		return sqlSession.update("order.reduceStock", map);
 	}
 
-	// 비회원 주문 리스트
+	// 주문 리스트
 	public List<OrderVo> getOrderList(OrderVo orderVo) {
 		orderVo.setKey(KEY);
-		return sqlSession.selectList("order.getOrderList", orderVo);
+		return sqlSession.selectList("order.getOrderListUser", orderVo);
 	}
 	
 	public List<OrderDetailVo> getOrderDetailList(Long no) {
 		return sqlSession.selectList("order.getOrderDetailList", no);
 	}
 
+	
+	// ==========================================================================
+	
+	// =============================== 비회원 =======================================
+	
+	public int addOrder(RequestNonUserOrderDto requestNonUserOrderDto) {
+		requestNonUserOrderDto.setKey(KEY);
+		return sqlSession.insert("order.insertOrderNonUser", requestNonUserOrderDto);
+	}
 
-
+	// 비회원 주문 리스트
+	public List<OrderVo> getOrderList(RequestNonUserOrderListDto requestNonUserOrderListDto) {
+		requestNonUserOrderListDto.setKey(KEY);
+		return sqlSession.selectList("order.getOrderListNonUser", requestNonUserOrderListDto);
+	}
+	
+	// ==========================================================================
 }

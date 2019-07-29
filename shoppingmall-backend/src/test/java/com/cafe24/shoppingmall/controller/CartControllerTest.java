@@ -22,6 +22,7 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import com.cafe24.shoppingmall.dto.RequestDeleteCartDto;
 import com.cafe24.shoppingmall.vo.CartVo;
 import com.google.gson.Gson;
 
@@ -50,9 +51,25 @@ public class CartControllerTest {
 		ResultActions resultActions = 
 				mockMvc
 				.perform(post("/api/nonuser/cart/add")
+				.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
+		resultActions 
+		.andExpect(status().isBadRequest()).andDo(print());
+	}
+	
+	// valid 체크
+	@Ignore
+	@Test
+	public void testNonUserAddCartFail() throws Exception {
+		CartVo vo = new CartVo();
+		vo.setNonUserNo("AA1234BB");
+		vo.setQuantity(105L);
+		
+		ResultActions resultActions = 
+				mockMvc
+				.perform(post("/api/nonuser/cart/add")
 						.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
 		resultActions 
-		.andExpect(status().isOk()).andDo(print());
+		.andExpect(status().isBadRequest()).andDo(print());
 	}
 	
 	@Ignore
@@ -120,8 +137,13 @@ public class CartControllerTest {
 	@Test
 	public void testDeleteCart() throws Exception {
 		
-		List<Integer> list = new ArrayList<Integer>();
-		list.add(18);
+		List<RequestDeleteCartDto> list = new ArrayList<RequestDeleteCartDto>();
+		RequestDeleteCartDto dto = new RequestDeleteCartDto();
+		RequestDeleteCartDto dto2 = new RequestDeleteCartDto();
+		dto.setNo(15);
+		dto2.setNo(17);
+		list.add(dto);
+		list.add(dto2);
 		
 		ResultActions resultActions = 
 				mockMvc

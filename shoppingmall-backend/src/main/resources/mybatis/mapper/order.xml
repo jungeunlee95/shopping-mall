@@ -3,43 +3,46 @@
 
 <mapper namespace="order">
 
-	<!-- 주문 -->
-	<insert id="insertOrder" parameterType="ordervo">
-		<choose>
-			<when test="userNo != null and userNo != ''">
-				<![CDATA[
-					insert into orders(no, user_no, order_no, name, gender, phone_number, 
-					email, address, total_price, reg_date, message) values(null,
-					#{userNo }, concat(
-						DATE_FORMAT(now(),'%Y%m%d'), '-',
-						lpad( ((select count(*) from orders ALIAS_FOR_SUBQUERY
-						where DATE_FORMAT(reg_date, '%y%m%d') = DATE_FORMAT(now(), '%y%m%d') )+1), '6', '0' )
-					), 
-					AES_ENCRYPT(#{name }, SHA2(#{key }, 512)), #{gender },  
-					AES_ENCRYPT(#{phoneNumber }, SHA2(#{key }, 512)), 
-					AES_ENCRYPT(#{email }, SHA2(#{key }, 512)),
-					AES_ENCRYPT(#{address }, SHA2(#{key }, 512)), #{totalPrice }, now(), #{message }
-					)
-				]]>
-			</when> 
-			<otherwise>
-				<![CDATA[
-					insert into orders values(null,
-					0, concat(
-						DATE_FORMAT(now(),'%Y%m%d'), '-',
-						lpad( ((select count(*) from orders ALIAS_FOR_SUBQUERY
-						where DATE_FORMAT(reg_date, '%y%m%d') = DATE_FORMAT(now(), '%y%m%d') )+1), '6', '0' )
-					), 
-					AES_ENCRYPT(#{name }, SHA2(#{key }, 512)), #{gender },  
-					SHA2(#{password },512), 
-					AES_ENCRYPT(#{phoneNumber }, SHA2(#{key }, 512)), 
-					AES_ENCRYPT(#{email }, SHA2(#{key }, 512)),
-					AES_ENCRYPT(#{address }, SHA2(#{key }, 512)), #{totalPrice }, now(), #{message }
-					)
-				]]>
-			</otherwise>
-		</choose> 
-		
+	<!-- 주문 - 회원 -->
+	<insert id="insertOrderUser" parameterType="ordervo">
+		<![CDATA[
+			insert into orders(no, user_no, order_no, name, gender, phone_number, 
+			email, address, total_price, reg_date, message) values(null,
+			#{userNo }, concat(
+				DATE_FORMAT(now(),'%Y%m%d'), '-',
+				lpad( ((select count(*) from orders ALIAS_FOR_SUBQUERY
+				where DATE_FORMAT(reg_date, '%y%m%d') = DATE_FORMAT(now(), '%y%m%d') )+1), '6', '0' )
+			), 
+			AES_ENCRYPT(#{name }, SHA2(#{key }, 512)), #{gender },  
+			AES_ENCRYPT(#{phoneNumber }, SHA2(#{key }, 512)), 
+			AES_ENCRYPT(#{email }, SHA2(#{key }, 512)),
+			AES_ENCRYPT(#{address }, SHA2(#{key }, 512)), #{totalPrice }, now(), #{message }
+			)
+		]]>
+
+		<selectKey keyProperty="no" resultType="long" order="AFTER">
+			<![CDATA[
+				select last_insert_id()
+			]]>
+		</selectKey>
+	</insert>
+	
+	<!-- 주문 - 비회원-->
+	<insert id="insertOrderNonUser" parameterType="ordervo">
+		<![CDATA[
+			insert into orders values(null,
+			0, concat(
+				DATE_FORMAT(now(),'%Y%m%d'), '-',
+				lpad( ((select count(*) from orders ALIAS_FOR_SUBQUERY
+				where DATE_FORMAT(reg_date, '%y%m%d') = DATE_FORMAT(now(), '%y%m%d') )+1), '6', '0' )
+			), 
+			AES_ENCRYPT(#{name }, SHA2(#{key }, 512)), #{gender },  
+			SHA2(#{password },512), 
+			AES_ENCRYPT(#{phoneNumber }, SHA2(#{key }, 512)), 
+			AES_ENCRYPT(#{email }, SHA2(#{key }, 512)),
+			AES_ENCRYPT(#{address }, SHA2(#{key }, 512)), #{totalPrice }, now(), #{message }
+			)
+		]]>
 		<selectKey keyProperty="no" resultType="long" order="AFTER">
 			<![CDATA[
 				select last_insert_id()
@@ -84,8 +87,8 @@
 	]]>
 	</select>
 	
-	<!-- 주문 정보 -->
-	<select id="getOrderList" parameterType="map" resultType="ordervo">
+	<!-- 주문 정보 - 회원-->
+	<select id="getOrderListUser" parameterType="map" resultType="ordervo">
 		<![CDATA[
 			select no, user_no userNo, order_no orderStringNo,   
 			convert(AES_DECRYPT(name, SHA2(#{key }, 512)) using utf8) name,
@@ -94,25 +97,24 @@
 			convert(AES_DECRYPT(address, SHA2(#{key }, 512)) using utf8) address,
 			total_price totalPrice, reg_date regDate, message
 			from orders
+			where user_no=#{no }
+			by no desc ]]>
+	</select>
+	
+	<!-- 주문 정보 - 비회원-->
+	<select id="getOrderListNonUser" parameterType="map" resultType="ordervo">
+		<![CDATA[
+			select no, user_no userNo, order_no orderStringNo,   
+			convert(AES_DECRYPT(name, SHA2(#{key }, 512)) using utf8) name,
+			gender, convert(AES_DECRYPT(phone_number, SHA2(#{key }, 512)) using utf8) phoneNumber,
+			convert(AES_DECRYPT(email, SHA2(#{key }, 512)) using utf8) email,
+			convert(AES_DECRYPT(address, SHA2(#{key }, 512)) using utf8) address,
+			total_price totalPrice, reg_date regDate, message
+			from orders
+			where order_no=#{orderStringNo }
+			and password = SHA2(#{password }, 512)
+			order by no desc 
 		]]>
-		
-		<choose>
-			<!-- 비회원 주문 리스트 -->
-			<when test="password != null and password != ''">
-				<![CDATA[
-					where order_no=#{orderStringNo }
-					and password = SHA2(#{password }, 512)
-				]]>
-			</when> 
-			
-			<!-- 회원 주문 리스트 -->
-			<otherwise>
-				<![CDATA[
-					where user_no=#{no }
-				]]>
-			</otherwise>
-		</choose>
-		<![CDATA[ order by no desc ]]>
 	</select>
 	
 	<!-- 주문 상세 정보 -->

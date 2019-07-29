@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.cafe24.shoppingmall.dto.RequestNonUserOrderDto;
+import com.cafe24.shoppingmall.dto.RequestNonUserOrderListDto;
 import com.cafe24.shoppingmall.repository.OrderDao;
 import com.cafe24.shoppingmall.vo.OptionNameVo;
 import com.cafe24.shoppingmall.vo.OrderDetailVo;
@@ -18,6 +20,7 @@ public class OrderService {
 	@Autowired
 	private OrderDao orderDao;
 
+	// =============================== 회원 ======================================= 
 	public Boolean addOrder(OrderVo orderVo) {
 		
 		for(OrderDetailVo vo : orderVo.getProductOptionList()) {
@@ -52,4 +55,37 @@ public class OrderService {
 		return orderDao.getOrderDetailList(no);
 	}
 
+	// ==========================================================================
+	
+	// =============================== 비회원 =======================================
+	public Boolean addOrder(RequestNonUserOrderDto requestNonUserOrderDto) {
+
+		for (OrderDetailVo vo : requestNonUserOrderDto.getProductOptionList()) {
+			OptionNameVo stockCheck = orderDao.stockCheck(vo.getProductOptionNo());
+			// 재고 체크를 하는 경우
+			if (stockCheck.getUseStock()) {
+				// 재고가 부족한 경우
+				if (vo.getQuantity() > stockCheck.getStock()) {
+					return false;
+				}
+			}
+		}
+
+		// 주문정보 입력
+		int order = orderDao.addOrder(requestNonUserOrderDto);
+
+		// 주문 상세정보 입력
+		int orderDetail = orderDao.addOrderDetail(requestNonUserOrderDto.getNo(), requestNonUserOrderDto.getProductOptionList());
+
+		// 재고가 모두 있는 경우, 주문 후 재고 감소
+		int reduceStock = orderDao.reduceStock(requestNonUserOrderDto.getProductOptionList());
+
+		return order == 1 && orderDetail == requestNonUserOrderDto.getProductOptionList().size();
+	}
+	
+	public List<OrderVo> getOrderListByNo(RequestNonUserOrderListDto requestNonUserOrderListDto) {
+		List<OrderVo> list = orderDao.getOrderList(requestNonUserOrderListDto);
+		return list;			
+	}
+	//==========================================================================
 }

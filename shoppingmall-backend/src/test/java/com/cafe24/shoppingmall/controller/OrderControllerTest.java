@@ -138,7 +138,7 @@ public class OrderControllerTest {
 		
 		ResultActions resultActions = 
 				mockMvc
-				.perform(post("/api/order/add")
+				.perform(post("/api/nonuser/order/add")
 				.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
 		resultActions 
 		.andExpect(status().isOk()).andDo(print())
@@ -202,20 +202,19 @@ public class OrderControllerTest {
 		
 	}
 	
-	@Ignore
+//	@Ignore
 	@Test
 	public void testGetOrderListByNonUser() throws Exception {
 		OrderVo vo = new OrderVo();
-		vo.setOrderStringNo("20190727-000018");
+		vo.setOrderStringNo("20190729-000001");
 		vo.setPassword("1234");
 		
 		ResultActions resultActions = 
 				mockMvc
-				.perform(get("/api/order/list")
+				.perform(get("/api/nonuser/order/list")
 						.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(vo)));
 		resultActions 
 		.andExpect(status().isOk()).andDo(print());
-		
 	}
 	
 	@Ignore
