@@ -86,6 +86,9 @@ public class OrderService {
 
 		// 재고가 모두 있는 경우, 주문 후 재고 감소
 		int reduceStock = orderDao.reduceStock(requestNonUserOrderDto.getProductOptionList());
+		
+		// 주문 완료 후 장바구니 비우기
+		int deleteCart = cartDao.deleteProduct(requestNonUserOrderDto.getNonUserNo(), requestNonUserOrderDto.getProductOptionList());
 
 		return order == 1 && orderDetail == requestNonUserOrderDto.getProductOptionList().size();
 	}

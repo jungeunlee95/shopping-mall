@@ -10,6 +10,7 @@ public class RequestNonUserOrderDto {
 
 	private String key;
 	private Long no;
+	private String nonUserNo;
 	private String name;
 	private String gender;
 	private String password;
@@ -39,6 +40,14 @@ public class RequestNonUserOrderDto {
 
 	public void setNo(Long no) {
 		this.no = no;
+	}
+
+	public String getNonUserNo() {
+		return nonUserNo;
+	}
+
+	public void setNonUserNo(String nonUserNo) {
+		this.nonUserNo = nonUserNo;
 	}
 
 	public String getName() {
@@ -115,10 +124,10 @@ public class RequestNonUserOrderDto {
 
 	@Override
 	public String toString() {
-		return "RequestNonUserOrderDto [key=" + key + ", no=" + no + ", name=" + name + ", gender=" + gender
-				+ ", password=" + password + ", phoneNumber=" + phoneNumber + ", email=" + email + ", address="
-				+ address + ", message=" + message + ", totalPrice=" + totalPrice + ", productOptionList="
-				+ productOptionList + "]";
+		return "RequestNonUserOrderDto [key=" + key + ", no=" + no + ", nonUserNo=" + nonUserNo + ", name=" + name
+				+ ", gender=" + gender + ", password=" + password + ", phoneNumber=" + phoneNumber + ", email=" + email
+				+ ", address=" + address + ", message=" + message + ", totalPrice=" + totalPrice
+				+ ", productOptionList=" + productOptionList + "]";
 	}
 
 }

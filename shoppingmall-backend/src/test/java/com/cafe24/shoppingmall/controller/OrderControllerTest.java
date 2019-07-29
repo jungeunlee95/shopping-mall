@@ -3,19 +3,12 @@ package com.cafe24.shoppingmall.controller;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import org.hibernate.validator.internal.util.privilegedactions.GetResources;
-
-import static org.junit.Assert.*;
-import static org.hamcrest.Matchers.*;
 
 import org.junit.Before;
 import org.junit.Ignore;
@@ -24,25 +17,15 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.annotation.Rollback;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.test.web.servlet.ResultHandler;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
-import com.cafe24.shoppingmall.config.WebConfig;
-import com.cafe24.shoppingmall.vo.CategoryVo;
+import com.cafe24.shoppingmall.dto.RequestNonUserOrderDto;
 import com.cafe24.shoppingmall.vo.OrderDetailVo;
 import com.cafe24.shoppingmall.vo.OrderVo;
-import com.cafe24.shoppingmall.vo.ProductVo;
-import com.cafe24.shoppingmall.vo.UserAddressVo;
-import com.cafe24.shoppingmall.vo.UserVo;
 import com.google.gson.Gson;
 
 
@@ -62,7 +45,7 @@ public class OrderControllerTest {
 	
 	
 	// 회원 주문 성공
-//	@Ignore
+	@Ignore
 	@Test
 	public void testUserOrder() throws Exception {
 		OrderVo vo = new OrderVo();
@@ -105,10 +88,11 @@ public class OrderControllerTest {
 	}
 	
 	// 비회원주문 성공
-	@Ignore
+//	@Ignore
 	@Test
 	public void testNonUserOrder() throws Exception {
-		OrderVo vo = new OrderVo();
+		RequestNonUserOrderDto vo = new RequestNonUserOrderDto();
+		vo.setNonUserNo("AA1234BB");
 		vo.setName("또리");
 		vo.setGender("M");
 		vo.setPassword("1234");

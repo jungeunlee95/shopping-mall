@@ -42,9 +42,6 @@ public class CartDao{
 	}
 	
 	public int deleteProduct(Long userNo, List<OrderDetailVo> productOptionList) {
-		System.out.println("=======================================");
-		System.out.println(userNo + " : " + productOptionList);
-		System.out.println("=======================================");
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("userNo", userNo);
 		map.put("productOptionList", productOptionList);
@@ -71,7 +68,15 @@ public class CartDao{
 	// 장바구니 리스트 가져오기
 	public List<CartVo> getCartList(RequestNonUserAddCartDto nonUserAddCartDto) {
 		return sqlSession.selectList("cart.getListNonUser", nonUserAddCartDto);
-	}	
+	}
+	
+	public int deleteProduct(String nonUserNo, List<OrderDetailVo> productOptionList) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("nonUserNo", nonUserNo);
+		map.put("productOptionList", productOptionList);
+		return sqlSession.delete("cart.deleteOrderedProductNonUser", map);
+	}
+	
 	// =============================================================
 
 	

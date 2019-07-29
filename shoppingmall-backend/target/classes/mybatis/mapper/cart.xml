@@ -96,10 +96,22 @@
 		<![CDATA[ ) ]]>
 	</delete>
 	
-	<!-- 주문된 장바구니 물품 삭제 -->
+	<!-- 주문된 장바구니 물품 삭제 - 회원 -->
 	<delete id="deleteOrderedProduct" parameterType="map">
 		<![CDATA[ delete from cart 
 			where user_no = #{userNo }
+			and productoption_no in ( ]]> 
+		
+		<foreach collection="productOptionList" item="list" separator=",">
+			<![CDATA[  #{list.productOptionNo } ]]>
+		</foreach>
+		<![CDATA[ ) ]]>
+	</delete>
+	
+	<!-- 주문된 장바구니 물품 삭제 - 비회원 -->
+	<delete id="deleteOrderedProductNonUser" parameterType="map">
+		<![CDATA[ delete from cart 
+			where nonuser_no = #{nonUserNo }
 			and productoption_no in ( ]]> 
 		
 		<foreach collection="productOptionList" item="list" separator=",">
