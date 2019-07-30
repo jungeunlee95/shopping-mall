@@ -73,7 +73,7 @@ public class AdminProductControllerTest {
 		// 이름 검사
 		ResultActions resultActions = 
 				mockMvc
-				.perform(put("/api/admin/product/add")
+				.perform(post("/api/admin/product/add")
 				.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(productVo)));
 		resultActions 
 		.andExpect(status().isOk()).andDo(print());  
@@ -81,7 +81,7 @@ public class AdminProductControllerTest {
 	
 	// 옵션 O 상품 등록
 
-//	@Ignore
+	@Ignore
 	@Test
 	public void addProduct2() throws Exception {
 		ProductVo productVo = new ProductVo();
@@ -142,7 +142,7 @@ public class AdminProductControllerTest {
 		// 이름 검사
 		ResultActions resultActions = 
 				mockMvc
-				.perform(put("/api/admin/product/add")
+				.perform(post("/api/admin/product/add")
 						.contentType(MediaType.APPLICATION_JSON)
 						.content(new Gson().toJson(productVo)));
 		resultActions 
@@ -161,7 +161,7 @@ public class AdminProductControllerTest {
 		// 이름 검사
 		ResultActions resultActions = 
 				mockMvc
-				.perform(get("/api/admin/product/addOption")
+				.perform(post("/api/admin/product/addOption")
 				.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(optionVo)));
 		resultActions 
 		.andExpect(status().isOk()).andDo(print());  

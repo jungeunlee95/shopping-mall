@@ -98,7 +98,8 @@ public class NonUserController {
 	
 	@ApiOperation(value="로그인")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name="userVo", value="userId: 아이디 - 필수값 \n password: 비밀번호 - 필수값 \n")
+		@ApiImplicitParam(name="userVo", value="userId: 아이디 - 필수값 \n password: 비밀번호 - 필수값 \n"
+				, dataType="userVo")
 	})
 	@GetMapping(value="/login") 
 	public ResponseEntity<JSONResult> login(@RequestBody UserVo userVo) {
@@ -194,7 +195,7 @@ public class NonUserController {
 	
 	@ApiOperation(value="장바구니 상품 삭제")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name="no", value="no: 장바구니 번호", required=true, dataType="long", defaultValue="")
+		@ApiImplicitParam(name="List<RequestDeleteCartDto>", value="no: 장바구니 번호", required=true, dataType="List<RequestDeleteCartDto>", defaultValue="")
 		
 	})
 	@DeleteMapping(value = "/cart/delete")
@@ -209,7 +210,16 @@ public class NonUserController {
 	//==================================================================================
 	@ApiOperation(value="비회원 주문하기")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name="CategoryVo", value="name : 카테고리 이름 \n ", required=true, dataType="CategoryVo", defaultValue="")
+		@ApiImplicitParam(name="RequestNonUserOrderDto", 
+				value="nonUserNo : 비회원번호(세션) \n "
+				+ "name : 비회원 이름\n "
+				+ "gender : 성별 \n "
+				+ "password : 비밀번호 \n "
+				+ "phoneNumber : 전화번호 \n "
+				+ "email : 이메일 \n "
+				+ "address : address \n "
+				+ "totalPrice : 가격 \n "
+				+ "message : 배송매세지 \n ", required=true, dataType="RequestNonUserOrderDto", defaultValue="")
 	})
 	@PostMapping(value="/order/add") 
 	public ResponseEntity<JSONResult> add(@RequestBody RequestNonUserOrderDto requestNonUserOrderDto) {
@@ -219,6 +229,11 @@ public class NonUserController {
 	}	
 	
 	@ApiOperation(value="비회원 주문 목록 가져오기")
+	@ApiImplicitParams({
+		@ApiImplicitParam(name="OrderVo", 
+				value="orderStringNo : 주문번호 "
+				+ "password : 비밀번호 \n ", required=true, dataType="OrderVo", defaultValue="")
+	})
 	@GetMapping(value="/order/list") 
 	public ResponseEntity<JSONResult> getList(@RequestBody RequestNonUserOrderListDto requestNonUserOrderListDto) {
 		List<OrderVo> list = orderService.getOrderListByNo(requestNonUserOrderListDto);
@@ -226,6 +241,10 @@ public class NonUserController {
 	} 
 	
 	@ApiOperation(value="비회원 주문 상세 목록 가져오기")
+	@ApiImplicitParams({
+		@ApiImplicitParam(name="no", 
+				value="no : 주문 PK 번호 ", required=true, dataType="OrderVo", defaultValue="")
+	})
 	@GetMapping(value="/order/detail/{no}") 
 	public ResponseEntity<JSONResult> getOrderDetailList(@PathVariable(value="no") Long no) {
 		

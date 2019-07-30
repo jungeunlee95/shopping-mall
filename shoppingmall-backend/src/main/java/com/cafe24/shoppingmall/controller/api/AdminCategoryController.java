@@ -40,7 +40,7 @@ public class AdminCategoryController {
 	
 	@ApiOperation(value="상위 카테고리 이름 중복 검사")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name="name", value="name : 이름", required=true, dataType="String", defaultValue="")
+		@ApiImplicitParam(name="name", value="name : 카테고리 이름", required=true, dataType="String", defaultValue="")
 	})
 	@GetMapping(value="/checkName") 
 	public ResponseEntity<JSONResult> checkName(@RequestParam(value="name") String name) {
@@ -49,7 +49,7 @@ public class AdminCategoryController {
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(exist));
 	} 
 	
-	
+	// 현재 카테고리의 depth(상위 or 하위)중 같은 groupNo(같은 상위카테고리를 가진)중에서 중복검사
 	@ApiOperation(value="하위 카테고리 이름 중복 검사")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name="CategoryVo", value="name: 카테고리이름  \n groupNo: 그룹넘버 \n depth: 하위레벨 "
@@ -97,12 +97,12 @@ public class AdminCategoryController {
 	
 	@ApiOperation(value="카테고리 삭제")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name="no", value="no : 번호", required=true, dataType="Long", defaultValue="")
+		@ApiImplicitParam(name="CategoryVo", value="no : 카테고리 번호", required=true, dataType="CategoryVo", defaultValue="")
 	})
 	@DeleteMapping(value="/delete") 
-	public ResponseEntity<JSONResult> delete(@RequestParam(value = "no") Long no) {
+	public ResponseEntity<JSONResult> delete(@RequestBody CategoryVo categoryVo) {
 
-		Boolean result = categoryService.deleteCategory(no);
+		Boolean result = categoryService.deleteCategory(categoryVo.getNo());
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(result));
 	} 
 

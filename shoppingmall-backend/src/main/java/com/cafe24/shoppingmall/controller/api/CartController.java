@@ -52,7 +52,7 @@ public class CartController {
 	
 	@ApiOperation(value="장바구니 목록 가져오기")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name="userNo", value="userNo: 회원번호", required=false, dataType="long", defaultValue="")
+		@ApiImplicitParam(name="userNo", value="userNo: 회원번호", required=false, dataType="Long", defaultValue="")
 	})
 	@GetMapping(value = "/getList")
 	public JSONResult getCartList(@RequestBody CartVo cartVo) {
@@ -63,7 +63,7 @@ public class CartController {
 	
 	@ApiOperation(value="장바구니 상품 삭제")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name="no", value="no: 장바구니 번호", required=true, dataType="long", defaultValue="")
+		@ApiImplicitParam(name="List<RequestDeleteCartDto>", value="no: 장바구니 번호", required=true, dataType="List<RequestDeleteCartDto>", defaultValue="")
 		
 	})
 	@DeleteMapping(value = "/delete")

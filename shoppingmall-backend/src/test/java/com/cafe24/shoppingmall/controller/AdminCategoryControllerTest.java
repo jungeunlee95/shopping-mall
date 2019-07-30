@@ -188,12 +188,13 @@ public class AdminCategoryControllerTest {
 	@Ignore
 	@Test
 	public void deleteCategory() throws Exception {
-		Long no = 12L;   
+		CategoryVo categoryVo = new CategoryVo();
+		categoryVo.setNo(1L);  
 		
 		ResultActions resultActions = 
 				mockMvc
-				.perform(delete("/api/admin/category/delete?no={no}", no)
-				.contentType(MediaType.APPLICATION_JSON)); 
+				.perform(delete("/api/admin/category/delete")
+				.contentType(MediaType.APPLICATION_JSON).content(new Gson().toJson(categoryVo)));
 		
 		resultActions 
 		.andExpect(status().isOk()).andDo(print()); 

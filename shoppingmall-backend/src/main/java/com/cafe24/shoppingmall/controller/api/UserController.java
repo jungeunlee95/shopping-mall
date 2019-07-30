@@ -66,7 +66,7 @@ public class UserController {
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(vo));
 	} 
 	 
-	@ApiOperation(value="회원삭제")
+	@ApiOperation(value="회원 탈퇴")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name="no", value="no : 번호", required=true, dataType="Long", defaultValue="")
 	})
@@ -80,7 +80,13 @@ public class UserController {
 	
 	@ApiOperation(value="회원 주소지 등록")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name="no", value="no : 번호", required=true, dataType="Long", defaultValue="")
+		@ApiImplicitParam(name="UserAddressVo", 
+				value="userNo : 회원번호 \n "
+					 +"addressCode : 우편코드 \n"
+					 +"address : 주소 \n"
+					 +"addressDetail : 상세주소 \n"
+					 +"addressCheck : 주소 구분(집, 회사 ...) \n"
+				, required=true, dataType="Long", defaultValue="")
 	})
 	@PostMapping(value="/addAddress") 
 	public ResponseEntity<JSONResult> addAddress(@RequestBody UserAddressVo userAddressVo) {

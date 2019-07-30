@@ -58,7 +58,7 @@ public class ProductController {
 	
 	@ApiOperation(value="상품 하위 옵션 가져오기")
 	@ApiImplicitParams({
-		
+		@ApiImplicitParam(name="productNo", value="productNo: 상품번호", required=false, dataType="Long", defaultValue="")
 	})
 	@GetMapping(value = "/getlowoption/{productNo}")
 	public JSONResult getLowOption(@PathVariable(value = "productNo") Long productNo) {
