@@ -170,7 +170,7 @@ public class NonUserController {
 	
 	@ApiOperation(value="장바구니 목록 가져오기")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name="nonUserNo", value="nonUserId: 비회원번호", required=false, dataType="String", defaultValue="")
+		@ApiImplicitParam(name="nonUserNo", value="nonUserNo: 비회원번호", required=false, dataType="String", defaultValue="")
 	})
 	@GetMapping(value = "/cart/getList")
 	public JSONResult getCartList(@RequestBody @Valid RequestNonUserAddCartDto nonUserAddCartDto

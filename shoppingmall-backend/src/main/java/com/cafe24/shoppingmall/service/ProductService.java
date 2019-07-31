@@ -110,9 +110,9 @@ public class ProductService {
 	}
 
 	public boolean modifyOptionValue(Long productNo, List<OptionValueVo> optionValueVoList) {
-		productDao.deleteOptionValue(productNo);
-		productDao.addOptionValue(productNo, optionValueVoList);
-		return false;
+		int result = productDao.deleteOptionValue(productNo);
+		int result2 = productDao.addOptionValue(productNo, optionValueVoList);
+		return result2 == optionValueVoList.size();
 	}
 
 	public List<OptionNameVo> getOptionList(Long no) {

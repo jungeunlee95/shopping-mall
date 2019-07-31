@@ -136,8 +136,6 @@ public class AdminCategoryControllerTest {
 		CategoryVo categoryVo = new CategoryVo();
 		categoryVo.setName("신발"); 
 
-		
-		// 이름 검사
 		ResultActions resultActions = 
 				mockMvc
 				.perform(post("/api/admin/category/add")
@@ -174,8 +172,6 @@ public class AdminCategoryControllerTest {
 		categoryVo.setName("상의!"); 
 		categoryVo.setNo(1L);  
 
-		
-		// 이름 검사
 		ResultActions resultActions = 
 				mockMvc
 				.perform(put("/api/admin/category/modify")

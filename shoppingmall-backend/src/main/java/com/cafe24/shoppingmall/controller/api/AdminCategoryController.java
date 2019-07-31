@@ -52,7 +52,8 @@ public class AdminCategoryController {
 	// 현재 카테고리의 depth(상위 or 하위)중 같은 groupNo(같은 상위카테고리를 가진)중에서 중복검사
 	@ApiOperation(value="하위 카테고리 이름 중복 검사")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name="CategoryVo", value="name: 카테고리이름  \n groupNo: 그룹넘버 \n depth: 하위레벨 "
+		@ApiImplicitParam(name="CategoryVo", value="name: 카테고리이름  "
+				+ "\n groupNo: 그룹넘버 \n depth: 하위레벨 "
 				, required=true, dataType="CategoryVo", defaultValue="")
 	})
 	@GetMapping(value="/checkLowName") 
@@ -75,7 +76,8 @@ public class AdminCategoryController {
 	
 	@ApiOperation(value="하위 카테고리 등록")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name="CategoryVo", value="name : 카테고리 이름 \n depth: 깊이 \n groupNo: 그룹번호 ", required=true, dataType="CategoryVo", defaultValue="")
+		@ApiImplicitParam(name="CategoryVo", value="name : 카테고리 이름 \n "
+				+ "depth: 깊이 \n groupNo: 그룹번호 ", required=true, dataType="CategoryVo", defaultValue="")
 	})
 	@PostMapping(value="/addLow") 
 	public ResponseEntity<JSONResult> addLow(@RequestBody CategoryVo categoryVo) {

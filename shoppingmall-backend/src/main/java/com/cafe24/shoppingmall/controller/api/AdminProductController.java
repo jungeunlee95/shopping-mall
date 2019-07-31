@@ -72,11 +72,11 @@ public class AdminProductController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name="List<OptionNameVo>", 
 				value="최종 상품값 정보 리스트 \n"
-						+ "productNo : 상품 번호"
-						+ "productOptionName : 상품 옵션 이름"
-						+ "additionalAmount : 추가 금액"
-						+ "useStock : 재고 사용 여부"
-						+ "stock : 재고", 
+						+ "productNo : 상품 번호 \n"
+						+ "productOptionName : 상품 옵션 이름\n"
+						+ "additionalAmount : 추가 금액\n"
+						+ "useStock : 재고 사용 여부\n"
+						+ "stock : 재고\n", 
 						required=true, dataType="List<OptionNameVo>", defaultValue="")
 	})
 	@PostMapping(value="/addProductOption") 

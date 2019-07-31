@@ -207,7 +207,7 @@ public class OrderControllerTest {
 		Long no = 27L;
 		ResultActions resultActions = 
 				mockMvc
-				.perform(get("/api/order/detail/{no}", no)
+				.perform(get("/api/nonuser/order/detail/{no}", no)
 						.contentType(MediaType.APPLICATION_JSON)); 
 		
 		resultActions 
