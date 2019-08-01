@@ -12,8 +12,8 @@ import com.cafe24.shoppingmall.vo.OptionValueVo;
 import com.cafe24.shoppingmall.vo.OptionVo;
 import com.cafe24.shoppingmall.vo.ProductVo;
 
+@Transactional(rollbackFor = Exception.class)
 @Service
-@Transactional
 public class ProductService {
 
 	@Autowired

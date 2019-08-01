@@ -42,16 +42,12 @@ public class ProductController {
 
 	@ApiOperation(value="상품 상세 정보")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name="categoryNo", value="categoryNo: 카테고리 번호", required=true, dataType="Long", defaultValue=""),
-		@ApiImplicitParam(name="keyword", value="keyword: 검색어 입력 값", required=false, dataType="String", defaultValue="")
+		@ApiImplicitParam(name="productNo", value="productNo: 상품 번호", required=true, dataType="Long", defaultValue="")
 	})
 	@GetMapping(value = "/detail/{productNo}")
 	public JSONResult getProductDetail(
-			@PathVariable(value = "productNo") Long productNo,
-			@RequestParam(value="categoryNo", required = false, defaultValue = "") Long categoryNo,
-			@RequestParam(value="keyword", required = false, defaultValue = "") String keyword) {
+			@PathVariable(value = "productNo") Long productNo) {
 		
-		// 해당 카테고리의 list return
 		ProductVo product = productService.getProductDetail(productNo);
 		return JSONResult.success(product);
 	}

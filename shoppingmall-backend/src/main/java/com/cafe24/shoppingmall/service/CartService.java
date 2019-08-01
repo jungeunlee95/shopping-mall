@@ -4,12 +4,14 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.cafe24.shoppingmall.dto.RequestNonUserAddCartDto;
 import com.cafe24.shoppingmall.dto.RequestDeleteCartDto;
 import com.cafe24.shoppingmall.repository.CartDao;
 import com.cafe24.shoppingmall.vo.CartVo;
 
+@Transactional(rollbackFor = Exception.class)
 @Service
 public class CartService{
 

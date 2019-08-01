@@ -97,7 +97,7 @@
 			convert(AES_DECRYPT(address, SHA2(#{key }, 512)) using utf8) address,
 			total_price totalPrice, reg_date regDate, message
 			from orders
-			where user_no=#{no }
+			where user_no=#{userNo }
 			by no desc ]]>
 	</select>
 	

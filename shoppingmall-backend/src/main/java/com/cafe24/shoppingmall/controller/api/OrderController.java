@@ -32,7 +32,7 @@ public class OrderController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name="OrderVo", 
 				value="userNo : 회원번호 \n "
-				+ "name : 비회원 이름\n "
+				+ "name : 회원 이름\n "
 				+ "gender : 성별 \n "
 				+ "phoneNumber : 전화번호 \n "
 				+ "email : 이메일 \n "
@@ -49,7 +49,7 @@ public class OrderController {
 	
 	@ApiOperation(value="회원 주문 목록 가져오기")
 	@ApiImplicitParams({
-		@ApiImplicitParam(name="OrderVo", value="no : 주문 PK번호 \n ", required=true, dataType="OrderVo", defaultValue="")
+		@ApiImplicitParam(name="OrderVo", value="no : 회원 PK번호 \n ", required=true, dataType="OrderVo", defaultValue="")
 	})
 	@GetMapping(value="/list") 
 	public ResponseEntity<JSONResult> getList(@RequestBody OrderVo orderVo) {

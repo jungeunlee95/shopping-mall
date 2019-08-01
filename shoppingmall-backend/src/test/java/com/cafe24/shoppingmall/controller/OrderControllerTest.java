@@ -175,7 +175,7 @@ public class OrderControllerTest {
 	@Test
 	public void testGetOrderListByUser() throws Exception {
 		OrderVo vo = new OrderVo();
-		vo.setNo(2L);
+		vo.setUserNo(2L);
 		
 		ResultActions resultActions = 
 				mockMvc
@@ -203,7 +203,7 @@ public class OrderControllerTest {
 	
 	@Ignore
 	@Test
-	public void testGetOrderDetaikList() throws Exception {
+	public void testGetOrderDetailList() throws Exception {
 		Long no = 27L;
 		ResultActions resultActions = 
 				mockMvc

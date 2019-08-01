@@ -4,11 +4,13 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.cafe24.shoppingmall.repository.CategoryDao;
 import com.cafe24.shoppingmall.vo.CategoryVo;
 import com.cafe24.shoppingmall.vo.UserVo;
 
+@Transactional(rollbackFor = Exception.class)
 @Service
 public class CategoryService {
 

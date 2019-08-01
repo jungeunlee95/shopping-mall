@@ -15,8 +15,8 @@ import com.cafe24.shoppingmall.vo.OptionNameVo;
 import com.cafe24.shoppingmall.vo.OrderDetailVo;
 import com.cafe24.shoppingmall.vo.OrderVo;
 
+@Transactional(rollbackFor = Exception.class)
 @Service 
-@Transactional
 public class OrderService {
 
 	@Autowired
