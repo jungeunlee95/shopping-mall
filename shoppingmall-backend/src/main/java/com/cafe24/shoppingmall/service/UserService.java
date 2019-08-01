@@ -30,7 +30,6 @@ public class UserService{
 
 	public UserVo getUser(String id, String password) {
 		UserVo vo  = userDao.get(id, password);
-		System.out.println("+++++++" + vo);
 		return vo;
 	}
 
