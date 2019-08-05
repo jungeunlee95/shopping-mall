@@ -101,7 +101,7 @@
 								<div class="col-md-6">
 									<select id="password_question" class="form-control" name="password_question">
 									    <option value="">비밀번호 질문 선택</option>
-									    <option value="2">가장 아끼는 물건은?</option>
+									    <option value="2">가장 아끼는 보물 1호는?</option>
 									    <option value="3">강아지 이름은?</option>
 									    <option value="4">가장 좋아하는 책은?</option>
 									</select> 
