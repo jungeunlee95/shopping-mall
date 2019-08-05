@@ -1,7 +1,10 @@
 server:
-   port: 8088
-   servlet:
-      context-path: /shoppingmall 
+   port: 8888
+   contextPath: /shoppingmall 
+   
+   error:
+      whitelabel:
+            enabled: false
        
 spring:
    profiles:
@@ -35,3 +38,12 @@ spring:
          max-request-size: 50MB
 mybatis:
    config-location: classpath:mybatis/configuration.xml
+   
+security:
+         user:
+              name: test
+              password: 5678
+#         oauth2:
+#                client:
+#                       client-id: pjmall
+#                       client-secret: 1234
