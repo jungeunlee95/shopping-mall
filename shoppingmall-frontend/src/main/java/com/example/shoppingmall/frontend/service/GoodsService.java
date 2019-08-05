@@ -18,7 +18,7 @@ public class GoodsService {
 	
 	public Goods getList(Long no){
 		
-		String endpoint = "http://localhost:8088/shoppingmall/api/admin/category/list";
+		String endpoint = "http://localhost:8888/shoppingmall/api/admin/category/list";
 		JSONResultGoods jsonResult = restTemplate.getForObject(endpoint, JSONResultGoods.class);
 		
 		System.out.println( jsonResult );
@@ -28,7 +28,9 @@ public class GoodsService {
 	
 	public String getList(){
 		
-		String endpoint = "http://localhost:8088/shoppingmall/api/admin/category/list";
+		System.out.println("============= getList 접속 ========================");
+
+		String endpoint = "http://localhost:8888/shoppingmall/api/admin/category/list";
 		JSONResultGoodsList jsonResult = restTemplate.getForObject(endpoint, JSONResultGoodsList.class);
 
 		System.out.println("======================================");
@@ -39,9 +41,9 @@ public class GoodsService {
 	}
 	
 	// DTO Class
-	private class JSONResultGoods extends JSONResult<Goods>{
+	private static class JSONResultGoods extends JSONResult<Goods>{
 	}
-	private class JSONResultGoodsList extends JSONResult<String>{
+	private static class JSONResultGoodsList extends JSONResult<String>{
 	}
 }
 

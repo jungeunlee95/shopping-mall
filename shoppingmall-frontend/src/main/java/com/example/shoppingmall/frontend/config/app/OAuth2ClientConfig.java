@@ -26,7 +26,7 @@ public class OAuth2ClientConfig {
 	public OAuth2ProtectedResourceDetails resourceDetails() {
         ClientCredentialsResourceDetails resourceDetails = new ClientCredentialsResourceDetails();
         
-        resourceDetails.setAccessTokenUri("http://localhost:8088/shoppingmall/oauth/token");
+        resourceDetails.setAccessTokenUri("http://localhost:8888/shoppingmall/oauth/token");
 	    resourceDetails.setClientId("jemall");
 	    resourceDetails.setClientSecret("1234");
         resourceDetails.setGrantType("client_credentials");

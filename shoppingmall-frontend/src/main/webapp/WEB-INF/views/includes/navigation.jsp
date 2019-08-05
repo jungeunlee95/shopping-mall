@@ -27,7 +27,7 @@
 						<li class="nav-item">
 							<a class="nav-link" href="${pageContext.servletContext.contextPath }/cs">고객센터</a>
 						</li>
-					</c:when>
+					</c:when>  
 					<c:when test='${param.active == "join" }'>
 						<li class="nav-item">
 							<a class="nav-link" href="${pageContext.servletContext.contextPath }">홈</a>
