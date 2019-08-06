@@ -19,11 +19,10 @@ import com.cafe24.shoppingmall.frontend.vo.UserVo;
 @Service
 public class UserService {
 
-	//@Autowired
-	//private OAuth2RestTemplate restTemplate;
+	@Autowired
+	private OAuth2RestTemplate restTemplate;
 
 	public List<UserVo> getUserList() {
-		RestTemplate restTemplate = new RestTemplate();
 
 		String endpoint = "http://localhost:8888/shoppingmall/api/admin/user/list";
 
@@ -35,7 +34,7 @@ public class UserService {
 	public String joinUser(UserVo userVo) {
 		String uri = "http://localhost:8888/shoppingmall/api/nonuser/join";
 
-		RestTemplate restTemplate = new RestTemplate();
+
 		HttpEntity<UserVo> request = new HttpEntity<>(userVo);
 		
 		ResponseEntity<String> response = null;

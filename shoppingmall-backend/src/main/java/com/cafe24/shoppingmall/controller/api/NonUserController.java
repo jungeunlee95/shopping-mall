@@ -71,11 +71,6 @@ public class NonUserController {
 	@PostMapping(value="/join") 
 	public ResponseEntity<JSONResult> joinUser(@RequestBody @Valid UserVo userVo,
 								BindingResult bindingResult) {
-		
-		System.out.println("========백엔드 회원가입======="); 
-		System.out.println(userVo);
-		System.out.println("========================="); 
-		
 		// java @valid 유효성 검증
 		if(bindingResult.hasErrors()) {
 			List<ObjectError> allErrors = bindingResult.getAllErrors();

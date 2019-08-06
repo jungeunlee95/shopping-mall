@@ -159,14 +159,14 @@
 										<form:errors path="phoneNumber"/>
 									</p>
 								</div>
-							</div>
+							</div> 
  
 							<div class="form-group row">
 								<label for="birthDate" class="col-md-4 col-form-label text-md-right">생일</label>
 								<div class="col-md-6">
-									<input id="birthDate" class="form-control" name="birthDate" placeholder="YYYY-MM-DD"/>
+									<form:input path="birthDate" id="birthDate" class="form-control" name="birthDate" placeholder="YYYY-MM-DD"/>
 								</div>  
-							</div>
+							</div> 
 <%-- 							<div class="form-group row">
 								<label for="birthDate" class="col-md-4 col-form-label text-md-right">생일</label>
 								<div class="col-md-6">
