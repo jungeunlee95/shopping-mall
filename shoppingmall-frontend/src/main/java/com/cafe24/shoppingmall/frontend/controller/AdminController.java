@@ -8,7 +8,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.cafe24.shoppingmall.frontend.service.GoodsService;
 import com.cafe24.shoppingmall.frontend.service.UserService;
+import com.cafe24.shoppingmall.frontend.vo.ProductVo;
 import com.cafe24.shoppingmall.frontend.vo.UserVo;
 
 @Controller
@@ -17,6 +19,8 @@ public class AdminController {
 	
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private GoodsService goodsService;
 	
 	@GetMapping( "" )
 	public String login() {
@@ -32,7 +36,14 @@ public class AdminController {
 	
 	@GetMapping( "/product" )
 	public String product() {
-		return "admin/add-product";
+		return "admin/add-product"; 
+	}
+	
+	@GetMapping( "/product/list" )
+	public String productList(Model model) {
+		List<ProductVo> list = goodsService.getList();
+		model.addAttribute("productList", list);
+		return "admin/product-list";
 	}
 	
 }

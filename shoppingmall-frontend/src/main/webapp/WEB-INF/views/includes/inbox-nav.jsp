@@ -86,7 +86,7 @@
 	<ul class="inbox-nav inbox-divider">
 		<li class="active"><a href="" class="a-disabled"><i
 				class="fa fa-inbox"></i>상품</a></li> 
-		<li><a href="#">상품목록</a></li>
+		<li><a href="${pageContext.servletContext.contextPath }/admin/product/list">상품목록</a></li>
 		<li><a href="${pageContext.servletContext.contextPath }/admin/product">상품등록</a></li>
 		<li><a href="#">상품 옵션 등록</a></li>
 		<li><a href="#">상품 수정</a></li>
