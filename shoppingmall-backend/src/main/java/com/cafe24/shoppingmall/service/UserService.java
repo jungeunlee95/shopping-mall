@@ -17,9 +17,8 @@ public class UserService{
 	@Autowired
 	private UserDao userDao;
 	
-	public UserVo joinUser(UserVo userVo) {
-		UserVo vo = userDao.insert(userVo);
-		return vo;
+	public Boolean joinUser(UserVo userVo) {
+		return userDao.insert(userVo)==1;
 	}
 	
 	public Boolean checkId( String id) {

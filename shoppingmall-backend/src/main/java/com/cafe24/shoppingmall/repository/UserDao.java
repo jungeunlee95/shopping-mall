@@ -19,10 +19,9 @@ public class UserDao{
 	@Autowired 
 	private SqlSession sqlSession;
 
-	public UserVo insert(UserVo vo) { 
+	public int insert(UserVo vo) { 
 		vo.setKey(KEY);
-		sqlSession.insert("user.insert", vo); 
-		return vo;
+		return sqlSession.insert("user.insert", vo);
 	}
 
 	public UserVo getId(String id) {

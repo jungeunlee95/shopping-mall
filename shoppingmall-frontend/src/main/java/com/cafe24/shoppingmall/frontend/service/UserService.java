@@ -25,7 +25,16 @@ public class UserService {
 		return jsonResult.getData();
 	}
 
-	// DTO Class
-	private static class JSONResultUserList extends JSONResult<List<UserVo>> {
+	public Boolean joinUser(UserVo userVo) {
+		String endpoint = "http://localhost:8888/shoppingmall/api/nonuser/join";
+		
+		JSONResultUserJoin jsonResult = new RestTemplate().getForObject(endpoint, JSONResultUserJoin.class);
+		
+		return jsonResult.getData();
 	}
+	
+	// DTO Class
+	private static class JSONResultUserList extends JSONResult<List<UserVo>> {}
+	private static class JSONResultUserJoin extends JSONResult<Boolean> {}
+
 }

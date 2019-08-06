@@ -29,7 +29,8 @@ public class UserVo {
 	@NotEmpty(message = "이메일을 입력해주세요.")
 	private String email;
 	
-	@Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$", message = "잘못된 비밀번호 형식입니다.")
+	// 
+	@Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@!*#?])[A-Za-z\\d@!*#?]{8,}$", message = "잘못된 비밀번호 형식입니다.")
 	@NotEmpty
 	private String password;
 	

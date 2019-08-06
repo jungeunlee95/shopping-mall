@@ -69,19 +69,20 @@ public class NonUserController {
 	})
 	@PostMapping(value="/join") 
 	public ResponseEntity<JSONResult> joinUser(@RequestBody @Valid UserVo userVo,
-								BindingResult result) {
+								BindingResult bindingResult) {
 		
+		System.out.println("========백엔드 회원가입=======");
+		System.out.println(userVo);
 		// java @valid 유효성 검증
-		if(result.hasErrors()) {
-			List<ObjectError> allErrors = result.getAllErrors();
+		if(bindingResult.hasErrors()) {
+			List<ObjectError> allErrors = bindingResult.getAllErrors();
 			for(ObjectError error : allErrors) {
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(JSONResult.fail(error.getDefaultMessage()));
 			}
 		}
 
-		// id 중복검사
-		UserVo vo = userService.joinUser(userVo);
-		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(vo));
+		Boolean result = userService.joinUser(userVo);
+		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(result));
 	}	
 
 	@ApiOperation(value="아이디 중복 검사")

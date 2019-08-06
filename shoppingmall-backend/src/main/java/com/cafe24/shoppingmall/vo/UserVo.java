@@ -27,7 +27,7 @@ public class UserVo {
 
 	// 비밀번호 정규식 (최소 8자리에 대문자 1자리 소문자 한자리 숫자 한자리)
 //	@ValidPassword
-	@Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,16}$", message = "잘못된 비밀번호 형식입니다.")
+	@Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@!*#?])[A-Za-z\\d@!*#?]{8,}$", message = "잘못된 비밀번호 형식입니다.")
 	private String password;
 
 	private int passwordQuestion;
