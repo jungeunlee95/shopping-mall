@@ -31,9 +31,11 @@ public class GoodsService {
 
 	public List<ProductVo> getList() {
 		
+		RestTemplate restTemplate = new RestTemplate();
+
 		String endpoint = "http://localhost:8888/shoppingmall/api/product/list";
 		
-		JSONResultProductList jsonResult = new RestTemplate().getForObject(endpoint, JSONResultProductList.class);
+		JSONResultProductList jsonResult = restTemplate.getForObject(endpoint, JSONResultProductList.class);
 		
 		return jsonResult.getData();
 	}

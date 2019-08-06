@@ -46,13 +46,10 @@ public class UserController {
 			return "user/join";
 		}
 		
-		Boolean result = userService.joinUser(userVo);
-		model.addAttribute("result", result);
-		System.out.println("=======================================");
-		System.out.println(result);
-		System.out.println("=======================================");
+		String result = userService.joinUser(userVo);
+		model.addAttribute("result", result); 
 
-		return "user/join";
+		return "user/join-success";
 
 //		System.out.println("==============================="); 
 //		for(PasswordQuestion name : PasswordQuestion.values()) {
