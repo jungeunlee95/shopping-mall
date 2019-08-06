@@ -17,4 +17,9 @@ public class AdminController {
 		return "admin/main";
 	}
 	
+	@GetMapping( "/product" )
+	public String product() {
+		return "admin/add-product";
+	}
+	
 }

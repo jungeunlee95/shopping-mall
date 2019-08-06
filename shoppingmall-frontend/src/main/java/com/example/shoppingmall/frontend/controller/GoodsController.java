@@ -21,4 +21,9 @@ public class GoodsController {
 		goodsService.getList();
 		return "ok";
 	}
+	
+	@RequestMapping("{no}")
+	public String list(@PathVariable("no") Long no) {
+		return "goods/item";
+	}
 }
