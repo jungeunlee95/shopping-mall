@@ -35,7 +35,8 @@ public class AdminCategoryController {
 	public ResponseEntity<JSONResult> getList() {
 
 		List<CategoryVo> list = categoryService.getCategoryList();
-		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(list));
+//		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(list)); 
+		return new ResponseEntity<JSONResult>(JSONResult.success(list), HttpStatus.OK);
 	} 
 	
 	@ApiOperation(value="상위 카테고리 이름 중복 검사")

@@ -80,29 +80,29 @@
 	<ul class="inbox-nav inbox-divider">
 		<li class="active"><a href="" class="a-disabled"><i
 				class="fa fa-users"></i>회원</a></li>
-		<li><a href="active">회원목록</a></li>
+		<li><a href="${pageContext.servletContext.contextPath }/admin/user/list">회원목록</a></li>
 	</ul>
 
 	<ul class="inbox-nav inbox-divider">
 		<li class="active"><a href="" class="a-disabled"><i
-				class="fa fa-inbox"></i>상품</a></li>
-		<li><a href="active">상품목록</a></li>
-		<li><a href="#">상품등록</a></li>
+				class="fa fa-inbox"></i>상품</a></li> 
+		<li><a href="#">상품목록</a></li>
+		<li><a href="${pageContext.servletContext.contextPath }/admin/product">상품등록</a></li>
 		<li><a href="#">상품 옵션 등록</a></li>
 		<li><a href="#">상품 수정</a></li>
 		<li><a href="#">상품 삭제</a></li>
 	</ul>
-
+ 
 	<ul class="inbox-nav inbox-divider">
 		<li class="active"><a href="" class="a-disabled"><i
 				class="fa fa-shopping-cart"></i>장바구니</a></li>
-		<li><a href="active">장바구니목록</a></li>
+		<li><a href="#">장바구니목록</a></li>
 	</ul>
 
 	<ul class="inbox-nav inbox-divider">
 		<li class="active"><a href="" class="a-disabled"><i
 				class="fa fa-list"></i>카테고리</a></li>
-		<li><a href="active">카테고리 목록</a></li>
+		<li><a href="#">카테고리 목록</a></li>
 		<li><a href="#">카테고리 등록</a></li>
 		<li><a href="#">카테고리 수정</a></li>
 		<li><a href="#">카테고리 삭제</a></li>

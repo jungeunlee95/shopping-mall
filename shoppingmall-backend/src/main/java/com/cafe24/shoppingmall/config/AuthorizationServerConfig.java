@@ -36,19 +36,19 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 //			.accessTokenValiditySeconds(60);
 
 		// client credentials - 메모리
-//		clients.inMemory() 
-//			.withClient("jemall")
-//			.authorizedGrantTypes("password", "client_credentials")
-//			.authorities("ROLE_CLIENT")
-//			.scopes("read", "write", "trust")
-//			.resourceIds("jemall_api")
-//			.secret("1234");
-			//.accessTokenValiditySeconds(60);
+		clients.inMemory() 
+			.withClient("jemall")
+			.authorizedGrantTypes("password", "client_credentials")
+			.authorities("ROLE_CLIENT")
+			.scopes("read", "write", "trust")
+			.resourceIds("jemall_api")
+			.secret("1234");
+//			.accessTokenValiditySeconds(60);
 		
 		
 		
-		clients
-			.jdbc(dataSource());
+//		clients
+//			.jdbc(dataSource());
 //			.and()
 //			.withClient("my-client-with-registered-redirect")
 //			.authorizedGrantTypes("authorization_code") 

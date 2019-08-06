@@ -155,8 +155,7 @@ $('.a-disabled').click(function () {return false;});
 															for="gridCheck"> Check me out </label>
 													</div>
 												</div>
-												<button type="submit" class="btn btn-primary">Sign
-													in</button>
+												<button type="submit" class="btn btn-primary">상품 등록</button>
 											</form>
 										</div>
 									</div>
@@ -165,15 +164,6 @@ $('.a-disabled').click(function () {return false;});
 						</div>
 					</section>
 				</div>
-				<ul class="unstyled inbox-pagination">
-					<li><a class="np-btn" href="#"><i
-							class="fa fa-angle-left  pagination-left"></i></a></li>
-					<li class="page-item active"><a class="page-link" href="#">1</a></li>
-					<li class="page-item"><a class="page-link" href="#">2</a></li>
-					<li class="page-item"><a class="page-link" href="#">3</a></li>
-					<li><a class="np-btn" href="#"><i
-							class="fa fa-angle-right pagination-right"></i></a></li>
-				</ul>
 			</aside>
 		</div>
 	</div>

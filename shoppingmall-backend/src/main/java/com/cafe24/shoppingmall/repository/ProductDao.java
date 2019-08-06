@@ -45,9 +45,7 @@ public class ProductDao{
 	}
 
 	public List<ProductVo> getList() {
-		List<ProductVo> list = new ArrayList<ProductVo>(); 
-		
-		return list;
+		return sqlSession.selectList("product.getList");
 	}
 
 	/** 

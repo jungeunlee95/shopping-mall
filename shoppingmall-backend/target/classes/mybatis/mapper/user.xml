@@ -43,6 +43,7 @@
 			convert(AES_DECRYPT(email, SHA2(#{key}, 512)) using utf8) as email,
 			DATE_FORMAT(birth_date,'%Y-%m-%d') as birthDate, role, point, end_date as endDate, gender
 			from user
+			order by no desc
 		 ]]>
 	</select>
 	

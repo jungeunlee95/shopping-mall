@@ -3,6 +3,8 @@ package com.cafe24.shoppingmall.controller.api;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +27,18 @@ public class ProductController {
 	@Autowired
 	private ProductService productService;
 
+	@ApiOperation(value="상품 목록 가져오기")
+	@GetMapping(value = "/list")
+	public ResponseEntity<JSONResult> getProductList() {
+		
+		System.out.println("============ 백엔드 상품목록 접속 ============");
+		// 해당 카테고리의 list return
+		List<ProductVo> list = productService.getProductList();
+		
+		System.out.println(list);
+		return new ResponseEntity<JSONResult>(JSONResult.success(list), HttpStatus.OK);
+	}
+	
 	@ApiOperation(value="특정 조건에 맞는 상품 목록 가져오기")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name="categoryNo", value="categoryNo: 카테고리 번호", required=true, dataType="Long", defaultValue=""),
