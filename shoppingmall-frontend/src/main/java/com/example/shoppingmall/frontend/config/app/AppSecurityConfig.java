@@ -44,7 +44,7 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
         		// ADMIN 권한
         		// .antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
         		// .antMatchers("/admin/**").hasAuthority("ROLE_ADMIN");
-        		.antMatchers("/admin", "/admin/**").hasRole("ADMIN")
+//        		.antMatchers("/admin", "/admin/**").hasRole("ADMIN")
         	
         		// 모두 허용
         		.anyRequest().permitAll()
