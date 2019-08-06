@@ -36,7 +36,7 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(HttpSecurity http) throws Exception {
 
 		// AuthorizedURL(Basic ACL)
-        http
+        http 
         	.authorizeRequests()
         		// 인증이 되었을 경우
         		.antMatchers("/user/update", "/user/logout").authenticated()

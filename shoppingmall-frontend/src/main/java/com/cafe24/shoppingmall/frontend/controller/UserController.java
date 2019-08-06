@@ -46,7 +46,8 @@ public class UserController {
 			return "user/join";
 		}
 		
-		String result = userService.joinUser(userVo);
+		Boolean result = userService.joinUser(userVo);
+		
 		model.addAttribute("result", result); 
 
 		return "user/join-success";

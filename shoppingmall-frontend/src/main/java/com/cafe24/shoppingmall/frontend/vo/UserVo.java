@@ -38,14 +38,16 @@ public class UserVo {
 	private String gender;
 
 	private String role = "ROLE_USER";
+	
+	private String birthDate;
 
 	public UserVo() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public UserVo(Long no, String id, int passwordQuestion, String passwordAnswer, String phoneNumber,
-			String name, String email, String password, String gender, String role) {
+	public UserVo(Long no, String id, int passwordQuestion, String passwordAnswer, String phoneNumber, String name,
+			String email, String password, String gender, String role, String birthDate) {
 		super();
 		this.no = no;
 		this.id = id;
@@ -57,6 +59,7 @@ public class UserVo {
 		this.password = password;
 		this.gender = gender;
 		this.role = role;
+		this.birthDate = birthDate;
 	}
 
 	public Long getNo() {
@@ -139,12 +142,20 @@ public class UserVo {
 		this.role = role;
 	}
 
+	public String getBirthDate() {
+		return birthDate;
+	}
+
+	public void setBirthDate(String birthDate) {
+		this.birthDate = birthDate;
+	}
+
 	@Override
 	public String toString() {
 		return "UserVo [no=" + no + ", id=" + id + ", passwordQuestion=" + passwordQuestion + ", passwordAnswer="
 				+ passwordAnswer + ", phoneNumber=" + phoneNumber + ", name=" + name + ", email=" + email
-				+ ", password=" + password + ", gender=" + gender + ", role=" + role + "]";
+				+ ", password=" + password + ", gender=" + gender + ", role=" + role + ", birthDate=" + birthDate + "]";
 	}
-	
+
 	
 }

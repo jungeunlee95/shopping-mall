@@ -31,18 +31,15 @@ public class UserService {
 		return jsonResult.getData();
 	}
 	
-	public String joinUser(UserVo userVo) {
+	public Boolean joinUser(UserVo userVo) {
 		String uri = "http://localhost:8888/shoppingmall/api/nonuser/join";
-
 
 		HttpEntity<UserVo> request = new HttpEntity<>(userVo);
 		
-		ResponseEntity<String> response = null;
+		ResponseEntity<JSONResultUserJoin> response = restTemplate
+				.exchange(uri, HttpMethod.POST, request, JSONResultUserJoin.class);
 		
-		response = restTemplate
-				.exchange(uri, HttpMethod.POST, request, String.class);
-		
-		return response.getBody();
+		return response.getBody().getData();
 		
 		
 		// ------------------------- 1 ---------------------------

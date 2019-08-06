@@ -68,14 +68,28 @@
 		<div class="row justify-content-center">
 			<div class="col-md-8">
 				<div class="card">
-					<div class="card-header text-center">환영합니다!</div>
-					<div class="card-body">
-						회원가입에 성공하셨습니다!
-
+				<c:choose>
+					<c:when test="${result == 'true'}">
+						<div class="card-header text-center">회원가입 실패</div>
+						<div class="card-body">
+							환영합니다. 회원가입에 성공하셨습니다!
+							<hr>
 							<div class="col-md-6 offset-md-4">
-								<button type="submit" class="btn btn-primary">로그인하러가기</button>
+								<button type="submit" class="btn btn-primary">로그인 하러가기</button>
 							</div> 
-					</div>
+						</div> 
+					</c:when>
+					<c:otherwise>
+						<div class="card-header text-center">회원가입 실패</div>
+						<div class="card-body">
+							죄송합니다. 회원가입에 실패하셨습니다.
+							<hr>  
+							<div class="col-md-6 offset-md-4">
+								<button type="submit" class="btn btn-primary">회원가입 하러가기</button>
+							</div> 
+						</div>
+					</c:otherwise>
+				</c:choose>
 				</div> 
 			</div>
 		</div> 
