@@ -31,7 +31,7 @@ public class ProductDao{
 	public int addCategoryAndProduct(Long no, List<CategoryVo> categoryList) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("productNo", no);
-		map.put("categoryList", categoryList);
+		map.put("categoryList", categoryList); 
 		int result = sqlSession.insert("product.addCategoryAndProduct", map);
 		return result;
 	}
@@ -118,6 +118,11 @@ public class ProductDao{
 	public List<OptionNameVo> getOptionList(Long no) {
 		List<OptionNameVo> list = sqlSession.selectList("product.getOptionList", no);
 		return list;
+	}
+
+	public int addMainImage(ProductVo productVo) {
+		int result = sqlSession.insert("product.mainImage", productVo);
+		return result;
 	}
 
 

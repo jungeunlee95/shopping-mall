@@ -23,8 +23,10 @@
 	<!-- 상품 리스트 -->
 	<select id="getList" resultType="productvo">
 	<![CDATA[
-		select no, code, name, price, reg_date regDate, isshow isShow, isoption isOption, shipping_fee shippingFee, order_no orderNo
-		from product
+		select img_url mainImg, p.no, code, name, price, reg_date regDate, isshow isShow, 
+		isoption isOption, shipping_fee shippingFee, order_no orderNo
+		from product p left join mainimage i
+		on p.no = i.product_no
 		order by no desc
 	]]>
 	</select>
@@ -110,8 +112,15 @@
 	 	<![CDATA[ insert into category_product values ]]>
 		<foreach collection="categoryList" item="category"
 			separator=",">
-			<![CDATA[ (null, #{category.no } , #{productNo}) ]]>
+			<![CDATA[ (null, #{category.no } , #{productNo }) ]]>
 		</foreach>
+	</insert>
+	
+	<!-- 상품의 대표이미지-->
+	<insert id="mainImage" parameterType="productvo">
+	 	<![CDATA[ 
+	 		insert into mainimage values (null, #{no }, #{mainImg }, 1)
+	 	]]>
 	</insert>
 	
 	<!-- 최종 옵션 등록-->

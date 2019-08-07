@@ -1,8 +1,12 @@
-package com.cafe24.shoppingmall.vo;
+package com.cafe24.shoppingmall.frontend.dto;
 
 import java.util.List;
 
-public class ProductVo {
+import org.springframework.web.multipart.MultipartFile;
+
+import com.cafe24.shoppingmall.frontend.vo.OptionNameVo;
+
+public class ProductAddDto {
 
 	private Long no; // 상품 번호
 	private String code; // 상품 코드
@@ -14,21 +18,27 @@ public class ProductVo {
 	private int shippingFee; // 배송비
 	private int orderNo; // 진열 순위
 	private String contents; // 본문 내용
-	private String mainImg; // 대표 이미지
+	private String mainImgUrl;
 
-	private List<OptionNameVo> optionNameList; // 최종 옵션 리스트
-	private List<OptionVo> optionList; // 옵션(상위) 리스트
-	private List<OptionValueVo> optionValueList; // 옵션(하위) 리스트
-	private List<CategoryVo> categoryList; // 카테고리 리스트
+	private List<Long> categoryList; // 카테고리 리스트
+	private List<OptionNameVo> optionNameList; // 옵션 리스트
 
-	public ProductVo() {
+	public ProductAddDto() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public ProductVo(Long no, String code, String name, int price, String regDate, boolean isShow, boolean isOption,
-			int shippingFee, int orderNo, String contents, String mainImg, List<OptionNameVo> optionNameList,
-			List<OptionVo> optionList, List<OptionValueVo> optionValueList, List<CategoryVo> categoryList) {
+	public List<OptionNameVo> getOptionNameList() {
+		return optionNameList;
+	}
+
+	public void setOptionNameList(List<OptionNameVo> optionNameList) {
+		this.optionNameList = optionNameList;
+	}
+
+	public ProductAddDto(Long no, String code, String name, int price, String regDate, boolean isShow, boolean isOption,
+			int shippingFee, int orderNo, String contents, String mainImgUrl, List<Long> categoryList,
+			List<OptionNameVo> optionNameList) {
 		super();
 		this.no = no;
 		this.code = code;
@@ -40,11 +50,9 @@ public class ProductVo {
 		this.shippingFee = shippingFee;
 		this.orderNo = orderNo;
 		this.contents = contents;
-		this.mainImg = mainImg;
-		this.optionNameList = optionNameList;
-		this.optionList = optionList;
-		this.optionValueList = optionValueList;
+		this.mainImgUrl = mainImgUrl;
 		this.categoryList = categoryList;
+		this.optionNameList = optionNameList;
 	}
 
 	public Long getNo() {
@@ -127,53 +135,28 @@ public class ProductVo {
 		this.contents = contents;
 	}
 
-	public String getMainImg() {
-		return mainImg;
+	public String getMainImgUrl() {
+		return mainImgUrl;
 	}
 
-	public void setMainImg(String mainImg) {
-		this.mainImg = mainImg;
+	public void setMainImgUrl(String getMainImgUrl) {
+		this.mainImgUrl = getMainImgUrl;
 	}
 
-	public List<OptionNameVo> getOptionNameList() {
-		return optionNameList;
-	}
-
-	public void setOptionNameList(List<OptionNameVo> optionNameList) {
-		this.optionNameList = optionNameList;
-	}
-
-	public List<OptionVo> getOptionList() {
-		return optionList;
-	}
-
-	public void setOptionList(List<OptionVo> optionList) {
-		this.optionList = optionList;
-	}
-
-	public List<OptionValueVo> getOptionValueList() {
-		return optionValueList;
-	}
-
-	public void setOptionValueList(List<OptionValueVo> optionValueList) {
-		this.optionValueList = optionValueList;
-	}
-
-	public List<CategoryVo> getCategoryList() {
+	public List<Long> getCategoryList() {
 		return categoryList;
 	}
 
-	public void setCategoryList(List<CategoryVo> categoryList) {
+	public void setCategoryList(List<Long> categoryList) {
 		this.categoryList = categoryList;
 	}
 
 	@Override
 	public String toString() {
-		return "ProductVo [no=" + no + ", code=" + code + ", name=" + name + ", price=" + price + ", regDate=" + regDate
-				+ ", isShow=" + isShow + ", isOption=" + isOption + ", shippingFee=" + shippingFee + ", orderNo="
-				+ orderNo + ", contents=" + contents + ", mainImg=" + mainImg + ", optionNameList=" + optionNameList
-				+ ", optionList=" + optionList + ", optionValueList=" + optionValueList + ", categoryList="
-				+ categoryList + "]";
+		return "ProductAddDto [no=" + no + ", code=" + code + ", name=" + name + ", price=" + price + ", regDate="
+				+ regDate + ", isShow=" + isShow + ", isOption=" + isOption + ", shippingFee=" + shippingFee
+				+ ", orderNo=" + orderNo + ", contents=" + contents + ", getMainImgUrl=" + mainImgUrl
+				+ ", categoryList=" + categoryList + "]";
 	}
 
 }

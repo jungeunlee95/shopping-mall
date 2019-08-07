@@ -31,7 +31,6 @@ public class ProductController {
 	@GetMapping(value = "/list")
 	public ResponseEntity<JSONResult> getProductList() {
 		
-		System.out.println("============ 백엔드 상품목록 접속 ============");
 		// 해당 카테고리의 list return
 		List<ProductVo> list = productService.getProductList();
 		

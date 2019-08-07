@@ -20,8 +20,31 @@
 <link href="${pageContext.request.contextPath }/assets/css/admin-main.css" rel="stylesheet" type="text/css">
 <link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css'>
 <link href="/your-path-to-fontawesome/css/all.css" rel="stylesheet">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>   
 <script>
 $('.a-disabled').click(function () {return false;});
+
+function getParam(sname) {
+    var params = location.search.substr(location.search.indexOf("?") + 1);
+    var sval = "";
+    params = params.split("&");
+    for (var i = 0; i < params.length; i++) {
+        temp = params[i].split("=");
+        if ([temp[0]] == sname) { sval = temp[1]; }
+    }
+    return sval;
+}
+
+$(document).ready(function() {  
+	var result = getParam('result');
+	if(result && result=='true'){
+		alert("상품이 성공적으로 등록되었습니다.");
+	}
+	if(result && result=='false'){ 
+		alert("상품등록에 실패했습니다. 잠시후 다시 시도해주세요."); 		  
+		
+	}
+});
 </script>	
 </head> 
 <body> 
@@ -116,11 +139,19 @@ $('.a-disabled').click(function () {return false;});
 									<td class="view-message dont-show">
 										<a href="#">
 										${vo.name }
-										</a>
+										</a> 
 									</td>
 									<td class="view-message">
-										<img alt="" style="width: 90px; height: 100px;"
-										src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVuXcHvD4LiShT0L3CIzDl522S4K_9XuEUaGT7UxZpGOeux2RstA">
+										<c:choose> 
+											<c:when test="${empty vo.mainImg || vo.mainImg==null}"> 
+												<img alt="" style="width: 90px; height: 100px;"
+												src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVuXcHvD4LiShT0L3CIzDl522S4K_9XuEUaGT7UxZpGOeux2RstA"> 											
+											</c:when>
+											<c:otherwise> 
+												<img alt="" style="width: 90px; height: 100px;"
+												src="${pageContext.servletContext.contextPath }/assets${vo.mainImg }">
+											</c:otherwise>
+										</c:choose> 
 									</td>
 									<td class="view-message inbox-small-cells">${vo.price }</td>
 									<td class="view-message text-right">${vo.regDate }</td>

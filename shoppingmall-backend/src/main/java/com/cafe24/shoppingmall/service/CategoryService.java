@@ -46,4 +46,8 @@ public class CategoryService {
 	public List<CategoryVo> getCategoryList() {
 		return categoryDao.get();
 	}
+
+	public List<CategoryVo> getCategoryLowList() {
+		return categoryDao.getLow();
+	}
 }

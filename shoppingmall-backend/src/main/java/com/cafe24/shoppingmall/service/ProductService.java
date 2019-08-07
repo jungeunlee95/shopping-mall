@@ -59,19 +59,25 @@ public class ProductService {
 		int result = 0;  // 상품등록 성공 확인
 		int result2 = 0; // 카테고리 등록 성공 확인
 		int result3 = 0; // 옵션 등록 성공 확인
+		int result4 = 0; // 옵션 등록 성공 확인
  
 		// 옵션 사용 X -> 카테고리만 등록
 		result = productDao.addProduct(productVo);
 		
 		if(result==1) {
+			result4 =productDao.addMainImage(productVo);
+		}
+		
+		if(result==1) {
 			result2 =productDao.addCategoryAndProduct(productVo.getNo(), productVo.getCategoryList());
 		}
+		
 		// 옵션 사용 O -> 옵션 등록
 		if(result==1 && productVo.getIsOption()){
 			result3 = productDao.addOptionValue(productVo.getNo(), productVo.getOptionValueList());
 		}
 		
-		return result==1 && result2==productVo.getCategoryList().size() && result3==productVo.getOptionValueList().size();
+		return result==1 && result2==productVo.getCategoryList().size(); 
 	} 
 
 	public OptionVo addOption(OptionVo optionVo) {

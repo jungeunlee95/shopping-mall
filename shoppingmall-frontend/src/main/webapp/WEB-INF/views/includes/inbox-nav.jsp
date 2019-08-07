@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>  
 <aside class="sm-side">
 	<div class="user-head">
-		<a class="inbox-avatar" href="javascript:;"> <img width="64"
+		<a class="inbox-avatar" href="javascript:;"> <img width="64" 
 			height="60"
 			src="https://avatars3.githubusercontent.com/u/45933377?s=460&v=4">
 		</a>

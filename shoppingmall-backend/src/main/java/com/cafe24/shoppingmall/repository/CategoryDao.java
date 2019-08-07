@@ -52,5 +52,9 @@ public class CategoryDao{
 		return sqlSession.selectList("category.getList");
 	}
 
+	public List<CategoryVo> getLow() {
+		return sqlSession.selectList("category.getLowList");
+	}
+
 
 }

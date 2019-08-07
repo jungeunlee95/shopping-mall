@@ -17,19 +17,18 @@ public class AdminController {
 	
 	@Autowired
 	private FileuploadService fileuploadService;
-
+	
 	@ResponseBody
-	@RequestMapping(value = "/insertImg", method = RequestMethod.POST, produces = "application/text;charset=utf8")
-	public String insertImg(@RequestParam("shopImg") MultipartFile multipartFile) {
+	@RequestMapping(value = "/insertImg", method = RequestMethod.POST)
+	public JSONResult2 insertImg(@RequestParam("shopImg") MultipartFile multipartFile) {
+		
 		String url = fileuploadService.restore(multipartFile);
 		
 		System.out.println("============================");
 		System.out.println(url);
 		System.out.println("============================");
 		
-		// url = /image/2019772332929594.jpg
-		// http://localhost:8080/shoppingmall-frontend/assets/image/2019772332929594.jpg
-		return url;
+		return JSONResult2.success(url); 
 	}
 	
 }

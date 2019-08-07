@@ -12,6 +12,16 @@
 		 ]]>
 	</select>
 	
+	<!-- 카테고리 목록 가져오기 -->
+	<select id="getLowList" resultType="categoryvo">
+	 	<![CDATA[ 
+			select no, name, depth, group_no groupNo, order_no orderNo 
+			from category
+			where depth > 1
+			order by group_no, no, order_no
+		 ]]>
+	</select>
+	
 	<!-- 상위 카테고리 중복 검사 -->
 	<select id="getName" resultType="categoryvo" parameterType="string">
 	 	<![CDATA[ 

@@ -29,10 +29,12 @@ import com.cafe24.shoppingmall.dto.RequestNonUserAddCartDto;
 import com.cafe24.shoppingmall.dto.RequestNonUserOrderDto;
 import com.cafe24.shoppingmall.dto.RequestNonUserOrderListDto;
 import com.cafe24.shoppingmall.service.CartService;
+import com.cafe24.shoppingmall.service.CategoryService;
 import com.cafe24.shoppingmall.service.OrderService;
 import com.cafe24.shoppingmall.service.ProductService;
 import com.cafe24.shoppingmall.service.UserService;
 import com.cafe24.shoppingmall.vo.CartVo;
+import com.cafe24.shoppingmall.vo.CategoryVo;
 import com.cafe24.shoppingmall.vo.OptionNameVo;
 import com.cafe24.shoppingmall.vo.OrderDetailVo;
 import com.cafe24.shoppingmall.vo.OrderVo;
@@ -57,6 +59,9 @@ public class NonUserController {
 	
 	@Autowired
 	private OrderService orderService;
+	
+	@Autowired
+	private CategoryService categoryService;
 	
 	@ApiOperation(value="회원가입")
 	@ApiImplicitParams({
@@ -255,6 +260,25 @@ public class NonUserController {
 		List<OrderDetailVo> list = orderService.getOrderDetailList(no);
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(list));
 	}
+	
+	//============= 카테고리 목록 ==================
+	@ApiOperation(value="카테고리 전체 목록 가져오기")
+	@GetMapping(value="/category/list") 
+	public ResponseEntity<JSONResult> getList() {
+
+		List<CategoryVo> list = categoryService.getCategoryList();
+//		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(list)); 
+		return new ResponseEntity<JSONResult>(JSONResult.success(list), HttpStatus.OK);
+	} 
+	
+	@ApiOperation(value="하위 카테고리 목록 가져오기")
+	@GetMapping(value="/category/lowList") 
+	public ResponseEntity<JSONResult> getLowList() {
+		
+		List<CategoryVo> list = categoryService.getCategoryLowList();
+//		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(list)); 
+		return new ResponseEntity<JSONResult>(JSONResult.success(list), HttpStatus.OK);
+	} 
 }
 
 

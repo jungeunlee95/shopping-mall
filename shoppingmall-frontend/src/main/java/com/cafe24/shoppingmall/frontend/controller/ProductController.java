@@ -9,20 +9,20 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.cafe24.shoppingmall.frontend.service.GoodsService;
+import com.cafe24.shoppingmall.frontend.service.ProductService;
 import com.cafe24.shoppingmall.frontend.vo.ProductVo;
 
 @Controller
-@RequestMapping("/goods")
-public class GoodsController {
+@RequestMapping("/product")
+public class ProductController {
 	
 	@Autowired
-	private GoodsService goodsService;
+	private ProductService productService;
 	
 	@ResponseBody
 	@RequestMapping("/list")
 	public String list(Model model) {
-		List<ProductVo> list = goodsService.getList();
+		List<ProductVo> list = productService.getList();
 		model.addAttribute("productList", list);
 		return "ok";
 	}

@@ -2,6 +2,8 @@ package com.cafe24.shoppingmall.frontend.vo;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class ProductVo {
 
 	private Long no; // 상품 번호
@@ -14,6 +16,7 @@ public class ProductVo {
 	private int shippingFee; // 배송비
 	private int orderNo; // 진열 순위
 	private String contents; // 본문 내용
+	private String mainImg;
 
 	private List<OptionNameVo> optionNameList; // 옵션(상위) 리스트
 	private List<OptionVo> optionList; // 옵션(상위) 리스트
@@ -23,26 +26,6 @@ public class ProductVo {
 	public ProductVo() {
 		super();
 		// TODO Auto-generated constructor stub
-	}
-
-	public ProductVo(Long no, String code, String name, int price, String regDate, boolean isShow, boolean isOption,
-			int shippingFee, int orderNo, String contents, List<OptionNameVo> optionNameList, List<OptionVo> optionList,
-			List<OptionValueVo> optionValueList, List<CategoryVo> categoryList) {
-		super();
-		this.no = no;
-		this.code = code;
-		this.name = name;
-		this.price = price;
-		this.regDate = regDate;
-		this.isShow = isShow;
-		this.isOption = isOption;
-		this.shippingFee = shippingFee;
-		this.orderNo = orderNo;
-		this.contents = contents;
-		this.optionNameList = optionNameList;
-		this.optionList = optionList;
-		this.optionValueList = optionValueList;
-		this.categoryList = categoryList;
 	}
 
 	public Long getNo() {
@@ -86,7 +69,7 @@ public class ProductVo {
 	}
 
 	public boolean getIsShow() {
-		return isShow;
+		return isShow; 
 	}
 
 	public void setIsShow(boolean isShow) {
@@ -125,6 +108,14 @@ public class ProductVo {
 		this.contents = contents;
 	}
 
+	public String getMainImg() {
+		return mainImg;
+	}
+
+	public void setMainImg(String mainImg) {
+		this.mainImg = mainImg;
+	}
+
 	public List<OptionNameVo> getOptionNameList() {
 		return optionNameList;
 	}
@@ -157,12 +148,34 @@ public class ProductVo {
 		this.categoryList = categoryList;
 	}
 
+	public ProductVo(Long no, String code, String name, int price, String regDate, boolean isShow, boolean isOption,
+			int shippingFee, int orderNo, String contents, String mainImg, List<OptionNameVo> optionNameList,
+			List<OptionVo> optionList, List<OptionValueVo> optionValueList, List<CategoryVo> categoryList) {
+		super();
+		this.no = no;
+		this.code = code;
+		this.name = name;
+		this.price = price;
+		this.regDate = regDate;
+		this.isShow = isShow;
+		this.isOption = isOption;
+		this.shippingFee = shippingFee;
+		this.orderNo = orderNo;
+		this.contents = contents;
+		this.mainImg = mainImg;
+		this.optionNameList = optionNameList;
+		this.optionList = optionList;
+		this.optionValueList = optionValueList;
+		this.categoryList = categoryList;
+	}
+
 	@Override
 	public String toString() {
 		return "ProductVo [no=" + no + ", code=" + code + ", name=" + name + ", price=" + price + ", regDate=" + regDate
-				+ ", isShow=" + isShow + ", option=" + isOption + ", shippingFee=" + shippingFee + ", orderNo="
-				+ orderNo + ", contents=" + contents + ", optionNameList=" + optionNameList + ", optionList="
-				+ optionList + ", optionValueList=" + optionValueList + ", categoryList=" + categoryList + "]";
+				+ ", isShow=" + isShow + ", isOption=" + isOption + ", shippingFee=" + shippingFee + ", orderNo="
+				+ orderNo + ", contents=" + contents + ", mainImg=" + mainImg + ", optionNameList=" + optionNameList
+				+ ", optionList=" + optionList + ", optionValueList=" + optionValueList + ", categoryList="
+				+ categoryList + "]";
 	}
 
 }

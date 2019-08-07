@@ -20,8 +20,12 @@
 <link href="${pageContext.request.contextPath }/assets/css/admin-main.css" rel="stylesheet" type="text/css">
 <link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css'>
 <link href="/your-path-to-fontawesome/css/all.css" rel="stylesheet">
-<script>
-$('.a-disabled').click(function () {return false;});
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>  
+<script> 
+
+$(document).ready(function() {
+	$('.a-disabled').click(function () {return false;});
+}); 
 </script>	
 </head> 
 <body> 

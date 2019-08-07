@@ -10,10 +10,11 @@ import org.springframework.web.client.RestTemplate;
 import com.cafe24.shoppingmall.frontend.dto.Goods;
 import com.cafe24.shoppingmall.frontend.dto.JSONResult;
 import com.cafe24.shoppingmall.frontend.dto.JSONResult2;
+import com.cafe24.shoppingmall.frontend.vo.CategoryVo;
 import com.cafe24.shoppingmall.frontend.vo.ProductVo;
 
 @Service
-public class GoodsService {
+public class CategoryService {
 
 	@Autowired
 	private OAuth2RestTemplate restTemplate;
@@ -27,23 +28,18 @@ public class GoodsService {
 //
 //		return jsonResult.getData();
 //	}
-
-
-	public List<ProductVo> getList() {
+	public List<CategoryVo> getLowList() {
 		
 		RestTemplate restTemplate = new RestTemplate();
 
-		String endpoint = "http://localhost:8888/shoppingmall/api/product/list";
+		String endpoint = "http://localhost:8888/shoppingmall/api/nonuser/category/list";
 		
-		JSONResultProductList jsonResult = restTemplate.getForObject(endpoint, JSONResultProductList.class);
+		JSONResultCategoryList jsonResult = restTemplate.getForObject(endpoint, JSONResultCategoryList.class);
 		
 		return jsonResult.getData();
-	}
+	} 
 
 	// DTO Class
-	private static class JSONResultGoods extends JSONResult<Goods> {
-	}
-
-	private static class JSONResultProductList extends JSONResult<List<ProductVo>> {
+	private static class JSONResultCategoryList extends JSONResult<List<CategoryVo>> {
 	}
 }
