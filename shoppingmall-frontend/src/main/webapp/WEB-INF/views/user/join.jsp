@@ -23,6 +23,7 @@
 <link
 	href="${pageContext.servletContext.contextPath }/assets/css/shop-login.css"
 	rel="stylesheet">
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script>
 
 	function validform() {
@@ -55,6 +56,49 @@
 		}
 
 	}
+	
+ 
+    function checkId() {
+    	var id = $('#id').val();
+        $.ajax({ 
+            url : "${pageContext.servletContext.contextPath }/nonuser/api/checkId?id=" + id,
+            success: function(response){
+				if(response.data == false){
+					alert('이미 존재하는 아이디 입니다.');
+					$("#id").focus();
+					$("#id").val("");
+					return;
+				} 
+				$("#join-submit").attr("id_check_result", "success");
+			},
+			error : function(xhr, error){
+				console.error("error : " + error);
+			}
+        });
+    }	 
+
+    $(function(){
+    	$('#join-form').submit(function() {
+    		
+ 		   if($("input:checkbox[id='agree-prov']").is(":checked") == false) {
+ 		      alert("약관동의를 확인하여 주시기 바랍니다.");
+ 		      return false;
+ 		   }
+ 		   
+ 		   console.log($("#join-submit").attr("id_check_result"));
+ 		   
+ 		   if($("#join-submit").attr("id_check_result") == "fail") {
+ 		      alert("id 중복체크를 해주시기 바랍니다.");
+ 		      $("#id").focus();
+ 		      return false;
+ 		   }
+ 		   
+ 		});
+
+ 		$("#id").on("propertychange change keyup paste input", function(){
+ 		   $("#join-submit").attr("id_check_result", "fail");
+ 		});
+    });
 </script>
 </head>
 <body>
@@ -75,11 +119,11 @@
 									name="joinForm" 
 									method="post" 
 									onsubmit="return validform()" 
-									action="${pageContext.servletContext.contextPath}/user/join">
+									action="${pageContext.servletContext.contextPath}/nonuser/join">
 							<div class="form-group row">
 								<label for="id" class="col-md-4 col-form-label text-md-right">아이디</label>
-								<div class="col-md-6">
-									<form:input id="id" class="form-control" name="id" path="id" />
+								<div class="col-md-6"> 
+									<form:input id="id" class="form-control" name="id" path="id" onchange="checkId()"/> 
 									<p style="font-weight: bold; color: red;text-align: left; padding: 0;">
 										<form:errors path="id"/>
 									</p> 
@@ -184,10 +228,20 @@
 									</p>
 								</div>
 							</div>
+							<div class="form-group row">
+								<label for="agree-prov"
+									class="col-md-4 col-form-label text-md-right">약관동의</label> 
+								<div class="col-md-6">
+									<fieldset class="text-md-left">  
+										<legend>약관동의</legend>
+										<input id="agree-prov" type="checkbox" name="agreeProv" value="y"> 
+										<label class="l-float">서비스 약관에 동의합니다.</label>
+									</fieldset>
+								</div>
+							</div>
 
 							<div class="col-md-6 offset-md-4">
-								<button type="submit" class="btn btn-primary">Register
-								</button>
+								<button type="submit" class="btn btn-primary" id="join-submit" id_check_result="fail">Register</button>
 							</div> 
 					</form:form>
 					</div>

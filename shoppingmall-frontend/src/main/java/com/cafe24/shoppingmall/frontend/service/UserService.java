@@ -31,6 +31,14 @@ public class UserService {
 		return jsonResult.getData();
 	}
 	
+	public Boolean checkId(String id) {
+		String endpoint = "http://localhost:8888/shoppingmall/api/nonuser/checkId?id="+id;
+
+		JSONResultUserCheckId result = restTemplate.getForObject(endpoint, JSONResultUserCheckId.class);
+		
+		return result.getData();
+	}
+	
 	public Boolean joinUser(UserVo userVo) {
 		String uri = "http://localhost:8888/shoppingmall/api/nonuser/join";
 
@@ -80,6 +88,9 @@ public class UserService {
 	}
 
 	private static class JSONResultUserJoin extends JSONResult<Boolean> {
+	}
+	
+	private static class JSONResultUserCheckId extends JSONResult<Boolean> {
 	}
 
 }
