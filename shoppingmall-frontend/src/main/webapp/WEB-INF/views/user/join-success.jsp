@@ -23,39 +23,6 @@
 <link
 	href="${pageContext.servletContext.contextPath }/assets/css/shop-login.css"
 	rel="stylesheet">
-<script>
-
-	function validform() {
-
-		var a = document.forms["joinForm"]["id"].value;
-		var b = document.forms["joinForm"]["password"].value;
-		var c = document.forms["joinForm"]["name"].value;
-		var d = document.forms["joinForm"]["password_question"].value;
-		var e = document.forms["joinForm"]["password_answer"].value;
-		var f = document.forms["joinForm"]["phone_number"].value;
-
-		if (a == null || a == "") {
-			alert("아이디를 입력해주세요.");
-			return false;
-		} else if (b == null || b == "") {
-			alert("비밀번호를 입력해주세요.");
-			return false;
-		} else if (c == null || c == "") {
-			alert("이름을 입력해주세요.");
-			return false;
-		} else if (d == null || d == "") {
-			alert("비밀번호 질문을 선택해주세요.");
-			return false;
-		} else if (e == null || e == "") {
-			alert("비밀번호 답변을 입력해주세요.");
-			return false;
-		} else if (f == null || f == "") {
-			alert("전화번호를 입력해주세요.");
-			return false;
-		}
-
-	}
-</script>
 </head>
 <body>
 	<!-- Navigation -->
@@ -69,8 +36,8 @@
 			<div class="col-md-8">
 				<div class="card">
 				<c:choose>
-					<c:when test="${result == 'true'}">
-						<div class="card-header text-center">회원가입 실패</div>
+					<c:when test="${result == 'true'}"> 
+						<div class="card-header text-center">회원가입 성공</div>
 						<div class="card-body">
 							환영합니다. 회원가입에 성공하셨습니다!
 							<hr>

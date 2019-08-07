@@ -9,6 +9,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class UserVo {
 	private Long no;
 	
+	@Pattern(regexp = "(^[a-zA-Z]{1}[a-zA-Z0-9_]{4,13}$)", message = "잘못된 아이디 형식입니다.")
 	private String id;
 	
 	private int passwordQuestion;

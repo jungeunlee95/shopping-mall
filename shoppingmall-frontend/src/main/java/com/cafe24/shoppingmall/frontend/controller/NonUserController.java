@@ -25,9 +25,9 @@ public class NonUserController {
 	@Autowired
 	private UserService userService;
 
-	@GetMapping("")
+	@GetMapping("/login")
 	public String login() {
-		return "user/login";
+		return "user/login"; 
 	}
 	
 	@GetMapping("/join")

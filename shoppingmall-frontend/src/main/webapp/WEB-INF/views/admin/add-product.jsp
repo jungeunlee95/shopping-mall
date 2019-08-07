@@ -16,12 +16,48 @@
 <link
 	href="${pageContext.servletContext.contextPath }/assets/bootstrap/css/bootstrap.min.css"
 	rel="stylesheet">
+<!-- include libraries(jQuery, bootstrap) -->
+<link href="${pageContext.servletContext.contextPath }/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>  
+ 
 <!-- Custom styles for this template -->
 <link href="${pageContext.request.contextPath }/assets/css/admin-main.css" rel="stylesheet" type="text/css">
 <link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css'>
 <link href="/your-path-to-fontawesome/css/all.css" rel="stylesheet">
+
+<!-- include summernote css/js -->  
+<link href="${pageContext.request.contextPath }/assets/summernote/summernote.css" rel="stylesheet">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.js" defer></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/assets/summernote/summernote.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/assets/summernote/summernote.min.js"></script>
+ <!-- summer note korean language pack -->
+<script src="${pageContext.request.contextPath }/assets/summernote/lang/summernote-ko-KR.js"></script> 
 <script>
 $('.a-disabled').click(function () {return false;});
+
+$(document).ready(function() {   
+	    $('#my-summernote').summernote({
+	      height: 600,
+	      minHeight: null,
+	      maxHeight: null,
+	      placeholder: '상품 상세 정보를 입력해주세요',
+	      callbacks: {
+	        onImageUpload: function(files, editor, welEditable) {
+	          for (var i = files.length - 1; i >= 0; i--) {
+	            sendFile(files[i], this);
+	          }
+	        }
+	      },
+	      popover:{
+	         image:[],
+	         link:[],
+	         air:[]
+	      },
+	      tooltip:false
+	    });
+	    $('.dropdown-toggle').dropdown();
+	  });
+
 </script>	
 </head> 
 <body> 
@@ -33,7 +69,7 @@ $('.a-disabled').click(function () {return false;});
 
 	<div class="container" style="margin-bottom: 60px;">
 		<div class="mail-box">
-		
+		 
 			<c:import url="/WEB-INF/views/includes/inbox-nav.jsp"> 
 				<c:param name="active" value="add-product" />
 			</c:import>
@@ -155,6 +191,10 @@ $('.a-disabled').click(function () {return false;});
 															for="gridCheck"> Check me out </label>
 													</div>
 												</div>
+												<div class="form-group">
+													 <textarea id="my-summernote" name="content" >
+													 </textarea>
+												</div>
 												<button type="submit" class="btn btn-primary">상품 등록</button>
 											</form>
 										</div>
@@ -162,7 +202,7 @@ $('.a-disabled').click(function () {return false;});
 								</div>
 							</div>
 						</div>
-					</section>
+					</section> 
 				</div>
 			</aside>
 		</div>
@@ -172,5 +212,30 @@ $('.a-disabled').click(function () {return false;});
 	<!-- Footer -->
 	<c:import url='/WEB-INF/views/includes/footer.jsp' />
 	<!-- /.Footer -->
-</body>
+</body> 
+<!-- summernote -->
+<script type="text/javascript">
+    function sendFile(file, el) {
+      var form_data = new FormData();
+      form_data.append('shopImg', file);
+      $.ajax({
+        data: form_data,
+        type: "post",
+        url: '${pageContext.request.contextPath}/admin/api/insertImg', 		
+        cache: false,
+        contentType: false,
+        enctype: 'multipart/form-data',
+        processData: false,
+        success: function(url) { 
+        	alert("성공 : " + url); 
+          //$(el).summernote('editor.insertImage', '${pageContext.request.contextPath}/assets'+url);
+
+          //$('#imageBoard > ul').append('<li><img src="'+url+'" width="480" height="auto"/></li>');
+        }, 
+        error:function(){
+           alert('ajax error'); 
+        }
+      });
+    }
+</script>
 </html>
