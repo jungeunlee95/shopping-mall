@@ -77,8 +77,13 @@ public class NonUserController {
 			for(ObjectError error : allErrors) {
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(JSONResult.fail(error.getDefaultMessage()));
 			}
+		} 
+		
+		// 있는 id면 fail
+		if(!userService.checkId(userVo.getId())) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(JSONResult.fail("이미 존재하는 ID입니다."));
 		}
-
+		
 		Boolean result = userService.joinUser(userVo);
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(result));
 	}	

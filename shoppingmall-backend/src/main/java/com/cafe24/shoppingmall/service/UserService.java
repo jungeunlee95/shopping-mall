@@ -21,7 +21,7 @@ public class UserService{
 		return userDao.insert(userVo)==1;
 	}
 	
-	public Boolean checkId( String id) {
+	public Boolean checkId(String id) {
 		UserVo vo =  userDao.getId(id);
 		Boolean exist = vo==null;
 		return exist;
