@@ -176,7 +176,7 @@
 														<c:forEach items='${categoryLowList }' var='vo' varStatus='status'>
 															<c:choose>
 																<c:when test="${vo.depth == 1 }"> 
-																	<br> ${vo.name }
+																	<br> <input type="checkbox" name="categoryList" value="${vo.no }">${vo.name } 
 																</c:when>
 																<c:otherwise>
 																	<input type="checkbox" name="categoryList" value="${vo.no }">${vo.name }
