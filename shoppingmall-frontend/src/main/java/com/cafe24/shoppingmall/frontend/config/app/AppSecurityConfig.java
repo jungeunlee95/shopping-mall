@@ -42,8 +42,8 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
         		.antMatchers("/user/update", "/user/logout").authenticated()
         		.antMatchers("/board/write", "/board/modify", "/board/modify/**").authenticated()
         		// ADMIN 권한
-        		// .antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
-        		// .antMatchers("/admin/**").hasAuthority("ROLE_ADMIN");
+        		 .antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
+        		 .antMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
 //        		.antMatchers("/admin", "/admin/**").hasRole("ADMIN")
         	
         		// 모두 허용
@@ -52,19 +52,19 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
         // FormLoginConfigurer
         .and()
         	.formLogin()
-        		.loginPage("/user/login")
+        		.loginPage("/nonuser/login")
         		.loginProcessingUrl("/user/auth")
-        		.failureUrl("/user/login")
+        		.failureUrl("/nonuser/login")
         		.successHandler(authenticationSuccessHandler())
-        		.usernameParameter("email")
-        		.passwordParameter("password")
+        		.usernameParameter("id")
+        		.passwordParameter("password") 
         
         // LogoutConfigurer
         .and()
         	.logout()
         			.logoutRequestMatcher(new AntPathRequestMatcher("/user/logout"))
         			.logoutSuccessUrl("/")
-        			.deleteCookies("JSESSIONID")
+        			.deleteCookies("JSESSIONID") 
         			.invalidateHttpSession(true)
         
         // ExceptionHandlingConfigurer
@@ -75,7 +75,7 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
         // RememberMeConfigurer
         .and()
         	.rememberMe()
-        		.key("mysite")
+        		.key("shoppingmall-frontend")
         		.rememberMeParameter("remember-me")
 
         // CSRFConfigurer(Temporary for Test)

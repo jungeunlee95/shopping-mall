@@ -41,31 +41,33 @@
 	</select>
 
 	<!-- 카테고리 상품 리스트 , 조건 검색어 -->
-	<select id="getList2" resultType="productvo">
+	<select id="getListByCategory" resultType="productvo">
 	<![CDATA[
-		select no, code, name, price, reg_date regDate, isshow isShow, isoption isOption, shipping_fee shippingFee, order_no orderNo
-		from product
-		where no in (select product_no from category_product where category_no=#{categoryNo })
-	]]>
+		select p.no, img_url mainImg, code, name, price, reg_date regDate, isshow isShow, 
+				isoption isOption, shipping_fee shippingFee, order_no orderNo
+		from product p left join mainimage i
+		on p.no = i.product_no
+		where p.no in (select product_no from category_product where category_no=#{categoryNo })
+	]]> 
 		<if test="keyword != null and keyword != ''">
 		<![CDATA[
 			and name like CONCAT('%',#{keyword },'%')
 		]]>
 		</if>
 	<![CDATA[
-		order by no desc
-		limit 0, 5
+		order by no desc;
 	]]>
 	</select>
 
 	<!-- 상품 상세 정보 -->
 	<select id="getProductDetail" parameterType="long" resultMap="productMap">
 	<![CDATA[
-		select no, code, name, price, reg_date as 'regDate', isshow as isShow, 
-				isoption as isOption, shipping_fee as shippingFee, order_no as orderNo,
-				contents
-		from product 
-		where no = #{productNo }
+		select p.no, i.img_url mainImg, name, price, reg_date as 'regDate', isshow as isShow, 
+		isoption as isOption, shipping_fee as shippingFee, order_no as orderNo,
+		contents
+		from product p, mainimage i
+		where p.no = i.product_no
+		and p.no = #{productNo }
 	]]>
 	</select>
 	
@@ -129,6 +131,14 @@
 		<foreach collection="optionNameVoList" item="optionname" separator=",">
 			<![CDATA[ (null, #{optionname.productNo } , #{optionname.productOptionName }, #{optionname.additionalAmount }, #{optionname.useStock }, #{optionname.stock }) ]]>
 		</foreach>
+	</insert>
+	
+	<!-- 최종 옵션 등록2-->
+	<insert id="addOptionNameVoListByNo" parameterType="map">
+	 	<![CDATA[ insert into productoption values ]]>
+		<foreach collection="optionNameVoList" item="optionname" separator=",">
+			<![CDATA[ (null, #{no } , #{optionname.productOptionName }, #{optionname.additionalAmount }, #{optionname.useStock }, #{optionname.stock }) ]]>
+		</foreach> 
 	</insert>
 
 	<!-- 옵션 중복 체크 -->

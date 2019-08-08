@@ -74,7 +74,8 @@ public class ProductService {
 		
 		// 옵션 사용 O -> 옵션 등록
 		if(result==1 && productVo.getIsOption()){
-			result3 = productDao.addOptionValue(productVo.getNo(), productVo.getOptionValueList());
+//			result3 = productDao.addOptionValue(productVo.getNo(), productVo.getOptionValueList());
+			result3 = productDao.addProductOption(productVo.getNo(), productVo.getOptionNameList());
 		}
 		
 		return result==1 && result2==productVo.getCategoryList().size(); 

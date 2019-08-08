@@ -50,11 +50,12 @@ public class ProductService {
 		productVo.setName(pdto.getName()); 
 		productVo.setPrice(pdto.getPrice());
 		productVo.setIsShow(pdto.getIsShow());
-		productVo.setIsOption(false); 
+		productVo.setIsOption(pdto.getIsOption()); 
 		productVo.setShippingFee(pdto.getShippingFee());
 		productVo.setOrderNo(1);
 		productVo.setContents(pdto.getContents());
 		productVo.setMainImg(pdto.getMainImgUrl()); 
+		productVo.setOptionNameList(pdto.getOptionNameList());
 		
 		List<CategoryVo> categoryList = new ArrayList<CategoryVo>();
 		for(Long no : pdto.getCategoryList()) {
@@ -73,11 +74,25 @@ public class ProductService {
 		return response.getBody().getData();
 	}
 
+	public ProductVo getDetail(Long no) {
+		RestTemplate restTemplate = new RestTemplate();
+
+		String endpoint = "http://localhost:8888/shoppingmall/api/product/detail/"+no;
+		
+		JSONResultProductDetail jsonResult = restTemplate.getForObject(endpoint, JSONResultProductDetail.class);
+		
+		return jsonResult.getData();
+	}
+	
 	// DTO Class
 	private static class JSONResultProductList extends JSONResult<List<ProductVo>> {
 	}
 	
 	private static class JSONResultProductAdd extends JSONResult<Boolean> {
 	}
+	
+	private static class JSONResultProductDetail extends JSONResult<ProductVo> {
+	}
+
 
 }

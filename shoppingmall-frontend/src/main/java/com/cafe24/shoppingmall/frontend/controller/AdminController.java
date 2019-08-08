@@ -68,14 +68,11 @@ public class AdminController {
 			@RequestParam(value="mainImg", required = false) MultipartFile multipartFile,
 			Model model, 
 			@ModelAttribute ProductAddDto pdto) { 
-		System.out.println("=================================");
-		System.out.println(pdto.getOptionNameList());
-		System.out.println("=================================");
-//		String url = fileuploadService.restore(multipartFile);
-//		pdto.setMainImgUrl(url);
-//		Boolean result = productService.addProduct(pdto);
-//		
-//		model.addAttribute("result", result); 
+		String url = fileuploadService.restore(multipartFile);
+		pdto.setMainImgUrl(url);
+		Boolean result = productService.addProduct(pdto);
+		
+		model.addAttribute("result", result); 
  
 		return  "redirect:/admin/product/list";
 	}

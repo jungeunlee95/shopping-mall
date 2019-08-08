@@ -9,12 +9,14 @@ public class SecurityUser implements UserDetails {
 	
 	private static final long serialVersionUID = 1L;
 
+	// domain fields(principal: 보호할 사용자 중요 데이터)
 	private Long no;
-	private String name;
+	private String name;  // biz data
 
-	private String username;
-	private String password;
+	// security fields
 	private Collection<? extends GrantedAuthority> authorities;
+	private String username;  // credential(email)
+	private String password;  // credential
 	
 	// protected String salt;
 //	private boolean enabled;
