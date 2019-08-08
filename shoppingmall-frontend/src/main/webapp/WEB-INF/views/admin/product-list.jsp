@@ -50,7 +50,7 @@ $(document).ready(function() {
 <body> 
 	<!-- Navigation -->
 	<c:import url='/WEB-INF/views/includes/navigation.jsp'>
-		<c:param name="active" value="join" />
+		<c:param name="active" value="admin" /> 
 	</c:import>
 	<!-- /.Navigation --> 
 

@@ -39,10 +39,12 @@
 					<c:when test="${result == 'true'}"> 
 						<div class="card-header text-center">회원가입 성공</div>
 						<div class="card-body">
-							환영합니다. 회원가입에 성공하셨습니다!
+							환영합니다. 회원가입에 성공하셨습니다! 
 							<hr>
 							<div class="col-md-6 offset-md-4">
-								<button type="submit" class="btn btn-primary">로그인 하러가기</button>
+								<a href="${pageContext.servletContext.contextPath }/nonuser/login">
+									<button class="btn btn-primary">로그인 하러가기</button>
+								</a>
 							</div> 
 						</div> 
 					</c:when>
