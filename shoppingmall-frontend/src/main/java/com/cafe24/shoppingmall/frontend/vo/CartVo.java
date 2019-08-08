@@ -2,12 +2,14 @@ package com.cafe24.shoppingmall.frontend.vo;
 
 public class CartVo {
 
-	private Long no;
+	private Long cartNo;
+	private Long productNo;
 	private Long productOptionNo;
 	private Long userNo;
 	private String nonUserNo;
 	private String productName;
-	private String image;
+	private String optionName;
+	private String mainImg;
 	private Long price;
 	private Long quantity;
 	private Long sumPrice;
@@ -18,27 +20,37 @@ public class CartVo {
 		// TODO Auto-generated constructor stub
 	}
 
-	public CartVo(Long no, Long productOptionNo, Long userNo, String nonUserNo, String productName, String image,
-			Long price, Long quantity, Long sumPrice, Long shippingFee) {
+	public CartVo(Long cartNo, Long productNo, Long productOptionNo, Long userNo, String nonUserNo, String productName,
+			String optionName, String mainImg, Long price, Long quantity, Long sumPrice, Long shippingFee) {
 		super();
-		this.no = no;
+		this.cartNo = cartNo;
+		this.productNo = productNo;
 		this.productOptionNo = productOptionNo;
 		this.userNo = userNo;
 		this.nonUserNo = nonUserNo;
 		this.productName = productName;
-		this.image = image;
+		this.optionName = optionName;
+		this.mainImg = mainImg;
 		this.price = price;
 		this.quantity = quantity;
 		this.sumPrice = sumPrice;
 		this.shippingFee = shippingFee;
 	}
 
-	public Long getNo() {
-		return no;
+	public Long getCartNo() {
+		return cartNo;
 	}
 
-	public void setNo(Long no) {
-		this.no = no;
+	public void setCartNo(Long cartNo) {
+		this.cartNo = cartNo;
+	}
+
+	public Long getProductNo() {
+		return productNo;
+	}
+
+	public void setProductNo(Long productNo) {
+		this.productNo = productNo;
 	}
 
 	public Long getProductOptionNo() {
@@ -73,12 +85,20 @@ public class CartVo {
 		this.productName = productName;
 	}
 
-	public String getImage() {
-		return image;
+	public String getOptionName() {
+		return optionName;
 	}
 
-	public void setImage(String image) {
-		this.image = image;
+	public void setOptionName(String optionName) {
+		this.optionName = optionName;
+	}
+
+	public String getMainImg() {
+		return mainImg;
+	}
+
+	public void setMainImg(String mainImg) {
+		this.mainImg = mainImg;
 	}
 
 	public Long getPrice() {
@@ -115,9 +135,10 @@ public class CartVo {
 
 	@Override
 	public String toString() {
-		return "CartVo [no=" + no + ", productOptionNo=" + productOptionNo + ", userNo=" + userNo + ", nonUserNo="
-				+ nonUserNo + ", productName=" + productName + ", image=" + image + ", price=" + price + ", quantity="
-				+ quantity + ", sumPrice=" + sumPrice + ", shippingFee=" + shippingFee + "]";
+		return "CartVo [cartNo=" + cartNo + ", productNo=" + productNo + ", productOptionNo=" + productOptionNo
+				+ ", userNo=" + userNo + ", nonUserNo=" + nonUserNo + ", productName=" + productName + ", optionName="
+				+ optionName + ", mainImg=" + mainImg + ", price=" + price + ", quantity=" + quantity + ", sumPrice="
+				+ sumPrice + ", shippingFee=" + shippingFee + "]";
 	}
 
 }

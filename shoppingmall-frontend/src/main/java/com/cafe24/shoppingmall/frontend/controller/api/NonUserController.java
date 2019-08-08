@@ -35,7 +35,7 @@ public class NonUserController {
 	@PostMapping("/cart")
 	public JSONResult2 cart(@ModelAttribute CartVo cartVo) {
 
-		Boolean result = userService.checkId(cartVo);
+		Boolean result = userService.addCart(cartVo);
 		
 		return JSONResult2.success(result);
 	}

@@ -14,8 +14,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.cafe24.shoppingmall.frontend.security.AuthUser;
+import com.cafe24.shoppingmall.frontend.security.SecurityUser;
 import com.cafe24.shoppingmall.frontend.service.CategoryService;
 import com.cafe24.shoppingmall.frontend.service.UserService;
+import com.cafe24.shoppingmall.frontend.vo.CartVo;
 import com.cafe24.shoppingmall.frontend.vo.CategoryVo;
 import com.cafe24.shoppingmall.frontend.vo.UserVo;
 
@@ -28,6 +31,7 @@ public class NonUserController {
 	
 	@Autowired
 	private CategoryService categoryService;
+	
 
 	@GetMapping("/login")
 	public String login() {
@@ -68,10 +72,12 @@ public class NonUserController {
 	
 	
 	@GetMapping("/cart")
-	public String cart(Model model) {
+	public String cart(Model model,  @AuthUser SecurityUser securityUser) { 
 		List<CategoryVo> cList = categoryService.getLowList();
-		model.addAttribute("categoryList", cList);
+		model.addAttribute("categoryList", cList); 
 		
+		List<CartVo> cartList = userService.getUserCartList(securityUser.getNo());
+		model.addAttribute("cartList", cartList); 
 		return "goods/cart"; 
 	}
 	

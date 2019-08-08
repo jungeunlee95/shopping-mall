@@ -37,8 +37,8 @@ public class CartDao{
 	}
 	
 	// 장바구니 리스트 가져오기
-	public List<CartVo> getCartList(CartVo cartVo) {
-		return sqlSession.selectList("cart.getListUser", cartVo);
+	public List<CartVo> getCartList(Long userNo) {
+		return sqlSession.selectList("cart.getListUser", userNo);
 	}
 	
 	public int deleteProduct(Long userNo, List<OrderDetailVo> productOptionList) {

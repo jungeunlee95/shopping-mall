@@ -18,21 +18,20 @@
 	href="${pageContext.servletContext.contextPath }/assets/bootstrap/css/bootstrap.min.css"
 	rel="stylesheet"> 
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>   
 <!-- Custom styles for this template -->   
 <link
-	href="${pageContext.servletContext.contextPath }/assets/css/shop-item.css"
-	rel="stylesheet"> 
+	href="${pageContext.servletContext.contextPath }/assets/css/shop-cart.css"
+	rel="stylesheet">  
 <!------ Include the above in your HEAD tag ----------> 
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-	
 </head>
 <sec:authentication property="principal.no" var="userNo"/>
 <body>
 	<!-- Navigation -->
 	<c:import url='/WEB-INF/views/includes/navigation.jsp'>
 		<c:param name="active" value="cart" />
-	</c:import>
+	</c:import> 
 	<!-- /.Navigation -->
 
 	<!-- Page Content -->
@@ -56,93 +55,62 @@
 						</c:choose>
 					</c:forEach> 
 				</div>
-			</div>
-			<!-- /.col-lg-3 -->
+			</div>  
+			<!-- /.col-lg-3 -->  
+ 			<br><br><br><br><br> 
+			<div class="shopping-cart" style="width: 75%;padding-bottom: 50px;">      
+				<h3>장바구니 목록</h3>  
+				<div class="column-labels"> 
+					<label class="product-image">Image</label> <label 
+						class="product-details">Product</label> <label
+						class="product-price">Price</label> <label
+						class="product-quantity">Quantity</label> <label
+						class="product-removal">Remove</label> <label
+						class="product-line-price">Total</label>
+				</div>
+				
+				<c:forEach items='${cartList }' var='vo' varStatus='status'>
+					<div class="product">
+						<div class="product-image">
+							<img src="${pageContext.servletContext.contextPath }/assets/${vo.mainImg }">
+						</div>
+						<div class="product-details">
+							<div class="product-title">${vo.productName }</div>
+							<p class="product-description" style="min-width: 30%;">
+							옵션 : ${vo.optionName }</p>
+						</div> 
+						<div class="product-price">${vo.price }원</div> 
+						<div class="product-quantity">
+							<input type="number" value="${vo.quantity }" min="1"> 
+						</div>  
+						<div class="product-removal">
+							<button class="remove-product">Remove</button>
+						</div>  
+						<div class="product-line-price total_price" >${vo.sumPrice }</div>
+					</div>
+				</c:forEach>
  
-			<div class="card">
-				<div class="card-header bg-dark text-light">
-					<i class="fa fa-shopping-cart" aria-hidden="true"></i> 장바구니 목록 
-					<a href="" class="btn btn-outline-info btn-sm pull-right">새로고침</a>
-					<div class="clearfix"></div>
-				</div>
-				<div class="card-body">
-
-					<div class="row"> 
-						<div class="col-xs-2 col-md-2">
-							<img class="img-responsive" style="width: 110px; height: 80px;" 
-								src="https://static.thenounproject.com/png/340719-200.png" alt="prewiew">
-						</div>
-						<div class="col-xs-4 col-md-6">
-							<h4 class="product-name">
-								<strong>Product name</strong>
-							</h4>
-							<h4>
-								<small>Product description</small>
-							</h4>
-						</div>
-						<div class="col-xs-6 col-md-4 row">
-							<div class="col-xs-6 col-md-6 text-right"
-								style="padding-top: 5px">
-								<h6>
-									<strong>25.00 <span class="text-muted">x</span></strong>
-								</h6>
-							</div>
-							<div class="col-xs-4 col-md-4">
-								<input type="text" class="form-control input-sm" value="1">
-							</div>
-							<div class="col-xs-2 col-md-2">
-								<button type="button" class="btn btn-outline-danger btn-xs">
-									<i class="fa fa-trash" aria-hidden="true"></i>
-								</button>
-							</div>
-						</div>
-					</div>
-					<hr>
-					<div class="row">
-						<div class="col-xs-2 col-md-2">
-							<img class="img-responsive" src="http://placehold.it/120x80"
-								alt="prewiew">
-						</div>
-						<div class="col-xs-4 col-md-6">
-							<h4 class="product-name">
-								<strong>Product name</strong>
-							</h4>
-							<h4>
-								<small>Product description</small>
-							</h4>
-						</div>
-						<div class="col-xs-6 col-md-4 row">
-							<div class="col-xs-6 col-md-6 text-right"
-								style="padding-top: 5px">
-								<h6>
-									<strong>25.00 <span class="text-muted">x</span></strong>
-								</h6>
-							</div>
-							<div class="col-xs-4 col-md-4"> 
-								<input type="text" class="form-control input-sm" value="1">
-							</div>
-							<div class="col-xs-2 col-md-2">
-								<button type="button" class="btn btn-outline-danger btn-xs">
-									<i class="fa fa-trash" aria-hidden="true"></i>
-								</button>
-							</div>
-						</div>
-					</div>
-
-					<hr> 
-					<div class="pull-right">
-						<a href="{{route("
-							product.home")}}" class="btn btn-outline-secondary pull-right">Aktualizovať
-							košík</a>
+				<div class="totals">   
+					<div class="totals-item"> 
+						<label>상품 총 금액</label> 
+						<input type="text" class="totals-value" style="width: 104px;" 
+						id="total_price_sum" value="error" readonly /> 
+					</div>   
+					<div class="totals-item">
+						<label>배송비</label> 
+						<input type="text" class="totals-value" style="width: 104px;" 
+						id="shopping_fee" value="error" readonly />  
 					</div> 
-				</div> 
-				<div class="card-footer">
-					<a href="{{route("
-						product.home")}}" class="btn btn-success pull-right">Objednať</a>
-					<div class="pull-right" style="margin: 5px">
-						Celková cena: <b>50.00€</b>
+					<div class="totals-item totals-item-total">
+						<label>Grand Total</label>
+						<input type="text" class="totals-value" style="width: 104px;" 
+						id="final_price" value="error" readonly />   
 					</div>
 				</div>
+
+				<button class="checkout">주문하기</button>
+				<br>
+				<br>
 			</div>
 			<!-- row  -->
 
@@ -190,6 +158,24 @@
 				$(".section > div > input").val("1");
 			}
 		})
-	})
-</script>
+		 
+		// 상품 총 합
+		var sum = 0;
+		$('.total_price').each(function(){   
+		    sum += parseFloat($(this).text());
+		});   
+		
+	    $("#total_price_sum").val(sum); 
+	    
+	    if(sum>=50000){
+		    $("#shopping_fee").val("0");
+	    } 
+	     
+	    var finalPrice = parseFloat($("#total_price_sum").val())+parseFloat($("#shopping_fee").val());
+	    
+	    $("#final_price").val(finalPrice);  
+	    
+	});
+	   
+</script>  
 </html>

@@ -62,10 +62,11 @@
 	<!-- 장바구니에 담긴 상품 리스트 가져오기 - 회원 -->	
 	<select id="getListUser" parameterType="cartvo" resultType="cartvo">
 	<![CDATA[  
-		select c.no, c.productoption_no productoptionNo, p.name, po.productoption_name productName,
-			   sum(c.quantity) quantity, p.price, sum(c.quantity)*price sumPrice
-		from cart c, productoption po, product p
+		select c.no cartNo, p.no productNo, p.name productName, i.img_url mainImg, c.productoption_no productoptionNo, p.name, po.productoption_name optionName,
+			sum(c.quantity) quantity, p.price, sum(c.quantity)*price sumPrice
+		from cart c, productoption po, product p, mainimage i
 		where c.productoption_no = po.no
+		and p.no = i.product_no 
 		and po.product_no = p.no
 		and user_no = #{userNo }
 		group by productoptionNo

@@ -12,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -54,10 +55,10 @@ public class CartController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name="userNo", value="userNo: 회원번호", required=false, dataType="Long", defaultValue="")
 	})
-	@GetMapping(value = "/getList")
-	public JSONResult getCartList(@RequestBody CartVo cartVo) {
+	@GetMapping(value = "/getList/{userNo}")
+	public JSONResult getCartList(@PathVariable(value="userNo") Long no) {
 		// 상품 list return
-		List<CartVo> list = cartService.getCartList(cartVo);
+		List<CartVo> list = cartService.getCartList(no);
 		return JSONResult.success(list);
 	}
 	

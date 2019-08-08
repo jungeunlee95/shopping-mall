@@ -31,8 +31,8 @@ public class CartService{
 	}
 	
 	// 장바구니 목록 가져오기 
-	public List<CartVo> getCartList(CartVo cartVo) {
-		List<CartVo> result = cartDao.getCartList(cartVo);			
+	public List<CartVo> getCartList(Long userNo) {
+		List<CartVo> result = cartDao.getCartList(userNo);			
 		return result;
 	}
 	// ===========================================================

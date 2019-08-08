@@ -78,6 +78,45 @@
 						</li>
 					</c:when>
 					
+					<c:when test='${param.active == "cart" }'>
+					
+						<sec:authorize access="isAuthenticated()">   
+							<li class="nav-item nav-link"> 
+								<sec:authentication property="principal.name" />님
+							</li>
+						</sec:authorize>
+						
+						<li class="nav-item">
+							<a class="nav-link" href="${pageContext.servletContext.contextPath }">홈</a>
+						</li>
+						
+						<sec:authorize access="hasRole('ROLE_ADMIN')" >
+							<li class="nav-item">
+								<a class="nav-link" href="${pageContext.servletContext.contextPath }/admin">관리자페이지</a>
+							</li>
+						</sec:authorize>
+						
+						<sec:authorize access="isAuthenticated()"> 	 	
+							<li class="nav-item">
+								<a class="nav-link" href="${pageContext.servletContext.contextPath }/user/logout">로그아웃<span class="sr-only">(current)</span></a>
+							</li> 
+						</sec:authorize>
+						<sec:authorize access="!isAuthenticated()">
+							<li class="nav-item">
+								<a class="nav-link" href="${pageContext.servletContext.contextPath }/nonuser/login">로그인<span class="sr-only">(current)</span></a>
+							</li> 
+							<li class="nav-item">
+								<a class="nav-link" href="${pageContext.servletContext.contextPath }/nonuser/join">회원가입</a>
+							</li>
+						</sec:authorize>
+						<li class="nav-item active"> 
+							<a class="nav-link" href="${pageContext.servletContext.contextPath }/nonuser/cart">장바구니</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="${pageContext.servletContext.contextPath }/cs">고객센터</a>
+						</li>
+					</c:when>
+					
 					<c:when test='${param.active == "cs" }'>
 					
 						<sec:authorize access="isAuthenticated()">   
