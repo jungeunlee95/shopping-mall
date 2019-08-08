@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,13 +20,42 @@
 
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
- 
 <!-- Custom styles for this template -->
 <link
 	href="${pageContext.servletContext.contextPath }/assets/css/shop-item.css"
 	rel="stylesheet"> 
 </head>
-
+<sec:authentication property="principal.no" var="userNo"/>
+<script>
+$(document).ready(function() {
+	// 장바구니 담기  
+    $("#add-cart").click(function() {
+		var userNo = ${userNo};
+		var optionNo = $("#product_option > option:selected").val();  
+		var quantity = $(".section > div > input").val(); 
+		
+		$.ajax({
+			url : "${pageContext.request.contextPath}/nonuser/api/cart",
+			type : "post",
+			dataType : "json", 
+			data : { "userNo" : userNo,
+				     "productOptionNo" : optionNo,
+					 "quantity" : quantity
+				   },
+			success : function(response) {
+				if(response.result=="success"){ 
+					
+				} 
+			}, error : function(jqXHR, status, e) {
+				console.error(status + " : " + e);
+			}
+	  
+		});
+		
+    });  
+      
+});
+</script>
 <body>
 	<!-- Navigation -->
 	<c:import url='/WEB-INF/views/includes/navigation.jsp'>
@@ -38,7 +68,7 @@
 
 		<div class="row">
 			<div class="col-lg-3"> 
-				<h1 class="my-4">JEMall</h1> 
+				<h1 class="my-4">JEMall</h1>  
 				<div class="list-group">
 					<c:forEach items='${categoryList }' var='vo' varStatus='status'>
 						<c:choose>
@@ -94,9 +124,9 @@
 							<h6 class="title-attr" style="margin-top: 15px;">
 								<small>옵션</small> 
 							</h6>
-							<br> 
+							<br>  
 							<div>
-								<select id="password_question" class="form-control" name="passwordQuestion" path="passwordQuestion">
+								<select id="product_option" class="form-control" name="productOption" > 
 								    <option value="">옵션 선택</option> 
 									<c:forEach items='${product.optionNameList }' var='vo' varStatus='status'>
 									    <option value="${vo.no }">${vo.productOptionName }</option>
@@ -113,7 +143,7 @@
 								<div class="btn-minus">
 									<span class="glyphicon glyphicon-minus"></span>
 								</div>
-								<input value="1" />
+								<input value="1"/>  
 								<div class="btn-plus">
 									<span class="glyphicon glyphicon-plus"></span>
 								</div> 
@@ -123,11 +153,41 @@
 						<hr>
 						<!-- Botones de compra -->
 						<div class="section" style="padding-bottom: 20px;">
-							<button class="btn btn-success">
+							<button class="btn btn-success" id="add-cart"
+									href="#myModal" data-toggle="modal">
 								<span style="margin-right: 20px"
-									class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
+									class="glyphicon glyphicon-shopping-cart" 
+									aria-hidden="true"></span>
 								장바구니 담기 
-							</button>  
+							</button> 
+							<!-- Modal -->
+							<div aria-hidden="true" aria-labelledby="myModalLabel"
+								role="dialog" tabindex="-1" id="myModal" class="modal fade"
+								style="display: none;">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-header">
+											<button aria-hidden="true" data-dismiss="modal" class="close"
+												type="button">×</button>
+										</div> 
+										<div class="modal-body">  
+											<h4 style="margin-left: 70px;">상품이 장바구니에 담겼습니다.</h4>   
+											<hr> 
+											<a href="${pageContext.servletContext.contextPath }/nonuser/cart"
+											style="text-decoration:none; margin-left: 100px;"> 
+												<button class="btn btn-info"> 
+													장바구니로 가기
+												</button>
+											</a>   
+											<button aria-hidden="true" data-dismiss="modal" 
+											class="btn btn-warning">쇼핑계속하기</button> 
+										</div>
+									</div>  
+									<!-- /.modal-content -->
+								</div>
+								<!-- /.modal-dialog -->
+							</div>
+							<!-- /.modal -->
 							<hr>
 							<button class="btn btn-success">
 								<span style="margin-right: 20px"

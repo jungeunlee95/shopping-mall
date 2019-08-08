@@ -94,10 +94,10 @@
 	    });
 		 
 		// 옵션 삭제 
-	    $(".minus-option").click(function() {
-	        alert("삭제");   
-	    }); 
-	    
+		$(document).on("click",".minus-option",function(){ 
+	        alert("삭제");			
+		});
+		 
 	});
 	 
 </script>	
