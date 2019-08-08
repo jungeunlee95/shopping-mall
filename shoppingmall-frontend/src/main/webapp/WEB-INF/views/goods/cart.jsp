@@ -39,7 +39,7 @@
 
 		<div class="row">
 			<div class="col-lg-3"> 
-				<h1 class="my-4">JEMall</h1>  
+				<h1 class="my-4">JEMall</h1>   
 				<div class="list-group">
 					<c:forEach items='${categoryList }' var='vo' varStatus='status'>
 						<c:choose>
@@ -68,45 +68,54 @@
 						class="product-removal">Remove</label> <label
 						class="product-line-price">Total</label>
 				</div>
-				
+				<c:if test="${cartList.size() == 0}"> 
+					<h3 style="text-align: center;">장바구니가 비어있습니다.</h3>  <hr> 
+				</c:if>  
 				<c:forEach items='${cartList }' var='vo' varStatus='status'>
 					<div class="product">
 						<div class="product-image">
+						<a href="${pageContext.servletContext.contextPath }/product/${vo.productNo }">
 							<img src="${pageContext.servletContext.contextPath }/assets/${vo.mainImg }">
+						</a>
 						</div>
 						<div class="product-details">
-							<div class="product-title">${vo.productName }</div>
+							<div class="product-title">
+								<a href="${pageContext.servletContext.contextPath }/product/${vo.productNo }">
+									${vo.productName } 
+								</a>
+							</div>
 							<p class="product-description" style="min-width: 30%;">
 							옵션 : ${vo.optionName }</p>
 						</div> 
-						<div class="product-price">${vo.price }원</div> 
+						<div class="product-price">${vo.price }원</div>  
 						<div class="product-quantity">
 							<input type="number" value="${vo.quantity }" min="1"> 
 						</div>  
 						<div class="product-removal">
-							<button class="remove-product">Remove</button>
+							<input type="button" id="remove-product" class="remove-product" value="삭제"
+									cart-no="${vo.cartNo }"> 
 						</div>  
 						<div class="product-line-price total_price" >${vo.sumPrice }</div>
-					</div>
+					</div> 
 				</c:forEach>
  
 				<div class="totals">   
 					<div class="totals-item"> 
 						<label>상품 총 금액</label> 
 						<input type="text" class="totals-value" style="width: 104px;" 
-						id="total_price_sum" value="error" readonly /> 
-					</div>   
+						id="total_price_sum" value="0" readonly /> 
+					</div>    
 					<div class="totals-item">
-						<label>배송비</label> 
+						<label>배송비 <br> <small style="color:red;">50,000원 이상 무료배송 !</small> </label>  
 						<input type="text" class="totals-value" style="width: 104px;" 
-						id="shopping_fee" value="error" readonly />  
-					</div> 
-					<div class="totals-item totals-item-total">
-						<label>Grand Total</label>
+						id="shopping_fee" value="${cartList[0].shippingFee }" readonly />    
+					</div>  
+					<div class="totals-item totals-item-total"> 
+						<label>총 결제 금액</label> 
 						<input type="text" class="totals-value" style="width: 104px;" 
-						id="final_price" value="error" readonly />   
+						id="final_price" value="0" readonly />   
 					</div>
-				</div>
+				</div> 
 
 				<button class="checkout">주문하기</button>
 				<br>
@@ -163,7 +172,7 @@
 		var sum = 0;
 		$('.total_price').each(function(){   
 		    sum += parseFloat($(this).text());
-		});   
+		});    
 		
 	    $("#total_price_sum").val(sum); 
 	    
@@ -171,9 +180,47 @@
 		    $("#shopping_fee").val("0");
 	    } 
 	     
-	    var finalPrice = parseFloat($("#total_price_sum").val())+parseFloat($("#shopping_fee").val());
+	    var sFee = $("#shopping_fee").val();
+	    if($("#shopping_fee").val()==''){
+	    	sFee = 0;  
+	    	$("#shopping_fee").val("0");  
+	    }  
+	    var finalPrice =  parseFloat(sum)+ parseFloat(sFee);
 	    
 	    $("#final_price").val(finalPrice);  
+	    
+	    // 상품 삭제
+	    $('.remove-product').click(function(){
+	    	if(!confirm("정말 삭제하시겠습니까?")){ 
+	    		return;
+	    	}
+	    	var cartNo = $(this).attr("cart-no"); 
+	    	
+			if(cartNo == ''){
+				return; 
+			} 
+			 
+			
+			$.ajax({
+				url : "${pageContext.servletContext.contextPath }/nonuser/api/cart/" + cartNo,
+				type : "delete",
+				dataType : "json",
+				data : "",
+				success: function(response){
+					console.log(response.data); 
+					if(response.data ==true){ 
+						alert("삭제되었습니다.");   
+						window.location.reload();  
+					}else{
+						alert("오류가 발생했습니다. 다시 시도해주세요");  												
+					}
+				}, 
+				error : function(xhr, error){
+					console.error("error : " + error);
+				}
+			}); 
+		});
+	    
 	    
 	});
 	   

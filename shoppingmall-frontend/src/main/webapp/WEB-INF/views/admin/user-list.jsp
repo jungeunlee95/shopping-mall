@@ -116,10 +116,10 @@ $('.a-disabled').click(function () {return false;});
 									class="mail-checkbox"></td>
 								<td class="inbox-small-cells"> [${count - status.index }] </td>
 								<td class="view-message dont-show">
-									<a href="#">
+									<a href="${pageContext.request.contextPath }/admin/user/${vo.no }">
 									${vo.name }
 									</a>
-								</td>
+								</td> 
 								<td class="view-message">${vo.id }</td>
 								<td class="view-message inbox-small-cells">
 									<c:choose>

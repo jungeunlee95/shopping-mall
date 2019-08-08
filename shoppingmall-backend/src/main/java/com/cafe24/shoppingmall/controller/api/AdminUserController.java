@@ -46,6 +46,13 @@ public class AdminUserController {
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(list));			
 	} 
 	
+	@ApiOperation(value="회원 상세 정보") 
+	@GetMapping(value="/detail/{userNo}") 
+	public ResponseEntity<JSONResult> userDetail(@PathVariable(value="userNo") Long userNo) {
+		UserVo vo = userService.getUserDetail(userNo);
+		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(vo));			
+	}   
+	
 	@ApiOperation(value="회원 정보 수정")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name="userVo", value="no: 회원번호 \n id: 아이디  \n password: 비밀번호 \n name: 이름  \n"

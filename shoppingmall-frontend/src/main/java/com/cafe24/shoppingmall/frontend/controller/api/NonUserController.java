@@ -3,9 +3,10 @@ package com.cafe24.shoppingmall.frontend.controller.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,12 +32,21 @@ public class NonUserController {
 		return JSONResult2.success(exist);
 	}
 	
-	@ResponseBody
+	@ResponseBody 
 	@PostMapping("/cart")
 	public JSONResult2 cart(@ModelAttribute CartVo cartVo) {
 
 		Boolean result = userService.addCart(cartVo);
+		 
+		return JSONResult2.success(result);
+	} 
+	
+	@ResponseBody
+	@DeleteMapping("/cart/{no}")
+	public JSONResult2 deleteCart(@PathVariable(value="no") Long no) {
 		
+		Boolean result = userService.deleteCart(no);
+	
 		return JSONResult2.success(result);
 	}
 	

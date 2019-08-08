@@ -63,6 +63,11 @@ public class CartService{
 		return result;
 	}
 
+	public Boolean deleteCart(Long no) {
+		boolean result = cartDao.delete(no)==1;			
+		return result;
+	}
+
 
 
 

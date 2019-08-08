@@ -87,4 +87,8 @@ public class CartDao{
 		return sqlSession.delete("cart.delete", map);
 	}
 
+	public int delete(Long no) {
+		return sqlSession.delete("cart.deleteOne", no);
+	}
+
 }

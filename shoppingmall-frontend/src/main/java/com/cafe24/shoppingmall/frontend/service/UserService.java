@@ -33,7 +33,7 @@ public class UserService {
 	public Boolean checkId(String id) {
 		String endpoint = "http://localhost:8888/shoppingmall/api/nonuser/checkId?id="+id;
 
-		JSONResultUserCheckId result = restTemplate.getForObject(endpoint, JSONResultUserCheckId.class);
+		JSONResultBoolean result = restTemplate.getForObject(endpoint, JSONResultBoolean.class);
 		
 		return result.getData();
 	}
@@ -43,8 +43,8 @@ public class UserService {
 
 		HttpEntity<UserVo> request = new HttpEntity<>(userVo);
 		
-		ResponseEntity<JSONResultUserJoin> response = restTemplate
-				.exchange(uri, HttpMethod.POST, request, JSONResultUserJoin.class);
+		ResponseEntity<JSONResultBoolean> response = restTemplate
+				.exchange(uri, HttpMethod.POST, request, JSONResultBoolean.class);
 		
 		return response.getBody().getData();
 	}
@@ -58,7 +58,7 @@ public class UserService {
 	    UserVo vo = new UserVo();
 		vo.setId(id);
 	    
-		JSONResultUserLogin response = restTemplate.postForObject(uri, vo, JSONResultUserLogin.class);
+		JSONResultUser response = restTemplate.postForObject(uri, vo, JSONResultUser.class);
 		
 		return response.getData();
 	}
@@ -69,9 +69,22 @@ public class UserService {
 	    HttpHeaders headers = new HttpHeaders();
 	    headers.setContentType(MediaType.APPLICATION_JSON);
 	    
-		JSONResultUseraddCart response = restTemplate.postForObject(uri, cartVo, JSONResultUseraddCart.class);
+	    JSONResultBoolean response = restTemplate.postForObject(uri, cartVo, JSONResultBoolean.class);
 		
 		return response.getData();
+	}
+	
+	public Boolean deleteCart(Long no) {
+		String uri = "http://localhost:8888/shoppingmall/api/cart/delete";
+
+		System.out.println("1 ------------------------------------"); 
+		HttpEntity<Long> request = new HttpEntity<>(no);
+		
+		ResponseEntity<JSONResultBoolean> response = restTemplate
+				.exchange(uri, HttpMethod.DELETE, request, JSONResultBoolean.class);
+		System.out.println("2 ------------------------------------");
+		
+		return response.getBody().getData(); 
 	}
 	
 	public List<CartVo> getUserCartList(Long userNo) {
@@ -82,6 +95,14 @@ public class UserService {
 
 		return jsonResult.getData(); 
 	}
+	
+	public UserVo getUserDetail(Long userNo) {
+		String endpoint = "http://localhost:8888/shoppingmall/api/admin/user/detail/"+userNo;
+
+		JSONResultUser jsonResult = restTemplate.getForObject(endpoint, JSONResultUser.class);
+
+		return jsonResult.getData();  
+	}
 
 	// DTO Class 
 	private static class JSONResultUserList extends JSONResult<List<UserVo>> {
@@ -90,16 +111,12 @@ public class UserService {
 	private static class JSONResultCartList extends JSONResult<List<CartVo>> {
 	}
 
-	private static class JSONResultUserJoin extends JSONResult<Boolean> {
+	private static class JSONResultBoolean extends JSONResult<Boolean> {
 	}
 	
-	private static class JSONResultUserCheckId extends JSONResult<Boolean> {
+	private static class JSONResultUser extends JSONResult<UserVo> {
 	}
-	
-	private static class JSONResultUserLogin extends JSONResult<UserVo> {
-	}
-	
-	private static class JSONResultUseraddCart extends JSONResult<Boolean> {
-	}
+
+
 
 }

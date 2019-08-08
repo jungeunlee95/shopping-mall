@@ -24,10 +24,6 @@ public class AdminController {
 		
 		String url = fileuploadService.restore(multipartFile);
 		
-		System.out.println("============================");
-		System.out.println(url);
-		System.out.println("============================");
-		
 		return JSONResult2.success(url); 
 	}
 	

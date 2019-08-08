@@ -62,21 +62,31 @@ public class CartController {
 		return JSONResult.success(list);
 	}
 	
-	@ApiOperation(value="장바구니 상품 삭제")
-	@ApiImplicitParams({
-		@ApiImplicitParam(name="List<RequestDeleteCartDto>", value="no: 장바구니 번호", required=true, dataType="List<RequestDeleteCartDto>", defaultValue="")
-		
-	})
+//	@ApiOperation(value="장바구니 상품 삭제")
+//	@ApiImplicitParams({
+//		@ApiImplicitParam(name="List<RequestDeleteCartDto>", value="no: 장바구니 번호", required=true, dataType="List<RequestDeleteCartDto>", defaultValue="")
+//		
+//	}) 
+//	@DeleteMapping(value = "/delete")
+//	public ResponseEntity<JSONResult> deleteCart(@RequestBody @Valid List<RequestDeleteCartDto> noList
+//			, BindingResult bindingResult) {
+//		if(bindingResult.hasErrors()) {
+//			List<ObjectError> allErrors = bindingResult.getAllErrors();
+//			for(ObjectError error : allErrors) {
+//				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(JSONResult.fail(error.getDefaultMessage()));
+//			}
+//		} 
+//		Boolean result = cartService.deleteCart(noList);
+//		
+//		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(result));
+//	} 
+	
+	@ApiOperation(value="장바구니 상품 한개 삭제")
+	@ApiImplicitParams({		
+	}) 
 	@DeleteMapping(value = "/delete")
-	public ResponseEntity<JSONResult> deleteCart(@RequestBody @Valid List<RequestDeleteCartDto> noList
-			, BindingResult bindingResult) {
-		if(bindingResult.hasErrors()) {
-			List<ObjectError> allErrors = bindingResult.getAllErrors();
-			for(ObjectError error : allErrors) {
-				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(JSONResult.fail(error.getDefaultMessage()));
-			}
-		}
-		Boolean result = cartService.deleteCart(noList);
+	public ResponseEntity<JSONResult> deleteCartOne(@RequestBody Long no) {
+		Boolean result = cartService.deleteCart(no); 
 		
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(result));
 	}

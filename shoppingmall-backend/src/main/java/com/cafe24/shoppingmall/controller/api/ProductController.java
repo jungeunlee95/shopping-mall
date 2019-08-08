@@ -34,7 +34,6 @@ public class ProductController {
 		// 해당 카테고리의 list return
 		List<ProductVo> list = productService.getProductList();
 		
-		System.out.println(list);
 		return new ResponseEntity<JSONResult>(JSONResult.success(list), HttpStatus.OK);
 	}
 	

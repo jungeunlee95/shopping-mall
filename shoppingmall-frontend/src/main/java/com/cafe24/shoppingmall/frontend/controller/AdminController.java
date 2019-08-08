@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,6 +18,7 @@ import com.cafe24.shoppingmall.frontend.service.CategoryService;
 import com.cafe24.shoppingmall.frontend.service.FileuploadService;
 import com.cafe24.shoppingmall.frontend.service.ProductService;
 import com.cafe24.shoppingmall.frontend.service.UserService;
+import com.cafe24.shoppingmall.frontend.vo.CartVo;
 import com.cafe24.shoppingmall.frontend.vo.CategoryVo;
 import com.cafe24.shoppingmall.frontend.vo.ProductVo;
 import com.cafe24.shoppingmall.frontend.vo.UserVo;
@@ -49,6 +51,18 @@ public class AdminController {
 		return "admin/user-list";
 	}
 	
+	@GetMapping( "/user/{no}" ) 
+	public String userDetail(Model model, @PathVariable("no") Long userNo) {
+		
+		UserVo user = userService.getUserDetail(userNo);
+		model.addAttribute("user", user);
+		
+		List<CartVo> cartList = userService.getUserCartList(userNo);
+		model.addAttribute("cartList", cartList);
+		
+		return "admin/user-detail"; 
+	}
+	 
 	@GetMapping( "/product" )
 	public String product(Model model) {
 		List<CategoryVo> list = categoryService.getLowList();

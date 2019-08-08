@@ -87,5 +87,12 @@ public class UserDao{
 		return sqlSession.delete("user.deleteAddress", addressNo);
 	}
 
+	public UserVo getUserDetail(Long userNo) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("key", KEY);
+		map.put("userNo", userNo); 
+		return sqlSession.selectOne("user.getUserDetail", map);
+	} 
+
 
 }

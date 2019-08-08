@@ -31,17 +31,17 @@
 					<c:forEach items='${categoryList }' var='vo' varStatus='status'>
 						<c:choose>
 							<c:when test="${vo.depth == 1 }"> 
-								<a href="${pageContext.servletContext.contextPath }/product/list/${vo.no}" class="list-group-item">${vo.name }</a>
+								<a href="#" class="list-group-item">${vo.name }</a>
 							</c:when>
-							<c:otherwise> 
-								<a href="${pageContext.servletContext.contextPath }/product/list/${vo.no}" class="list-group-item">
+							<c:otherwise>
+								<a href="#" class="list-group-item">
 								<img style="width: 20px; height: 20px;" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQAlvidkOcAC0HIFOB9vrrixTdq4GrJ2EtskdHJ9vw7qfKez8Eq2g">
 									${vo.name }
 								</a> 
 							</c:otherwise> 
 						</c:choose>
 					</c:forEach> 
-				</div>
+				</div> 
 			</div>
 			<!-- /.col-lg-3 -->
 

@@ -73,6 +73,11 @@ public class UserService{
 	public Boolean deleteAddress(Long addressNo) {
 		Boolean result =  userDao.deleteAddress(addressNo)==1;
 		return result;
+	}
+
+	public UserVo getUserDetail(Long userNo) {
+		UserVo vo = userDao.getUserDetail(userNo);
+		return vo;
 	} 
 
 }

@@ -63,7 +63,7 @@
 	<select id="getListUser" parameterType="cartvo" resultType="cartvo">
 	<![CDATA[  
 		select c.no cartNo, p.no productNo, p.name productName, i.img_url mainImg, c.productoption_no productoptionNo, p.name, po.productoption_name optionName,
-			sum(c.quantity) quantity, p.price, sum(c.quantity)*price sumPrice
+			sum(c.quantity) quantity, p.price, sum(c.quantity)*price sumPrice, shipping_fee shippingFee
 		from cart c, productoption po, product p, mainimage i
 		where c.productoption_no = po.no
 		and p.no = i.product_no 
@@ -77,7 +77,7 @@
 	<select id="getListNonUser" parameterType="cartvo" resultType="cartvo">
 	<![CDATA[  
 		select c.no, c.productoption_no productoptionNo, p.name, po.productoption_name productName,
-			   sum(c.quantity) quantity, p.price, sum(c.quantity)*price sumPrice
+			   sum(c.quantity) quantity, p.price, sum(c.quantity)*price sumPrice, shipping_fee shippingFee
 		from cart c, productoption po, product p
 		where c.productoption_no = po.no
 		and po.product_no = p.no
@@ -95,6 +95,13 @@
 		</foreach>
 		
 		<![CDATA[ ) ]]>
+	</delete>
+	
+	<!-- 장바구니상품 삭제-->	
+	<delete id="deleteOne" parameterType="long">
+		<![CDATA[
+			 delete from cart where no = #{no } 
+		]]>
 	</delete>
 	
 	<!-- 주문된 장바구니 물품 삭제 - 회원 -->

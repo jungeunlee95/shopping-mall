@@ -24,13 +24,15 @@
 <link
 	href="${pageContext.servletContext.contextPath }/assets/css/shop-item.css"
 	rel="stylesheet"> 
-</head>
-<sec:authentication property="principal.no" var="userNo"/>
+</head> 
+<sec:authorize access="isAuthenticated()">  
+	<sec:authentication property="principal.no" var="userNo"/>
+</sec:authorize> 
 <script>
 $(document).ready(function() {
 	// 장바구니 담기  
     $("#add-cart").click(function() {
-		var userNo = ${userNo};
+		var userNo = ${userNo };
 		var optionNo = $("#product_option > option:selected").val();  
 		var quantity = $(".section > div > input").val(); 
 		

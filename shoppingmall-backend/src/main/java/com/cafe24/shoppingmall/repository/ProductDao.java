@@ -95,10 +95,6 @@ public class ProductDao{
 	}
 
 	public int addProductOption(Long no, List<OptionNameVo> optionNameVoList) {
-		System.out.println("백엔드 dao -------------------------------");
-		System.out.println(optionNameVoList);
-		System.out.println(optionNameVoList.size());
-		System.out.println("백엔드 dao -------------------------------");
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("optionNameVoList", optionNameVoList);

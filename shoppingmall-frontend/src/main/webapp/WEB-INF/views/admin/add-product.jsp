@@ -252,19 +252,19 @@
 <!-- summernote -->
 <script type="text/javascript">
     function sendFile(file, el) {
+    	
       var form_data = new FormData();
       form_data.append('shopImg', file);
+      
       $.ajax({
     	dataType: "json",  
         data: form_data,
         type: "post",
         url: '${pageContext.request.contextPath}/admin/api/insertImg', 		
-        //cache: false,
         contentType: false,
-        enctype: 'multipart/form-data',
+        enctype: 'multipart/form-data', 
         processData: false,
         success: function(response) { 
-        	//alert("성공 : " + response.data); 
           $(el).summernote('editor.insertImage', '${pageContext.request.contextPath}/assets'+response.data);
 
           $('#imageBoard > ul').append('<li><img src="${pageContext.request.contextPath}/assets'+response.data+'" width="480" height="auto"/></li>');

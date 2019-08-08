@@ -18,6 +18,22 @@
 		]]>
 	</select>
 	
+	<!-- 회원 상세 정보 -->
+	<select id="getUserDetail" resultType="uservo" parameterType='map'>
+	 	<![CDATA[   
+		 	select no, 
+			convert(AES_DECRYPT(id, SHA2(#{key}, 512)) using utf8) as id,
+			convert(AES_DECRYPT(name, SHA2(#{key}, 512))using utf8) as name,
+			pw_question as passwordQuestion,
+			convert(AES_DECRYPT(pw_answer, SHA2(#{key}, 512)) using utf8) as passwordAnswer,
+			convert(AES_DECRYPT(phone_number, SHA2(#{key}, 512)) using utf8) as phoneNumber,
+			convert(AES_DECRYPT(email, SHA2(#{key}, 512)) using utf8) as email,
+			DATE_FORMAT(birth_date,'%Y-%m-%d') as birthDate, role, point, end_date as endDate, gender
+			from user
+			where no = #{userNo } 
+		]]> 
+	</select>
+	
 	<!-- 시큐리티용 로그인 -->
 	<select id="loginS" resultType="uservo" parameterType='map'>
 	 	<![CDATA[ 

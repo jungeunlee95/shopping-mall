@@ -6,9 +6,13 @@
 
  **[ 환경 ]**
 
-- 언어 : Java
-- 프레임워크 : Spring Boot 2.x
-- 데이터베이스 : MariaDB
+- 언어 : Java 
+
+- 프레임워크 : ~~Spring Boot 2.x~~ ---> Spring Boot 1.x
+
+			> oauth2 적용으로 버전 변경 
+			
+- 데이터베이스 : MariaDB 
 
 <br>
 
