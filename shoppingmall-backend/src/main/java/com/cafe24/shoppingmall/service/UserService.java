@@ -37,6 +37,11 @@ public class UserService{
 		return userVo;
 	} 
 	
+	public UserVo getLogin(String id) {
+		UserVo userVo = userDao.getLogin(id);
+		return userVo;
+	} 
+	
 	public List<UserVo> getUserList() {
 		List<UserVo> list = userDao.getUserList();
 		return list;

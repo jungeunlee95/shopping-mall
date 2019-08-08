@@ -9,7 +9,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
-import com.cafe24.shoppingmall.frontend.repository.UserDao;
+import com.cafe24.shoppingmall.frontend.service.UserService;
 import com.cafe24.shoppingmall.frontend.vo.UserVo;
 
 
@@ -19,16 +19,16 @@ import com.cafe24.shoppingmall.frontend.vo.UserVo;
 public class UserDetailsServiceImpl implements UserDetailsService {
 	
 	@Autowired
-	private UserDao userDao;
+	private UserService userService;
 	
 	@Override
-	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-		UserVo userVo = userDao.get(email);
+	public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
+		UserVo userVo = userService.loginUser(id);
 		
 		SecurityUser securityUser = new SecurityUser();
 		
 		if(userVo != null) {
-			securityUser.setNo(userVo.getNo());
+			securityUser.setNo(userVo.getNo()); 
 			securityUser.setName(userVo.getName());
 			securityUser.setUsername(userVo.getEmail());
 			securityUser.setPassword(userVo.getPassword());

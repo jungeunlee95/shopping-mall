@@ -11,8 +11,14 @@ public class UserDao {
 //	@Autowired
 //	private SqlSession sqlSession;
 	
-	public UserVo get(String email) {
-		return null;
+	public UserVo get(String id) {
+	    UserVo vo = new UserVo();
+	    vo.setName("이정은");
+	    vo.setNo(1L);
+	    vo.setEmail("aaa");
+	    vo.setPassword("1234");
+	    vo.setRole("ROLE_USER");
+	    return vo;
 	}
 	
 	public UserVo get(Long no){

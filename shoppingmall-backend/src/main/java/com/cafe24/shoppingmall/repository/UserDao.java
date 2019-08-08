@@ -51,6 +51,14 @@ public class UserDao{
 		UserVo vo = sqlSession.selectOne("user.findId", map);
 		return vo;
 	}
+	
+	public UserVo getLogin(String id) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("key", KEY);
+		map.put("id", id);
+		UserVo vo = sqlSession.selectOne("user.loginS", map);
+		return vo;
+	}
 
 	public UserVo update(UserVo userVo) {
 		userVo.setKey(KEY);

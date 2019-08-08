@@ -15,6 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+import com.cafe24.shoppingmall.frontend.security.CustomPasswordEncoder;
 import com.cafe24.shoppingmall.frontend.security.CustomUrlAuthenticationSuccessHandler;
 
 @Configuration
@@ -106,7 +107,7 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
 	// BCrypt Password Encoder(with Random Salt)
 	@Bean
 	public PasswordEncoder passwordEncoder() {
-	    return new BCryptPasswordEncoder();
+	    return new CustomPasswordEncoder();
 	}
 	
 	@Bean

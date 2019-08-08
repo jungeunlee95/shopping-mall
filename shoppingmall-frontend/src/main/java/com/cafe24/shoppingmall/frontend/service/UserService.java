@@ -48,42 +48,23 @@ public class UserService {
 				.exchange(uri, HttpMethod.POST, request, JSONResultUserJoin.class);
 		
 		return response.getBody().getData();
+	}
+	
+	public UserVo loginUser(String id) {
+		String uri = "http://localhost:8888/shoppingmall/api/nonuser/login";
 		
+	    HttpHeaders headers = new HttpHeaders();
+	    headers.setContentType(MediaType.APPLICATION_JSON);
+	    
+	    UserVo vo = new UserVo();
+		vo.setId(id);
+	    
+		JSONResultUserLogin response = restTemplate.postForObject(uri, vo, JSONResultUserLogin.class);
 		
-		// ------------------------- 1 ---------------------------
-//		HttpHeaders headers = new HttpHeaders();
-//		headers.setContentType(MediaType.APPLICATION_JSON);
-//		
-//		HttpEntity<UserVo> entity = new HttpEntity<UserVo>(userVo, headers);
-//		return restTemplate.postForObject(uri, entity, String.class);
-		// ------------------------------------------------------
-
-
-		// ------------------------- 2 ---------------------------
-//		HttpHeaders headers = new HttpHeaders();
-//		headers.setContentType(MediaType.valueOf("text/plain;charset=utf-8"));
-//		headers.add("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64)" +
-//		" AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.99 Safari/537.36");
-//
-//		ResponseEntity<JSONResultUserJoin> response = restTemplate.exchange(uri, HttpMethod.POST, null,
-//				new ParameterizedTypeReference<JSONResultUserJoin>() {
-//				}, userVo);
-//
-//		// Verify request succeed
-//		System.out.println("===================================");
-//		System.out.println(response.getBody().getData());
-//		System.out.println("===================================");
-		// ------------------------------------------------------
-		
-		
-		// ------------------------- 3 ---------------------------
-		//String endpoint = "http://localhost:8888/shoppingmall/api/nonuser/join";
-		//JSONResultUserJoin jsonResult = new RestTemplate().postForObject(uri, userVo, JSONResultUser.class);
-		// ------------------------------------------------------
-		// return true;
+		return response.getData();
 	}
 
-	// DTO Class
+	// DTO Class 
 	private static class JSONResultUserList extends JSONResult<List<UserVo>> {
 	}
 
@@ -91,6 +72,9 @@ public class UserService {
 	}
 	
 	private static class JSONResultUserCheckId extends JSONResult<Boolean> {
+	}
+	
+	private static class JSONResultUserLogin extends JSONResult<UserVo> {
 	}
 
 }

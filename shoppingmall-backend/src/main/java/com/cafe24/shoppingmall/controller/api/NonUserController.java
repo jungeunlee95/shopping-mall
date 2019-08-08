@@ -110,22 +110,25 @@ public class NonUserController {
 		@ApiImplicitParam(name="userVo", value="userId: 아이디 - 필수값 \n password: 비밀번호 - 필수값 \n"
 				, dataType="userVo")
 	})
-	@GetMapping(value="/login") 
+	@PostMapping(value="/login")  
 	public ResponseEntity<JSONResult> login(@RequestBody UserVo userVo) {
+//		Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
+//		
+//		Set<ConstraintViolation<UserVo>> validatorResults = validator.validateProperty(userVo, "id");
+//		
+//		if(validatorResults.isEmpty() == false) {
+//			for( ConstraintViolation<UserVo> validatorResult : validatorResults ) {
+//				String message = validatorResult.getMessage();
+//				JSONResult result = JSONResult.fail(message);
+//				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(result);				
+//			}
+//		}
 		
-		Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
-		
-		Set<ConstraintViolation<UserVo>> validatorResults = validator.validateProperty(userVo, "id");
-		
-		if(validatorResults.isEmpty() == false) {
-			for( ConstraintViolation<UserVo> validatorResult : validatorResults ) {
-				String message = validatorResult.getMessage();
-				JSONResult result = JSONResult.fail(message);
-				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(result);				
-			}
-		}
-		
-		UserVo user = userService.getUser(userVo.getId(), userVo.getPassword());
+//		UserVo user = userService.getUser(userVo.getId(), userVo.getPassword());
+		System.out.println("백엔드 로그인 ====================================");
+		System.out.println(userVo);
+		System.out.println("백엔드 로그인 ====================================");
+		UserVo user = userService.getLogin(userVo.getId()); 
 		
 		// 로그인 실패
 		if(user == null) {
