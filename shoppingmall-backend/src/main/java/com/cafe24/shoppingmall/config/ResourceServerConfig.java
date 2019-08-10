@@ -16,7 +16,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
 		// 자원 서버 접근 권한 설정
 		http
-			.authorizeRequests()
+			.authorizeRequests()  
 			.anyRequest().access("#oauth2.hasScope('read,write')");
 	}
 
