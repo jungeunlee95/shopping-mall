@@ -77,6 +77,16 @@ public class AdminController {
 		return "admin/product-list";
 	} 
 	
+	@GetMapping( "/product/list/{page}" )
+	public String productList(@PathVariable("page") Long page,  
+			@RequestParam(value="keyword", required = false, defaultValue = "") String keyword,
+			Model model) { 
+		
+		List<ProductVo> list = productService.getList(page, keyword);
+		model.addAttribute("productList", list);
+		return "admin/product-list";
+	} 
+	
 	@PostMapping( "/product/add" )  
 	public String productAdd( 
 			@RequestParam(value="mainImg", required = false) MultipartFile multipartFile,

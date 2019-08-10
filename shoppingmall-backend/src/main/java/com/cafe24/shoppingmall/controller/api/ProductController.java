@@ -37,6 +37,21 @@ public class ProductController {
 		return new ResponseEntity<JSONResult>(JSONResult.success(list), HttpStatus.OK);
 	}
 	
+	@ApiOperation(value="상품 목록 가져오기")
+	@ApiImplicitParams({
+		@ApiImplicitParam(name="categoryNo", value="categoryNo: 카테고리 번호", required=true, dataType="Long", defaultValue=""),
+		@ApiImplicitParam(name="keyword", value="keyword: 검색어 입력 값", required=false, dataType="String", defaultValue="")
+	})
+	@GetMapping(value = "/list/{page}") 
+	public ResponseEntity<JSONResult> getProductListPage(@PathVariable(value = "page") Long page
+			,@RequestParam(value="keyword", required = false, defaultValue = "") String keyword) {
+		 
+		// 해당 카테고리의 list return
+		List<ProductVo> list = productService.getProductListPage(page, keyword);
+		
+		return new ResponseEntity<JSONResult>(JSONResult.success(list), HttpStatus.OK);
+	}
+	
 	@ApiOperation(value="특정 조건에 맞는 상품 목록 가져오기")
 	@ApiImplicitParams({
 		@ApiImplicitParam(name="categoryNo", value="categoryNo: 카테고리 번호", required=true, dataType="Long", defaultValue=""),

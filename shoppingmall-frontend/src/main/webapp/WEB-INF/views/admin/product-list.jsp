@@ -160,22 +160,26 @@ $(document).ready(function() {
 						</tbody> 
 					</table>  
 				</div>
-				<ul class="unstyled inbox-pagination">
-					<li><a class="np-btn" href="#"><i
-							class="fa fa-angle-left  pagination-left"></i></a></li>
-					<li class="page-item active"><a class="page-link" href="#">1</a></li>
-					<li class="page-item"><a class="page-link" href="#">2</a></li>
-					<li class="page-item"><a class="page-link" href="#">3</a></li>
-					<li><a class="np-btn" href="#"><i
-							class="fa fa-angle-right pagination-right"></i></a></li>
+				<ul class="unstyled inbox-pagination" id="pager">
+					
 				</ul>
-			</aside>
+			</aside> 
 		</div>
 	</div>
 	<!-- /.container -->
 
 	<!-- Footer -->
-	<c:import url='/WEB-INF/views/includes/footer.jsp' />
+	<c:import url='/WEB-INF/views/includes/footer.jsp' /> 
 	<!-- /.Footer -->
 </body>
+<script src="${pageContext.servletContext.contextPath }/assets/js/paging.js"></script>
+<script>
+	var listCount = 10;
+	var currentPage = 1;
+	var kwd = "${kwd}";
+	//var listCount = ${board_count};
+	//var currentPage = ${current_page};
+	//var kwd = "${kwd}";
+	setPage(listCount, currentPage, kwd);
+</script>
 </html>

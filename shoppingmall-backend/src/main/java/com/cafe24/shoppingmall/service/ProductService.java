@@ -29,6 +29,12 @@ public class ProductService {
 		List<ProductVo> list = productDao.getList(categoryNo, keyword);
 		return list;
 	}
+	
+
+	public List<ProductVo> getProductListPage(Long page, String keyword) {
+		List<ProductVo> list = productDao.getListPage(page, keyword);
+		return list;
+	}
 
 	/**
 	 * 메인 상품 리스트
@@ -126,6 +132,7 @@ public class ProductService {
 		List<OptionNameVo> result = productDao.getOptionList(no);
 		return result;
 	}
+
 }
 
 

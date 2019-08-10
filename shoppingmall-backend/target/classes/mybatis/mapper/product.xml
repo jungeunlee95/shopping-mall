@@ -58,6 +58,25 @@
 		order by no desc;
 	]]>
 	</select>
+	
+	<!-- 카테고리 상품 리스트 페이징 -->
+	<select id="getListByPage" resultType="productvo">
+	<![CDATA[
+		select p.no, img_url mainImg, code, name, price, reg_date regDate, isshow isShow, 
+			isoption isOption, shipping_fee shippingFee, order_no orderNo
+		from product p left join mainimage i
+		on p.no = i.product_no
+	]]> 
+		<if test="keyword != null and keyword != ''">
+		<![CDATA[
+			where name like CONCAT('%',#{keyword },'%')
+		]]>
+		</if>
+	<![CDATA[
+		order by no desc
+		limit #{page }, 5 
+	]]>
+	</select>
 
 	<!-- 상품 상세 정보 -->
 	<select id="getProductDetail" parameterType="long" resultMap="productMap">

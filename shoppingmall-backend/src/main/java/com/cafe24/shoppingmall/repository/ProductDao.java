@@ -45,6 +45,15 @@ public class ProductDao{
 		return list; 
 	}
 
+
+	public List<ProductVo> getListPage(Long page, String keyword) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("page", page);
+		map.put("keyword", keyword);
+		List<ProductVo> list = sqlSession.selectList("product.getListByPage", map); 
+		return list; 
+	}
+	
 	public List<ProductVo> getList() {
 		return sqlSession.selectList("product.getList");
 	}
@@ -134,6 +143,7 @@ public class ProductDao{
 		int result = sqlSession.insert("product.mainImage", productVo);
 		return result;
 	}
+
 
 
 

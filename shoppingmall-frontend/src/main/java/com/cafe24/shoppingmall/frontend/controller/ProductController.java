@@ -44,7 +44,7 @@ public class ProductController {
 		return "goods/item";
 	}   
 	 
-	@RequestMapping("/list/{categoryNo }")  
+	@RequestMapping("/list/{categoryNo}")  
 	public String list(@PathVariable("categoryNo") Long categoryNo,  
 						@RequestParam(value="keyword", required = false, defaultValue = "") String keyword,
 						Model model) {  

@@ -45,6 +45,17 @@ public class ProductService {
 		return jsonResult.getData();
 	}
 	
+
+	public List<ProductVo> getList(Long page, String keyword) { 
+		RestTemplate restTemplate = new RestTemplate();
+
+		String endpoint = "http://localhost:8888/shoppingmall/api/product/list/"+page+"?keyword="+keyword;
+		
+		JSONResultProductList jsonResult = restTemplate.getForObject(endpoint, JSONResultProductList.class);
+		
+		return jsonResult.getData();
+	}
+	
 	public Boolean addProduct(ProductAddDto pdto) {
 		ProductVo productVo = new ProductVo(); 
 		productVo.setName(pdto.getName()); 
