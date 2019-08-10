@@ -17,13 +17,15 @@ import com.cafe24.shoppingmall.frontend.vo.UserVo;
 
 @Service
 public class UserService {
+	
+	public static final String BACKEND_BASE_URL = "http://localhost:8888/shoppingmall";
 
 	@Autowired
 	private OAuth2RestTemplate restTemplate;
 
 	public List<UserVo> getUserList() {
 
-		String endpoint = "http://localhost:8888/shoppingmall/api/admin/user/list";
+		String endpoint = BACKEND_BASE_URL + "/api/admin/user/list";
 
 		JSONResultUserList jsonResult = restTemplate.getForObject(endpoint, JSONResultUserList.class);
 
@@ -31,7 +33,7 @@ public class UserService {
 	}
 	
 	public Boolean checkId(String id) {
-		String endpoint = "http://localhost:8888/shoppingmall/api/nonuser/checkId?id="+id;
+		String endpoint = BACKEND_BASE_URL + "/api/nonuser/checkId?id="+id;
 
 		JSONResultBoolean result = restTemplate.getForObject(endpoint, JSONResultBoolean.class);
 		
@@ -39,7 +41,7 @@ public class UserService {
 	}
 	
 	public Boolean joinUser(UserVo userVo) {
-		String uri = "http://localhost:8888/shoppingmall/api/nonuser/join";
+		String uri = BACKEND_BASE_URL + "/api/nonuser/join";
 
 		HttpEntity<UserVo> request = new HttpEntity<>(userVo);
 		
@@ -50,7 +52,7 @@ public class UserService {
 	}
 	
 	public UserVo loginUser(String id) {
-		String uri = "http://localhost:8888/shoppingmall/api/nonuser/login";
+		String uri = BACKEND_BASE_URL + "/api/nonuser/login";
 		
 	    HttpHeaders headers = new HttpHeaders();
 	    headers.setContentType(MediaType.APPLICATION_JSON);
@@ -64,7 +66,7 @@ public class UserService {
 	}
 	
 	public Boolean addCart(CartVo cartVo) {
-		String uri = "http://localhost:8888/shoppingmall/api/cart/add";
+		String uri = BACKEND_BASE_URL + "/api/cart/add";
 		 
 	    HttpHeaders headers = new HttpHeaders();
 	    headers.setContentType(MediaType.APPLICATION_JSON);
@@ -75,21 +77,19 @@ public class UserService {
 	}
 	
 	public Boolean deleteCart(Long no) {
-		String uri = "http://localhost:8888/shoppingmall/api/cart/delete";
+		String uri = BACKEND_BASE_URL + "/cart/delete";
 
-		System.out.println("1 ------------------------------------"); 
 		HttpEntity<Long> request = new HttpEntity<>(no);
 		
 		ResponseEntity<JSONResultBoolean> response = restTemplate
 				.exchange(uri, HttpMethod.DELETE, request, JSONResultBoolean.class);
-		System.out.println("2 ------------------------------------");
 		
 		return response.getBody().getData(); 
 	}
 	
 	public List<CartVo> getUserCartList(Long userNo) {
 
-		String endpoint = "http://localhost:8888/shoppingmall/api/cart/getList/"+userNo;
+		String endpoint = BACKEND_BASE_URL + "/api/cart/getList/"+userNo;
 
 		JSONResultCartList jsonResult = restTemplate.getForObject(endpoint, JSONResultCartList.class);
 
@@ -97,7 +97,7 @@ public class UserService {
 	}
 	
 	public UserVo getUserDetail(Long userNo) {
-		String endpoint = "http://localhost:8888/shoppingmall/api/admin/user/detail/"+userNo;
+		String endpoint = BACKEND_BASE_URL + "/api/admin/user/detail/"+userNo;
 
 		JSONResultUser jsonResult = restTemplate.getForObject(endpoint, JSONResultUser.class);
 

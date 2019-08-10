@@ -19,6 +19,8 @@ import com.cafe24.shoppingmall.frontend.vo.ProductVo;
 
 @Service
 public class ProductService {
+	
+	public static final String BACKEND_BASE_URL = "http://localhost:8888/shoppingmall";
 
 	@Autowired
 	private OAuth2RestTemplate restTemplate;
@@ -38,7 +40,7 @@ public class ProductService {
 		
 		RestTemplate restTemplate = new RestTemplate();
 
-		String endpoint = "http://localhost:8888/shoppingmall/api/product/list";
+		String endpoint = BACKEND_BASE_URL+ "/api/product/list";
 		
 		JSONResultProductList jsonResult = restTemplate.getForObject(endpoint, JSONResultProductList.class);
 		
@@ -49,7 +51,7 @@ public class ProductService {
 	public List<ProductVo> getList(Long page, String keyword) { 
 		RestTemplate restTemplate = new RestTemplate();
 
-		String endpoint = "http://localhost:8888/shoppingmall/api/product/list/"+page+"?keyword="+keyword;
+		String endpoint = BACKEND_BASE_URL+ "/api/product/list/"+page+"?keyword="+keyword;
 		
 		JSONResultProductList jsonResult = restTemplate.getForObject(endpoint, JSONResultProductList.class);
 		
@@ -76,7 +78,7 @@ public class ProductService {
 		}	
 		productVo.setCategoryList(categoryList);
 		
-		String uri = "http://localhost:8888/shoppingmall/api/admin/product/add";
+		String uri = BACKEND_BASE_URL+ "/api/admin/product/add";
 		HttpEntity<ProductVo> request = new HttpEntity<>(productVo);
 		
 		ResponseEntity<JSONResultProductAdd> response = restTemplate
@@ -88,7 +90,7 @@ public class ProductService {
 	public ProductVo getDetail(Long no) {
 		RestTemplate restTemplate = new RestTemplate();
 
-		String endpoint = "http://localhost:8888/shoppingmall/api/product/detail/"+no;
+		String endpoint = BACKEND_BASE_URL+ "/api/product/detail/"+no;
 		
 		JSONResultProductDetail jsonResult = restTemplate.getForObject(endpoint, JSONResultProductDetail.class);
 		

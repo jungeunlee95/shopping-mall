@@ -15,6 +15,8 @@ import com.cafe24.shoppingmall.frontend.vo.ProductVo;
 
 @Service
 public class CategoryService {
+	
+	public static final String BACKEND_BASE_URL = "http://localhost:8888/shoppingmall";
 
 	@Autowired
 	private OAuth2RestTemplate restTemplate;
@@ -32,7 +34,7 @@ public class CategoryService {
 		
 		RestTemplate restTemplate = new RestTemplate();
 
-		String endpoint = "http://localhost:8888/shoppingmall/api/nonuser/category/list";
+		String endpoint = BACKEND_BASE_URL+"/api/nonuser/category/list";
 		
 		JSONResultCategoryList jsonResult = restTemplate.getForObject(endpoint, JSONResultCategoryList.class);
 		
