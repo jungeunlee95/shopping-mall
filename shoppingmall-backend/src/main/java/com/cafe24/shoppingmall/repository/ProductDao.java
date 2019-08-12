@@ -112,6 +112,11 @@ public class ProductDao{
 		return result;
 	}
 	
+	public int addProductOption(Long no) {
+		int result = sqlSession.insert("product.addNoOptionName", no);
+		return result;
+	}
+	
 	public int addProductOption(List<OptionNameVo> optionNameVoList) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("optionNameVoList", optionNameVoList);
@@ -143,8 +148,5 @@ public class ProductDao{
 		int result = sqlSession.insert("product.mainImage", productVo);
 		return result;
 	}
-
-
-
 
 }

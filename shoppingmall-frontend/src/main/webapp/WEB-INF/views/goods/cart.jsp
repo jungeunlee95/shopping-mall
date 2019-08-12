@@ -26,7 +26,9 @@
 <!------ Include the above in your HEAD tag ----------> 
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 </head>
-<sec:authentication property="principal.no" var="userNo"/>
+<sec:authorize access="isAuthenticated()"> 
+	<sec:authentication property="principal.no" var="userNo"/>
+</sec:authorize> 
 <body>
 	<!-- Navigation -->
 	<c:import url='/WEB-INF/views/includes/navigation.jsp'>
@@ -39,7 +41,7 @@
 
 		<div class="row">
 			<div class="col-lg-3"> 
-				<h1 class="my-4">JEMall</h1>   
+				<h1 class="my-4">JEMall</h1>    
 				<div class="list-group">
 					<c:forEach items='${categoryList }' var='vo' varStatus='status'>
 						<c:choose>
@@ -67,8 +69,8 @@
 						class="product-quantity">Quantity</label> <label
 						class="product-removal">Remove</label> <label
 						class="product-line-price">Total</label>
-				</div>
-				<c:if test="${cartList.size() == 0}"> 
+				</div> 
+				<c:if test="${cartList.size() == 0}">    
 					<h3 style="text-align: center;">장바구니가 비어있습니다.</h3>  <hr> 
 				</c:if>  
 				<c:forEach items='${cartList }' var='vo' varStatus='status'>
@@ -132,97 +134,101 @@
 	<c:import url='/WEB-INF/views/includes/footer.jsp' />
 	<!-- /.Footer -->
 </body>
-<script type="text/javascript">
-	$(document).ready(function() {
-		//-- Click on detail
-		$("ul.menu-items > li").on("click", function() {
-			$("ul.menu-items > li").removeClass("active");
-			$(this).addClass("active");
-		})
-
-		$(".attr,.attr2").on("click", function() {
-			var clase = $(this).attr("class");
-
-			$("." + clase).removeClass("active");
-			$(this).addClass("active");
-		})
-
-		//-- Click on QUANTITY
-		$(".btn-minus").on("click", function() {
-			var now = $(".section > div > input").val();
-			if ($.isNumeric(now)) {
-				if (parseInt(now) - 1 > 0) {
-					now--;
-				}
-				$(".section > div > input").val(now);
-			} else {
-				$(".section > div > input").val("1");
-			}
-		})
-		$(".btn-plus").on("click", function() {
-			var now = $(".section > div > input").val();
-			if ($.isNumeric(now)) {
-				$(".section > div > input").val(parseInt(now) + 1);
-			} else {
-				$(".section > div > input").val("1");
-			}
-		})
-		 
-		// 상품 총 합
-		var sum = 0;
-		$('.total_price').each(function(){   
-		    sum += parseFloat($(this).text());
-		});    
-		
-	    $("#total_price_sum").val(sum); 
-	    
-	    if(sum>=50000){
-		    $("#shopping_fee").val("0");
-	    } 
-	     
-	    var sFee = $("#shopping_fee").val();
-	    if($("#shopping_fee").val()==''){
-	    	sFee = 0;  
-	    	$("#shopping_fee").val("0");  
-	    }  
-	    var finalPrice =  parseFloat(sum)+ parseFloat(sFee);
-	    
-	    $("#final_price").val(finalPrice);  
-	    
-	    // 상품 삭제
-	    $('.remove-product').click(function(){
-	    	if(!confirm("정말 삭제하시겠습니까?")){ 
-	    		return;
-	    	}
-	    	var cartNo = $(this).attr("cart-no"); 
-	    	
-			if(cartNo == ''){
-				return; 
-			} 
-			 
-			
-			$.ajax({
-				url : "${pageContext.servletContext.contextPath }/nonuser/api/cart/" + cartNo,
-				type : "delete",
-				dataType : "json",
-				data : "",
-				success: function(response){
-					console.log(response.data); 
-					if(response.data ==true){ 
-						alert("삭제되었습니다.");   
-						window.location.reload();  
-					}else{
-						alert("오류가 발생했습니다. 다시 시도해주세요");  												
+<sec:authorize access="isAuthenticated()">  
+	<sec:authorize access="hasRole('ROLE_ADMIN')" > 
+	<script type="text/javascript">
+		$(document).ready(function() {
+			//-- Click on detail
+			$("ul.menu-items > li").on("click", function() {
+				$("ul.menu-items > li").removeClass("active");
+				$(this).addClass("active");
+			})
+	
+			$(".attr,.attr2").on("click", function() {
+				var clase = $(this).attr("class");
+	
+				$("." + clase).removeClass("active");
+				$(this).addClass("active");
+			})
+	
+			//-- Click on QUANTITY
+			$(".btn-minus").on("click", function() {
+				var now = $(".section > div > input").val();
+				if ($.isNumeric(now)) {
+					if (parseInt(now) - 1 > 0) {
+						now--;
 					}
-				}, 
-				error : function(xhr, error){
-					console.error("error : " + error);
+					$(".section > div > input").val(now);
+				} else {
+					$(".section > div > input").val("1");
 				}
-			}); 
-		});
-	    
-	    
-	});
-	   
-</script>  
+			})
+			$(".btn-plus").on("click", function() {
+				var now = $(".section > div > input").val();
+				if ($.isNumeric(now)) {
+					$(".section > div > input").val(parseInt(now) + 1);
+				} else {
+					$(".section > div > input").val("1");
+				}
+			})
+			 
+			// 상품 총 합
+			var sum = 0;
+			$('.total_price').each(function(){   
+			    sum += parseFloat($(this).text());
+			});    
+			
+		    $("#total_price_sum").val(sum); 
+		    
+		    if(sum>=50000){
+			    $("#shopping_fee").val("0");
+		    } 
+		     
+		    var sFee = $("#shopping_fee").val();
+		    if($("#shopping_fee").val()==''){
+		    	sFee = 0;  
+		    	$("#shopping_fee").val("0");  
+		    }  
+		    var finalPrice =  parseFloat(sum)+ parseFloat(sFee);
+		    
+		    $("#final_price").val(finalPrice);  
+		    
+		    // 상품 삭제
+		    $('.remove-product').click(function(){
+		    	if(!confirm("정말 삭제하시겠습니까?")){ 
+		    		return;
+		    	}
+		    	var cartNo = $(this).attr("cart-no"); 
+		    	
+				if(cartNo == ''){
+					return; 
+				} 
+				 
+				
+				$.ajax({
+					url : "${pageContext.servletContext.contextPath }/nonuser/api/cart/" + cartNo,
+					type : "delete",
+					dataType : "json",
+					data : "",
+					success: function(response){
+						console.log(response.data); 
+						if(response.data ==true){ 
+							alert("삭제되었습니다.");   
+							window.location.reload();  
+						}else{
+							alert("오류가 발생했습니다. 다시 시도해주세요");  												
+						}
+					}, 
+					error : function(xhr, error){ 
+						console.error("error : " + error);
+					}
+				}); 
+			});
+		    
+		    
+		}); 
+		   
+	</script>  
+	</sec:authorize>  
+</sec:authorize>
 </html>

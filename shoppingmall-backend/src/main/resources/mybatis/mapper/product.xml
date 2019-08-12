@@ -159,6 +159,14 @@
 			<![CDATA[ (null, #{no } , #{optionname.productOptionName }, #{optionname.additionalAmount }, #{optionname.useStock }, #{optionname.stock }) ]]>
 		</foreach> 
 	</insert>
+	
+	<!-- 최종 옵션 없는 것-->
+	<insert id="addNoOptionName" parameterType="long">
+	 	<![CDATA[ 
+ 			insert into productoption values  
+ 			(null, #{no } , "옵션 없음", 0, 0, 1) 
+	 	]]>
+	</insert>
 
 	<!-- 옵션 중복 체크 -->
 	<select id="getOption" parameterType="string"

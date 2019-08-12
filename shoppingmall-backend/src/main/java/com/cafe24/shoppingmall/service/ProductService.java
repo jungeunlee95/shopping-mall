@@ -83,6 +83,9 @@ public class ProductService {
 //			result3 = productDao.addOptionValue(productVo.getNo(), productVo.getOptionValueList());
 			result3 = productDao.addProductOption(productVo.getNo(), productVo.getOptionNameList());
 		}
+		if(result==1 && !productVo.getIsOption()){
+			result3 = productDao.addProductOption(productVo.getNo());
+		}
 		
 		return result==1 && result2==productVo.getCategoryList().size(); 
 	} 

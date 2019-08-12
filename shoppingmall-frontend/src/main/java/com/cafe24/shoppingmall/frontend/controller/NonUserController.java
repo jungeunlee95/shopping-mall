@@ -1,5 +1,6 @@
 package com.cafe24.shoppingmall.frontend.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -76,8 +77,12 @@ public class NonUserController {
 		List<CategoryVo> cList = categoryService.getLowList();
 		model.addAttribute("categoryList", cList); 
 		
-		List<CartVo> cartList = userService.getUserCartList(securityUser.getNo());
+		List<CartVo> cartList = null;   
+		if(securityUser!=null) {
+			cartList = userService.getUserCartList(securityUser.getNo());
+		} 
 		model.addAttribute("cartList", cartList); 
+			  
 		return "goods/cart"; 
 	}
 	

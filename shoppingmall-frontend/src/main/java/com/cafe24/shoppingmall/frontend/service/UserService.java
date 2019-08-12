@@ -52,15 +52,23 @@ public class UserService {
 	}
 	
 	public UserVo loginUser(String id) {
+		System.out.println("====================================");
+		System.out.println(id);
+		System.out.println("====================================");
+		
 		String uri = BACKEND_BASE_URL + "/api/nonuser/login";
 		
 	    HttpHeaders headers = new HttpHeaders();
 	    headers.setContentType(MediaType.APPLICATION_JSON);
-	    
+	      
 	    UserVo vo = new UserVo();
 		vo.setId(id);
 	    
 		JSONResultUser response = restTemplate.postForObject(uri, vo, JSONResultUser.class);
+		
+		System.out.println("====================================");
+		System.out.println(response.getData()); 
+		System.out.println("====================================");
 		
 		return response.getData();
 	}
@@ -77,7 +85,7 @@ public class UserService {
 	}
 	
 	public Boolean deleteCart(Long no) {
-		String uri = BACKEND_BASE_URL + "/cart/delete";
+		String uri = BACKEND_BASE_URL + "/api/cart/delete";
 
 		HttpEntity<Long> request = new HttpEntity<>(no);
 		

@@ -121,10 +121,13 @@ public class NonUserController {
 //				String message = validatorResult.getMessage();
 //				JSONResult result = JSONResult.fail(message);
 //				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(result);				
-//			}
+//			} 
 //		}
 		
 //		UserVo user = userService.getUser(userVo.getId(), userVo.getPassword());
+		System.out.println("====================================");
+		System.out.println(userVo);
+		System.out.println("====================================");
 		UserVo user = userService.getLogin(userVo.getId()); 
 		
 		// 로그인 실패

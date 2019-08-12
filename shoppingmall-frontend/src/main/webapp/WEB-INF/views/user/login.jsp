@@ -35,8 +35,11 @@
                         <input type="checkbox" value="remember-me"> 자동 로그인
                     </label>
                 </div>
-                <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">로그인</button>
-            </form><!-- /form -->
+                <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">로그인</button> 
+	            <c:if test="${param.result == 'fail' }"> 
+					<p style="color: red;">로그인에 실패 했습니다.</p>
+				</c:if>    
+            </form><!-- /form --> 
             <a href="javascript:loginForm.submit();" class="forgot-password">
                 비밀번호를 잊으셨습니까?
             </a>

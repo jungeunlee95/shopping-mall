@@ -32,10 +32,12 @@ public class CustomPasswordEncoder implements PasswordEncoder {
       @Override
       public boolean matches(CharSequence rawPassword, String encodedPassword) {
         boolean result = false;
-        try {
-         result = encodedPassword.equals(encode(rawPassword.toString()));
+        try { 
+        	if(encodedPassword!=null) { 
+        		result = encodedPassword.equals(encode(rawPassword.toString()));         		
+        	}
         } catch (NullPointerException e) {
-           e.printStackTrace();
+           e.printStackTrace(); 
         }
          return result;
       }
