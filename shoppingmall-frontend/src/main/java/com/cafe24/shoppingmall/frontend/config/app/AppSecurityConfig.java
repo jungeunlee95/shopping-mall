@@ -9,6 +9,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -72,6 +74,12 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
         .and()
         	.exceptionHandling()
         		.accessDeniedPage("/views/error/404.jsp")
+        		.accessDeniedHandler((request, response, accessDeniedException) -> {
+        			UserDetails principal = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        			String username = principal.getUsername();
+        			System.out.println(username + " is denied to access " + request.getRequestURI());
+        			response.sendRedirect("/access-denied");
+        		})
         
         // RememberMeConfigurer
         .and()

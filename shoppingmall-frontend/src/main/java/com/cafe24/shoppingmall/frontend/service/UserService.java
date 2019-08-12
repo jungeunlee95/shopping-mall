@@ -52,9 +52,6 @@ public class UserService {
 	}
 	
 	public UserVo loginUser(String id) {
-		System.out.println("====================================");
-		System.out.println(id);
-		System.out.println("====================================");
 		
 		String uri = BACKEND_BASE_URL + "/api/nonuser/login";
 		
@@ -65,10 +62,6 @@ public class UserService {
 		vo.setId(id);
 	    
 		JSONResultUser response = restTemplate.postForObject(uri, vo, JSONResultUser.class);
-		
-		System.out.println("====================================");
-		System.out.println(response.getData()); 
-		System.out.println("====================================");
 		
 		return response.getData();
 	}

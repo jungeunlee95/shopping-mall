@@ -125,9 +125,6 @@ public class NonUserController {
 //		}
 		
 //		UserVo user = userService.getUser(userVo.getId(), userVo.getPassword());
-		System.out.println("====================================");
-		System.out.println(userVo);
-		System.out.println("====================================");
 		UserVo user = userService.getLogin(userVo.getId()); 
 		
 		// 로그인 실패

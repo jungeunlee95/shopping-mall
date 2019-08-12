@@ -160,8 +160,9 @@ $(document).ready(function() {
 						</tbody> 
 					</table>  
 				</div>
+				 
 				<ul class="unstyled inbox-pagination" id="pager">
-					
+					  
 				</ul>
 			</aside> 
 		</div>
@@ -171,12 +172,12 @@ $(document).ready(function() {
 	<!-- Footer -->
 	<c:import url='/WEB-INF/views/includes/footer.jsp' /> 
 	<!-- /.Footer -->
-</body>
+</body> 
 <script src="${pageContext.servletContext.contextPath }/assets/js/paging.js"></script>
 <script>
-	var listCount = 10;
-	var currentPage = 1;
-	var kwd = "${kwd}";
+	var listCount = 30; 
+	var currentPage = 1; 
+	var kwd = "${kwd}"; 
 	//var listCount = ${board_count};
 	//var currentPage = ${current_page};
 	//var kwd = "${kwd}";
