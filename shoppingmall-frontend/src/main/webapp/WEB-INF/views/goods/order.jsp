@@ -22,9 +22,10 @@
 <!-- Custom styles for this template -->   
 <link
 	href="${pageContext.servletContext.contextPath }/assets/css/shop-order.css" 
-	rel="stylesheet">  
+	rel="stylesheet">   
 <!------ Include the above in your HEAD tag ----------> 
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 </head>
 <sec:authorize access="isAuthenticated()"> 
 	<sec:authentication property="principal.no" var="userNo"/>
@@ -106,156 +107,146 @@
 						<div class="product-removal">${vo.shippingFee }</div>  
 						<div class="product-line-price total_price" >${vo.sumPrice }</div>
 					</div> 
-				</c:forEach>
-
-				<br><br>  
-				<!-- 주문자 정보 입력 -->
-				<h4 class="order-title">주문자 정보 입력</h4> 
+				</c:forEach>  
+				<small class="modify-des">상품의 옵션 및 수량 변경은 상품상세 또는 장바구니에서 가능합니다.</small>
+				<br><br><hr>   
+				
 				<div class="container-fluid">
-					<div class="row">
+					<div class="row"> 
 						<div class="col-sm-12">
 							<div class="pos-rel">  
 								<!-- Tab panes -->
 								<div class="tab-content">
 									<div id="organizer-details" class="container tab-pane active">
 										<form class="seminor-login-form">
+										 
+											<!-- 주문자 정보 입력 -->  
+											<h4>주문자 정보 입력</h4>
+											<table class="table" style="width:100%;"> 
+											  <thead>  
+											    <tr> 
+											    </tr> 
+											  </thead>
+											  <tbody>
+											    <tr>
+											      <th scope="row">주문자 이름</th> 
+											      <td><input type="text" class="form-control" required autocomplete="off"> </td> 
+											    </tr> 
+											    <tr>
+											      <th scope="row">주소</th>
+											      <td> 
+											      	<input type="text" id="postcode" class="mini form-control" placeholder="우편번호" readonly="readonly">
+										        
+											        <input type="button" onclick="execDaumPostcode()" value="우편번호 찾기" class="d_btn" readonly="readonly"><br>
+											        
+											        <input type="text" id="roadAddress" class="std form-control" placeholder="도로명주소" readonly="readonly" > 
+											       
+											        <input type="text" id="jibunAddress" class="std form-control" placeholder="지번주소" readonly="readonly">
+											        
+											        <span id="guide" style="color:#999;display:none"></span> 
+											        
+											        <input type="text" id="extraAddress" class="form-control" placeholder="참고항목" readonly="readonly">
+											       
+											        <input type="text" id="detailAddress" class="form-control" placeholder="상세주소"> 
+											      </td> 
+											    </tr> 
+											    <tr>
+											      <th scope="row">전화</th>
+											      <td> 
+													<select id="txtMobile1">
+														<option value="">::선택::</option>
+														<option value="011">011</option>
+														<option value="016">016</option>
+														<option value="017">017</option>
+														<option value="019">019</option>
+														<option value="010">010</option>
+													</select> -
+													<input type="text" id="txtMobile2" size="4" onkeypress="onlyNumber();" /> -  
+													<input type="text" id="txtMobile3" size="4" /> 
+												  </td>   
+											    </tr> 
+											    <tr> 
+											      <th scope="row">이메일</th> 
+											      <td>
+											      	<input type="text" class="form-control" required autocomplete="off"> 
+											      	<small class="modify-des">- 이메일을 통해 주문처리과정을 보내드립니다.</small> <br> 
+													<small class="modify-des">- 이메일 주소란에는 반드시 수신가능한 이메일주소를 입력해 주세요</small> 
+											      </td>  
+											      
+											    </tr>    
+											  </tbody>
+											</table> 
+											<hr> 
+											<!-- 배송 정보 입력 -->
+											<h4>배송 정보 입력</h4>
+											<table class="table" style="width:100%;"> 
+											  <thead>  
+											    <tr> 
+											    </tr> 
+											  </thead>
+											  <tbody> 
+											    <tr>
+											      <th scope="row">주문자 이름</th> 
+											      <td><input type="text" class="form-control" required autocomplete="off"> </td> 
+											    </tr> 
+											    <tr>
+											      <th scope="row">주소</th>
+											      <td> 
+											      	<input type="text" id="postcode" class="mini form-control" placeholder="우편번호" readonly="readonly">
+										        
+											        <input type="button" onclick="execDaumPostcode()" value="우편번호 찾기" class="d_btn" readonly="readonly"><br>
+											        
+											        <input type="text" id="roadAddress" class="std form-control" placeholder="도로명주소" readonly="readonly" > 
+											       
+											        <input type="text" id="jibunAddress" class="std form-control" placeholder="지번주소" readonly="readonly">
+											        
+											        <span id="guide" style="color:#999;display:none"></span> 
+											        
+											        <input type="text" id="extraAddress" class="form-control" placeholder="참고항목" readonly="readonly">
+											       
+											        <input type="text" id="detailAddress" class="form-control" placeholder="상세주소"> 
+											      </td> 
+											    </tr> 
+											    <tr>
+											      <th scope="row">전화</th>
+											      <td> 
+													<select id="txtMobile1">
+														<option value="">::선택::</option>
+														<option value="011">011</option>
+														<option value="016">016</option>
+														<option value="017">017</option>
+														<option value="019">019</option>
+														<option value="010">010</option>
+													</select> -
+													<input type="text" id="txtMobile2" size="4" onkeypress="onlyNumber();" /> -  
+													<input type="text" id="txtMobile3" size="4" /> 
+												  </td>   
+											    </tr> 
+											    <tr> 
+											      <th scope="row">배송메세지</th> 
+											      <td>
+											      	<textarea class="form-control" required autocomplete="off" placeholder="배송메세지를 입력해주세요." id="shipping_message"></textarea>  
+											      </td>     
+											    </tr>    
+											  </tbody>
+											</table> 
+											
+											<br><br> 
 											<div class="form-group">
-												<input type="text" class="form-control" required
-													autocomplete="off"> <label
-													class="form-control-placeholder" for="contact-person">Contact
-													Person</label>
-											</div>
-											<div class="form-group">
-												<input type="email" class="form-control" required
-													autocomplete="off"> <label
-													class="form-control-placeholder" for="contact-email">Contact
-													Email</label>
-											</div>
-											<div class="form-group">
-												<input type="email" class="form-control" required
-													autocomplete="off"> <label
-													class="form-control-placeholder" for="alternative-email">Alternative
-													Email</label>
-											</div>
-											<div class="form-group">
-												<input type="text" class="form-control" required
-													autocomplete="off"> <label
-													class="form-control-placeholder" for="contact-number">Contact
-													Number</label>
-											</div>
-											<div class="form-group">
-												<input type="text" class="form-control" required
-													autocomplete="off"> <label
-													class="form-control-placeholder" for="alternative-number">Alternative
-													Number</label>
-											</div> 
-											 <br><br> 
-											<!-- 배송 정보 입력 --> 
-											<h4>배송 정보 입력</h4> 
-											<div class="form-group">
-												<input type="text" class="form-control" required
-													autocomplete="off"> <label
-													class="form-control-placeholder" for="contact-person">Contact
-													Person</label>
-											</div>
-											<div class="form-group">
-												<input type="email" class="form-control" required
-													autocomplete="off"> <label
-													class="form-control-placeholder" for="contact-email">Contact
-													Email</label>
-											</div>
-											<div class="form-group">
-												<input type="email" class="form-control" required
-													autocomplete="off"> <label
-													class="form-control-placeholder" for="alternative-email">Alternative
-													Email</label>
-											</div>
-											<div class="form-group">
-												<input type="text" class="form-control" required
-													autocomplete="off"> <label
-													class="form-control-placeholder" for="contact-number">Contact
-													Number</label>
-											</div>
-											<div class="form-group">
-												<input type="text" class="form-control" required
-													autocomplete="off"> <label
-													class="form-control-placeholder" for="alternative-number">Alternative
-													Number</label>
-											</div>
-											<div class="form-group">
-												<label class="container-checkbox"> Iam the event
-													organizer and responsible for the info provided. <input
-													type="checkbox" checked="checked" required> <span
+												<label class="container-checkbox"> 약관 동의 1 <input
+													type="checkbox" checked="checked" required> <span 
 													class="checkmark-box"></span>
 												</label>
+												<textarea rows="" cols="" readonly="readonly" style="width:100%;">약관내용</textarea> 
 											</div>
 											<div class="form-group">
-												<label class="container-checkbox"> Just posting an
-													event that iam aware about this. <input type="checkbox"
+												<label class="container-checkbox"> 약관 동의 2 <input type="checkbox"
 													checked="checked" required> <span
-													class="checkmark-box"></span>
+													class="checkmark-box"></span> 
 												</label>
+												<textarea rows="" cols="" readonly="readonly" style="width:100%;">약관내용</textarea> 
 											</div>
-
-											<div class="btn-check-log">
-												<button type="submit" class="btn-check-login">LOGIN</button>
-											</div>
-										</form>
-									</div>
-									<div id="event-details" class="container tab-pane fade">
-										<form class="seminor-login-form">
-											<div class="form-group">
-												<input type="text" class="form-control" required
-													autocomplete="off"> <label
-													class="form-control-placeholder" for="event-title">Event
-													Title</label>
-											</div>
-											<div class="form-group">
-												<input type="datetime-local" max="3000-12-31"
-													min="1000-01-01" placehoder="Event Start Date"
-													class="form-control" required autocomplete="off"> <label
-													class="form-control-placeholder" for="event-start-date">Event
-													Start Date</label>
-											</div>
-											<div class="form-group">
-												<input type="datetime-local" max="3000-12-31"
-													min="1000-01-01" placehoder="Event End Date"
-													class="form-control" required autocomplete="off"> <label
-													class="form-control-placeholder" for="event-end-date">Event
-													End Date</label>
-											</div>
-
-											<div class="form-group">
-												<input type="text" class="form-control" required
-													autocomplete="off"> <label
-													class="form-control-placeholder"
-													for="last-date-registration">Last Date For
-													Registration</label>
-											</div>
-											<div class="form-group">
-												<input type="text" class="form-control" required
-													autocomplete="off"> <label
-													class="form-control-placeholder" for="venue-city">Venue
-													City</label>
-											</div>
-											<div class="form-group">
-												<input type="text" class="form-control" required
-													autocomplete="off"> <label
-													class="form-control-placeholder" for="venue-location">Venue
-													Location</label>
-											</div>
-											<div class="form-group">
-												<input type="text" class="form-control" required
-													autocomplete="off"> <label
-													class="form-control-placeholder" for="full-address">Full
-													Address</label>
-											</div>
-											<div class="form-group">
-												<input type="text" class="form-control" required
-													autocomplete="off"> <label
-													class="form-control-placeholder" for="Website">Website</label>
-											</div>
-
+											<br><br><br> 
 											<div class="totals">
 												<div class="totals-item">
 													<label>상품 총 금액</label> <input type="text"
@@ -400,6 +391,84 @@
 	    
 	    
 	}); 
-	   
+	
+	// 전화번호 Valid
+	// 1. 숫자만 입력받게 하는 방법
+	function onlyNumber() {
+		if ((event.keyCode < 48)
+				|| (event.keyCode > 57))
+			event.returnValue = false;
+	}
+
+	function CheckForm() {
+		if (document
+				.getElementById("txtMobile1").value == "") {
+			window
+					.alert("휴대폰 번호를 선택하시오.");
+			return false;
+		}
+		if (document
+				.getElementById("txtMobile2").value.length != 4) {
+			window
+					.alert("가운데 번호는 4자리로 입력하세요");
+		}
+	} 
+														
+														
+	/* 다음 주소 api */
+    function execDaumPostcode() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                var roadAddr = data.roadAddress; // 도로명 주소 변수
+                var extraRoadAddr = ''; // 추가 정보 변수
+
+                // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                    extraRoadAddr += data.bname;
+                }
+                // 건물명이 있고, 공동주택일 경우 추가한다.
+                if(data.buildingName !== '' && data.apartment === 'Y'){
+                    extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                }
+                // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                if(extraRoadAddr !== ''){
+                    extraRoadAddr = ' (' + extraRoadAddr + ')';
+                } 
+
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                document.getElementById('postcode').value = data.zonecode;
+                document.getElementById("roadAddress").value = roadAddr;
+                document.getElementById("jibunAddress").value = data.jibunAddress;
+                
+                // 참고항목 문자열이 있을 경우 해당 필드에 넣는다.
+                if(roadAddr !== ''){
+                    document.getElementById("extraAddress").value = extraRoadAddr;
+                } else {
+                    document.getElementById("extraAddress").value = '';
+                }
+
+                var guideTextBox = document.getElementById("guide");
+                // 사용자가 '선택 안함'을 클릭한 경우, 예상 주소라는 표시를 해준다.
+                if(data.autoRoadAddress) {
+                    var expRoadAddr = data.autoRoadAddress + extraRoadAddr;
+                    guideTextBox.innerHTML = '(예상 도로명 주소 : ' + expRoadAddr + ')';
+                    guideTextBox.style.display = 'block';
+
+                } else if(data.autoJibunAddress) {
+                    var expJibunAddr = data.autoJibunAddress;
+                    guideTextBox.innerHTML = '(예상 지번 주소 : ' + expJibunAddr + ')';
+                    guideTextBox.style.display = 'block';
+                } else {
+                    guideTextBox.innerHTML = '';
+                    guideTextBox.style.display = 'none';
+                }
+            } 
+        }).open();
+    }
 </script>   
 </html>

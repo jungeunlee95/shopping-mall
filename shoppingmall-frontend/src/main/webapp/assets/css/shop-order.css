@@ -365,12 +365,28 @@ label {
 	}
 	.totals .totals-item .totals-value {
 		width: 40%; 
-	}
+	}  
+}
+ 
+/* 주문 정보 */
+#shipping_message{
+    width: 374px; 
+    height: 80px;
 }
 
-/* 주문 정보 */
- 
-.order-title {
+.d_form{
+	width:100%; 
+}
+
+.mini{
+	width:50%; 
+}
+.modify-des{
+	color:red;
+	padding-left: 30px;
+}  	 
+  
+.order-title, #adress-api{
     padding-left: 30px; 	
 }
 
