@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cafe24.shoppingmall.dto.JSONResult;
+import com.cafe24.shoppingmall.dto.OrderDto;
 import com.cafe24.shoppingmall.service.OrderService;
 import com.cafe24.shoppingmall.vo.OrderDetailVo;
 import com.cafe24.shoppingmall.vo.OrderVo;
@@ -41,7 +42,7 @@ public class OrderController {
 				+ "message : 배송매세지 \n ", required=true, dataType="OrderVo", defaultValue="")
 	})
 	@PostMapping(value="/add") 
-	public ResponseEntity<JSONResult> add(@RequestBody OrderVo orderVo) {
+	public ResponseEntity<JSONResult> add(@RequestBody OrderDto orderVo) {
 		
 		Boolean result = orderService.addOrder(orderVo);
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(result));

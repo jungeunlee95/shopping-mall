@@ -109,10 +109,10 @@
 		<li><a href="#">카테고리 삭제</a></li>
 	</ul>
 
-	<ul class="inbox-nav inbox-divider">
+	<ul class="inbox-nav inbox-divider"> 
 		<li class="active"><a href="" class="a-disabled"><i
 				class="fa fa-truck"></i>주문</a></li>
-		<li><a href="active">주문 목록</a></li>
+		<li><a href="${pageContext.servletContext.contextPath }/admin/order/list">주문 목록</a></li>
 	</ul>
 
 

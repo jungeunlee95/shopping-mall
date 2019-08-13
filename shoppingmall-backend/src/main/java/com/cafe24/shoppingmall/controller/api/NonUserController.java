@@ -217,25 +217,25 @@ public class NonUserController {
 	//==================================================================================
 	// 									비회원 주문 관리
 	//==================================================================================
-	@ApiOperation(value="비회원 주문하기")
-	@ApiImplicitParams({
-		@ApiImplicitParam(name="RequestNonUserOrderDto", 
-				value="nonUserNo : 비회원번호(세션) \n "
-				+ "name : 비회원 이름\n "
-				+ "gender : 성별 \n "
-				+ "password : 비밀번호 \n "
-				+ "phoneNumber : 전화번호 \n "
-				+ "email : 이메일 \n "
-				+ "address : address \n "
-				+ "totalPrice : 가격 \n "
-				+ "message : 배송매세지 \n ", required=true, dataType="RequestNonUserOrderDto", defaultValue="")
-	})
-	@PostMapping(value="/order/add") 
-	public ResponseEntity<JSONResult> add(@RequestBody RequestNonUserOrderDto requestNonUserOrderDto) {
-		
-		Boolean result = orderService.addOrder(requestNonUserOrderDto);
-		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(result));
-	}	
+//	@ApiOperation(value="비회원 주문하기")
+//	@ApiImplicitParams({
+//		@ApiImplicitParam(name="RequestNonUserOrderDto", 
+//				value="nonUserNo : 비회원번호(세션) \n "
+//				+ "name : 비회원 이름\n "
+//				+ "gender : 성별 \n "
+//				+ "password : 비밀번호 \n "
+//				+ "phoneNumber : 전화번호 \n "
+//				+ "email : 이메일 \n "
+//				+ "address : address \n "
+//				+ "totalPrice : 가격 \n "
+//				+ "message : 배송매세지 \n ", required=true, dataType="RequestNonUserOrderDto", defaultValue="")
+//	})
+//	@PostMapping(value="/order/add") 
+//	public ResponseEntity<JSONResult> add(@RequestBody RequestNonUserOrderDto requestNonUserOrderDto) {
+//		
+//		Boolean result = orderService.addOrder(requestNonUserOrderDto);
+//		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(result));
+//	}	
 	
 	@ApiOperation(value="비회원 주문 목록 가져오기")
 	@ApiImplicitParams({

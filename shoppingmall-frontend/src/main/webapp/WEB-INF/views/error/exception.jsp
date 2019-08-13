@@ -11,7 +11,7 @@
 		예외발생<br>
 		======================<br>
 	</p>
-	<pre style="color:#d00;">		
+	<pre style="color:#d00;"> 		
 ${exception }
 	</pre>	
 </body>

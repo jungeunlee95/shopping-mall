@@ -12,6 +12,7 @@
 		<typeAlias alias="useraddressvo" type="com.cafe24.shoppingmall.vo.UserAddressVo" />
 		<typeAlias alias="orderdetailvo" type="com.cafe24.shoppingmall.vo.OrderDetailVo" />
 		<typeAlias alias="ordervo" type="com.cafe24.shoppingmall.vo.OrderVo" />
+		<typeAlias alias="orderdto" type="com.cafe24.shoppingmall.dto.OrderDto" />
 	</typeAliases>
 	<mappers>
 		<mapper resource="mybatis/mapper/user.xml" />

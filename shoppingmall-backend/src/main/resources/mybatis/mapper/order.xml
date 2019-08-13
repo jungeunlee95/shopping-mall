@@ -4,19 +4,20 @@
 <mapper namespace="order">
 
 	<!-- 주문 - 회원 -->
-	<insert id="insertOrderUser" parameterType="ordervo">
+	<insert id="insertOrderUser" parameterType="orderdto"> 
 		<![CDATA[
-			insert into orders(no, user_no, order_no, name, gender, phone_number, 
-			email, address, total_price, reg_date, message) values(null,
-			#{userNo }, concat(
+			insert into orders(no, user_no, order_no, name, phone_number, 
+			email, address, total_price, reg_date, message) 
+			values(null, #{userNo }, 
+			concat( 
 				DATE_FORMAT(now(),'%Y%m%d'), '-',
 				lpad( ((select count(*) from orders ALIAS_FOR_SUBQUERY
 				where DATE_FORMAT(reg_date, '%y%m%d') = DATE_FORMAT(now(), '%y%m%d') )+1), '6', '0' )
 			), 
-			AES_ENCRYPT(#{name }, SHA2(#{key }, 512)), #{gender },  
-			AES_ENCRYPT(#{phoneNumber }, SHA2(#{key }, 512)), 
-			AES_ENCRYPT(#{email }, SHA2(#{key }, 512)),
-			AES_ENCRYPT(#{address }, SHA2(#{key }, 512)), #{totalPrice }, now(), #{message }
+			AES_ENCRYPT(#{userName }, SHA2(#{key }, 512)),  
+			AES_ENCRYPT(#{userPhoneNumber }, SHA2(#{key }, 512)), 
+			AES_ENCRYPT(#{userEmail }, SHA2(#{key }, 512)),
+			AES_ENCRYPT(#{userAddress }, SHA2(#{key }, 512)), #{totalPrice }, now(), #{shippingMessage }
 			)
 		]]>
 
@@ -56,11 +57,11 @@
 		<![CDATA[ insert into orderdetail values ]]>
 		<foreach collection="orderDetailList" item="option" separator=",">
 		<![CDATA[
-			(null, #{no },
+			(null, #{no }, #{option.mainImg},
 			(select product_no from productoption where no = #{option.productOptionNo }) , 
 			(select name from product where no = (select product_no from productoption where no = #{option.productOptionNo })),
 			(select productoption_name from productoption where no = #{option.productOptionNo }), 
-			#{option.quantity }, "배송준비중", 
+			#{option.quantity }, "입금 전", 
 			(select price from product where no = (select product_no from productoption where no = #{option.productOptionNo }))
 			)
 		]]>
@@ -73,7 +74,7 @@
 		<![CDATA[
 			update productoption 
 			set stock = stock - #{option.quantity } 
-			where no = #{option.productOptionNo }
+			where no = #{option.productOptionNo } 
 		]]>
 		</foreach>
 	</update>
@@ -99,6 +100,20 @@
 			from orders
 			where user_no=#{userNo }
 			by no desc ]]>
+	</select>
+	
+	<!-- 관리자 - 전체 주문 리스트-->
+	<select id="getAllOrderList" resultType="orderdto">
+		<![CDATA[ 
+			select no, user_no userNo, order_no orderStringNo,   
+			convert(AES_DECRYPT(name, SHA2("aaa", 512)) using utf8) userName,
+			convert(AES_DECRYPT(phone_number, SHA2("aaa", 512)) using utf8) userPhoneNumber,
+			convert(AES_DECRYPT(email, SHA2("aaa", 512)) using utf8) userEmail,
+			convert(AES_DECRYPT(address, SHA2("aaa", 512)) using utf8) userAddress,
+			total_price totalPrice, reg_date regDate, message shippingMessage
+			from orders
+			order by no desc
+		]]>
 	</select>
 	
 	<!-- 주문 정보 - 비회원-->

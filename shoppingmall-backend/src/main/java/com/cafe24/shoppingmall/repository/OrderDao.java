@@ -8,6 +8,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.cafe24.shoppingmall.dto.OrderDto;
+import com.cafe24.shoppingmall.dto.OrderProductDto;
 import com.cafe24.shoppingmall.dto.RequestNonUserOrderDto;
 import com.cafe24.shoppingmall.dto.RequestNonUserOrderListDto;
 import com.cafe24.shoppingmall.vo.OptionNameVo;
@@ -23,15 +25,15 @@ public class OrderDao{
 	private SqlSession sqlSession;
 
 	// =============================== 회원 =======================================
-	public int addOrder(OrderVo orderVo) {
-		orderVo.setKey(KEY);
-		return sqlSession.insert("order.insertOrderUser", orderVo);
+	public int addOrder(OrderDto orderDto) {
+		orderDto.setKey(KEY);
+		return sqlSession.insert("order.insertOrderUser", orderDto);
 	}
 
-	public int addOrderDetail(Long no, List<OrderDetailVo> orderDetailList) {
+	public int addOrderDetail(Long no, List<OrderProductDto> list) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("no", no);
-		map.put("orderDetailList", orderDetailList);
+		map.put("orderDetailList", list);
 		return sqlSession.insert("order.insertOrderDetail", map);
 	}
 
@@ -39,9 +41,9 @@ public class OrderDao{
 		return sqlSession.selectOne("order.stockCheck", productOptionNo);
 	}
 
-	public int reduceStock(List<OrderDetailVo> productOptionList) {
+	public int reduceStock(List<OrderProductDto> list) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("productOptionList", productOptionList);
+		map.put("productOptionList", list);
 		return sqlSession.update("order.reduceStock", map);
 	}
 
@@ -72,4 +74,12 @@ public class OrderDao{
 	}
 	
 	// ==========================================================================
+	
+	// =============================== 관리자 =======================================
+	// 전체 주문 목록
+	public List<OrderDto> getOrderList() {
+		return sqlSession.selectList("order.getAllOrderList");
+	}
+	// ==========================================================================
 }
+

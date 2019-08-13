@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.cafe24.shoppingmall.dto.RequestNonUserAddCartDto;
+import com.cafe24.shoppingmall.dto.OrderProductDto;
 import com.cafe24.shoppingmall.dto.RequestDeleteCartDto;
 import com.cafe24.shoppingmall.vo.CartVo;
 import com.cafe24.shoppingmall.vo.OrderDetailVo;
@@ -41,10 +42,10 @@ public class CartDao{
 		return sqlSession.selectList("cart.getListUser", userNo);
 	}
 	
-	public int deleteProduct(Long userNo, List<OrderDetailVo> productOptionList) {
+	public int deleteProduct(Long userNo, List<OrderProductDto> list) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("userNo", userNo);
-		map.put("productOptionList", productOptionList);
+		map.put("productOptionList", list);
 		return sqlSession.delete("cart.deleteOrderedProduct", map);
 	}
 	// =============================================================

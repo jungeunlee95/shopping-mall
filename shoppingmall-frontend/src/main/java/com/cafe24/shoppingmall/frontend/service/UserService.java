@@ -12,7 +12,10 @@ import org.springframework.security.oauth2.client.OAuth2RestTemplate;
 import org.springframework.stereotype.Service;
 
 import com.cafe24.shoppingmall.frontend.dto.JSONResult;
+import com.cafe24.shoppingmall.frontend.dto.OrderDto;
+import com.cafe24.shoppingmall.frontend.security.SecurityUser;
 import com.cafe24.shoppingmall.frontend.vo.CartVo;
+import com.cafe24.shoppingmall.frontend.vo.OrderVo;
 import com.cafe24.shoppingmall.frontend.vo.UserVo;
 
 @Service
@@ -44,6 +47,19 @@ public class UserService {
 		String uri = BACKEND_BASE_URL + "/api/nonuser/join";
 
 		HttpEntity<UserVo> request = new HttpEntity<>(userVo);
+		
+		ResponseEntity<JSONResultBoolean> response = restTemplate
+				.exchange(uri, HttpMethod.POST, request, JSONResultBoolean.class);
+		
+		return response.getBody().getData();
+	}
+	
+	public Boolean userOrder(OrderDto orderDto, SecurityUser securityUser) {
+		orderDto.setUserNo(securityUser.getNo());
+		
+		String uri = BACKEND_BASE_URL + "/api/order/add";
+
+		HttpEntity<OrderDto> request = new HttpEntity<>(orderDto);
 		
 		ResponseEntity<JSONResultBoolean> response = restTemplate
 				.exchange(uri, HttpMethod.POST, request, JSONResultBoolean.class);
@@ -117,6 +133,7 @@ public class UserService {
 	
 	private static class JSONResultUser extends JSONResult<UserVo> {
 	}
+
 
 
 

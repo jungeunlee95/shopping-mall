@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.cafe24.shoppingmall.frontend.dto.OrderDto;
 import com.cafe24.shoppingmall.frontend.dto.ProductAddDto;
 import com.cafe24.shoppingmall.frontend.service.CategoryService;
 import com.cafe24.shoppingmall.frontend.service.FileuploadService;
+import com.cafe24.shoppingmall.frontend.service.OrderService;
 import com.cafe24.shoppingmall.frontend.service.ProductService;
 import com.cafe24.shoppingmall.frontend.service.UserService;
 import com.cafe24.shoppingmall.frontend.vo.CartVo;
@@ -38,6 +40,9 @@ public class AdminController {
 	
 	@Autowired
 	private FileuploadService fileuploadService;
+	
+	@Autowired
+	private OrderService orderService;
 	
 	@GetMapping( "" )
 	public String login() {
@@ -101,4 +106,10 @@ public class AdminController {
 		return  "redirect:/admin/product/list";
 	}
 	
+	@GetMapping( "/order/list" )
+	public String orderList(Model model) {
+		List<OrderDto> list = orderService.getList();
+		model.addAttribute("orderList", list);
+		return "admin/order-list";  
+	}
 }

@@ -66,10 +66,14 @@
 				<!-- Nav pills -->
 				<ul class="nav nav-pills justify-content-center nav-justified"
 					role="tablist" style="padding-left: 30px;"> 
-					<li class="nav-item active btn btn-primary">주문 정보 입력</li> 
-					<li class="nav-item btn btn-info"> 결제</li>
-					<li class="nav-item btn btn-info"> 주문완료</li>
-				</ul>      
+					<li class="nav-item"><a
+						class="nav-link active btn btn-primary" data-toggle="pill"
+						href="#organizer-details">주문 정보 입력</a></li>
+					<li class="nav-item"><a class="nav-link btn btn-primary"
+						data-toggle="pill" href="#event-details">결제</a></li>
+					<li class="nav-item"><a class="nav-link btn btn-primary"
+						data-toggle="pill" href="#confirm-details">주문완료</a></li>
+				</ul>
 				<div class="connected-line"></div>
 				<br> 
 				 
@@ -81,21 +85,18 @@
 					<label class="product-quantity">수량</label>  
 					<label class="product-removal">배송비</label>   
 					<label class="product-line-price">합계 금액</label> 
-				</div>
-				
+				</div>			  
 				<form class="seminor-login-form"
 					action="${pageContext.servletContext.contextPath}/user/order" method="post">
 				<c:forEach items='${cartList }' var='vo' varStatus='status'>  
 					<div class="product"> 
-					
-						<input type="hidden" value="${vo.mainImg }" name="orderProductDto[${status.index}].mainImg"> 
-						<input type="hidden" value="${vo.productNo }" name="orderProductDto[${status.index}].productNo">
-						<input type="hidden" value="${vo.productOptionNo }" name="orderProductDto[${status.index}].productOptionNo">
-						<input type="hidden" value="${vo.productName }" name="orderProductDto[${status.index}].productName">
-						<input type="hidden" value="${vo.optionName }" name="orderProductDto[${status.index}].optionName">
-						<input type="hidden" value="${vo.quantity }" name="orderProductDto[${status.index}].quantity">
-						<input type="hidden" value="${vo.price }" name="orderProductDto[${status.index}].price">
-						 
+					<input type="hidden" value="${vo.mainImg }" name="orderProductDto[${status.index}].mainImg"> 
+					<input type="hidden" value="${vo.productNo }" name="orderProductDto[${status.index}].productNo">
+					<input type="hidden" value="${vo.productOptionNo }" name="orderProductDto[${status.index}].productOptionNo">
+					<input type="hidden" value="${vo.productName }" name="orderProductDto[${status.index}].productName">
+					<input type="hidden" value="${vo.optionName }" name="orderProductDto[${status.index}].optionName">
+					<input type="hidden" value="${vo.quantity }" name="orderProductDto[${status.index}].quantity">
+					<input type="hidden" value="${vo.price }" name="orderProductDto[${status.index}].price">
 						<div class="product-image">  
 						<a href="${pageContext.servletContext.contextPath }/product/${vo.productNo }"> 
 							<img src="${pageContext.servletContext.contextPath }/assets/${vo.mainImg }">
@@ -117,127 +118,195 @@
 					</div> 
 				</c:forEach>  
 				<small class="modify-des">상품의 옵션 및 수량 변경은 상품상세 또는 장바구니에서 가능합니다.</small>
-				<br><br><hr>     
- 
-				<!-- 주문자 정보 입력 -->  
-				<h4>주문자 정보 입력</h4>
-				<table class="table" style="width:100%;"> 
-				  <thead>  
-				    <tr>  </tr> 
-				  </thead>
-				  <tbody>
-				    <tr>
-				      <th scope="row">주문자 이름</th> 
-				      <td><input type="text" name="userName" class="form-control" required autocomplete="off"> </td> 
-				    </tr> 
-				    <tr>
-				      <th scope="row">주소</th>
-				      <td> 
-				      	<input type="text" name="postcode" id="postcode" class="mini form-control" placeholder="우편번호" readonly="readonly">
-			        
-				        <input type="button" onclick="execDaumPostcode(1)" value="우편번호 찾기" class="btn-danger" readonly="readonly"><br>
-				        
-				        <input type="text" name="roadAddress" id="roadAddress" class="std form-control" placeholder="도로명주소" readonly="readonly">  
-				       
-				        <input type="text" name="jibunAddress" id="jibunAddress" class="std form-control" placeholder="지번주소" readonly="readonly">
-				         
-				        <span id="guide" style="color:#999;display:none"></span> 
-				        
-				        <input type="text" name="extraAddress" id="extraAddress" class="form-control" placeholder="참고항목" readonly="readonly"> 
-				       
-				        <input type="text" name="detailAddress" id="detailAddress" class="form-control" placeholder="상세주소"> 
-				      </td> 
-				    </tr> 
-				    <tr>
-				      <th scope="row">전화</th>
-				      <td>  
-						<select id="txtMobile1" name="txtMobile1" > 
-							<option value="">::선택::</option>
-							<option value="011">011</option>
-							<option value="016">016</option>
-							<option value="017">017</option>
-							<option value="019">019</option>
-							<option value="010">010</option>
-						</select> -
-						<input type="text" id="txtMobile2" name="txtMobile2" size="4" onkeypress="onlyNumber();" /> -  
-						<input type="text" id="txtMobile3" name="txtMobile3" size="4" /> 
-					  </td>   
-				    </tr> 
-				    <tr> 
-				      <th scope="row">이메일</th> 
-				      <td>
-				      	<input type="text" name="userEmail" class="form-control" required autocomplete="off"> 
-				      	<small class="modify-des">- 이메일을 통해 주문처리과정을 보내드립니다.</small> <br> 
-						<small class="modify-des">- 이메일 주소란에는 반드시 수신가능한 이메일주소를 입력해 주세요</small> 
-				      </td>  
-				      
-				    </tr> 
-				    <tr> 
-				      <th scope="row">배송메세지</th> 
-				      <td>
-				      	<input type="text" class="form-control" required autocomplete="off" 
-				      	placeholder="배송메세지를 입력해주세요." id="shipping_message" name="shippingMessage">  
-				      </td>     
-				    </tr>     
-				  </tbody>
-				</table> 
-				<hr>  		
-				<br> 
-				<div class="form-group">
-					<h3>결제 방법 선택</h3> <br>  
-					<label class="container-checkbox"> 무통장입금
-					<input type="checkbox" required> 
-					<span  class="checkmark-box"></span> 
-					</label>  
-					<div>&nbsp;&nbsp;&nbsp;> 입금 계좌번호 : OO은행 xxxx-xxxx-xxxx</div> 
-				</div>  
-				<br><hr><br> 
-				<div class="form-group">
-					<label class="container-checkbox"> 약관 동의 1
-					<input type="checkbox" required> 
-					<span  class="checkmark-box"></span> 
-					</label> 
-					<div>약관내용</div> 
-				</div> 
-				<div class="form-group">
-					<label class="container-checkbox"> 약관 동의 2 
-					<input type="checkbox" required> <span 
-						class="checkmark-box"></span> 
-					</label> 
-					<div>약관내용</div>  
-				</div>
-				<br><br><br> 
-				<div class="totals">
-					<div class="totals-item">
-						<label>상품 총 금액</label> 
-						<input type="text" class="totals-value" style="width: 104px;"
-							id="total_price_sum" value="0" readonly /> 
-					</div>
-					<div class="totals-item">
-						<label>배송비 <br> 
-						<small style="color: red;">50,000원 이상 무료배송 !</small>
-						</label> <input type="text" class="totals-value"
-							style="width: 104px;" id="shopping_fee"
-							value="${cartList[0].shippingFee }" readonly />
-					</div>
-					<div class="totals-item totals-item-total"> 
-						<label>총 결제 금액</label> <input type="text"
-							class="totals-value" style="width: 104px;"
-							id="final_price" value="0" readonly name="totalPrice"/> 
-					</div>     
-				</div>  
+				<br><br><hr>   
+				
+				<div class="container-fluid">
+					<div class="row"> 
+						<div class="col-sm-12">
+							<div class="pos-rel">  
+								<!-- Tab panes -->
+								<div class="tab-content">
+									<div id="organizer-details" class="container tab-pane active"> 
+											<!-- 주문자 정보 입력 -->  
+											<h4>주문자 정보 입력</h4>
+											<table class="table" style="width:100%;"> 
+											  <thead>  
+											    <tr> 
+											    </tr> 
+											  </thead>
+											  <tbody>
+											    <tr>
+											      <th scope="row">주문자 이름</th> 
+											      <td><input type="text" name="userName" class="form-control" required autocomplete="off"> </td> 
+											    </tr> 
+											    <tr>
+											      <th scope="row">주소</th>
+											      <td> 
+											      	<input type="text" name="postcode" id="postcode" class="mini form-control" placeholder="우편번호" readonly="readonly">
+										        
+											        <input type="button" onclick="execDaumPostcode(1)" value="우편번호 찾기" class="btn-danger" readonly="readonly"><br>
+											        
+											        <input type="text" name="roadAddress" id="roadAddress" class="std form-control" placeholder="도로명주소" readonly="readonly">  
+											       
+											        <input type="text" name="jibunAddress" id="jibunAddress" class="std form-control" placeholder="지번주소" readonly="readonly">
+											         
+											        <span id="guide" style="color:#999;display:none"></span> 
+											        
+											        <input type="text" name="extraAddress" id="extraAddress" class="form-control" placeholder="참고항목" readonly="readonly"> 
+											       
+											        <input type="text" name="detailAddress" id="detailAddress" class="form-control" placeholder="상세주소"> 
+											      </td> 
+											    </tr> 
+											    <tr>
+											      <th scope="row">전화</th>
+											      <td>  
+													<select id="txtMobile1" name="txtMobile1" > 
+														<option value="">::선택::</option>
+														<option value="011">011</option>
+														<option value="016">016</option>
+														<option value="017">017</option>
+														<option value="019">019</option>
+														<option value="010">010</option>
+													</select> -
+													<input type="text" id="txtMobile2" name="txtMobile2" size="4" onkeypress="onlyNumber();" /> -  
+													<input type="text" id="txtMobile3" name="txtMobile3" size="4" /> 
+												  </td>   
+											    </tr> 
+											    <tr> 
+											      <th scope="row">이메일</th> 
+											      <td>
+											      	<input type="text" name="userEmail" class="form-control" required autocomplete="off"> 
+											      	<small class="modify-des">- 이메일을 통해 주문처리과정을 보내드립니다.</small> <br> 
+													<small class="modify-des">- 이메일 주소란에는 반드시 수신가능한 이메일주소를 입력해 주세요</small> 
+											      </td>  
+											      
+											    </tr> 
+											    <tr> 
+											      <th scope="row">배송메세지</th> 
+											      <td>
+											      	<input type="text" class="form-control" required autocomplete="off" 
+											      	placeholder="배송메세지를 입력해주세요." id="shipping_message" name="shippingMessage">  
+											      </td>     
+											    </tr>     
+											  </tbody>
+											</table> 
+											<hr> 
+											<!-- 배송 정보 입력 -->
+											<!-- <h4>배송 정보 입력</h4>
+											<table class="table" style="width:100%;"> 
+											  <thead>  
+											    <tr>  
+											    </tr> 
+											  </thead>
+											  <tbody> 
+											    <tr>
+											      <th scope="row">배송 받으실 분 이름</th> 
+											      <td><input type="text" class="form-control" required autocomplete="off"> </td> 
+											    </tr> 
+											    <tr>
+											      <th scope="row">주소</th>
+											      <td> 
+											      	<input type="text" id="postcode2" class="mini form-control" placeholder="우편번호" readonly="readonly">
+										        
+											        <input type="button" onclick="execDaumPostcode(2)" value="우편번호 찾기" class="btn-danger" readonly="readonly"><br>
+											        
+											        <input type="text" id="roadAddress2" class="std form-control" placeholder="도로명주소" readonly="readonly" > 
+											       
+											        <input type="text" id="jibunAddress2" class="std form-control" placeholder="지번주소" readonly="readonly">
+											        
+											        <span id="guide" style="color:#999;display:none"></span> 
+											        
+											        <input type="text" id="extraAddress2" class="form-control" placeholder="참고항목" readonly="readonly">
+											       
+											        <input type="text" id="detailAddress2" class="form-control" placeholder="상세주소"> 
+											      </td> 
+											    </tr> 
+											    <tr>
+											      <th scope="row">전화</th>
+											      <td> 
+													<select id="txtMobile1">
+														<option value="">::선택::</option>
+														<option value="011">011</option>
+														<option value="016">016</option>
+														<option value="017">017</option>
+														<option value="019">019</option>
+														<option value="010">010</option>
+													</select> -
+													<input type="text" id="txtMobile2" size="4" onkeypress="onlyNumber();" /> -  
+													<input type="text" id="txtMobile3" size="4" /> 
+												  </td>   
+											    </tr> 
+											    <tr> 
+											      <th scope="row">배송메세지</th> 
+											      <td>
+											      	<textarea class="form-control" required autocomplete="off" placeholder="배송메세지를 입력해주세요." id="shipping_message"></textarea>  
+											      </td>     
+											    </tr>    
+											  </tbody> 
+											</table> --> 
+														
+											<br><br> 
+											<div class="form-group">
+												<label class="container-checkbox"> 약관 동의 1 <input
+													type="checkbox" checked="checked" required> <span 
+													class="checkmark-box"></span>
+												</label>
+												<div>약관내용</div> 
+											</div>
+											<div class="form-group">
+												<label class="container-checkbox"> 약관 동의 2 <input type="checkbox"
+													checked="checked" required> <span
+													class="checkmark-box"></span> 
+												</label>
+												<div>약관내용</div>  
+											</div>
+											<br><br><br> 
+											<div class="totals">
+												<div class="totals-item">
+													<label>상품 총 금액</label> 
+													<input type="text" class="totals-value" style="width: 104px;"
+														id="total_price_sum" value="0" readonly /> 
+												</div>
+												<div class="totals-item">
+													<label>배송비 <br> 
+													<small style="color: red;">50,000원 이상 무료배송 !</small>
+													</label> <input type="text" class="totals-value"
+														style="width: 104px;" id="shopping_fee"
+														value="${cartList[0].shippingFee }" readonly />
+												</div>
+												<div class="totals-item totals-item-total"> 
+													<label>총 결제 금액</label> <input type="text"
+														class="totals-value" style="width: 104px;"
+														id="final_price" value="0" readonly name="totalPrice"/> 
+												</div>  
+											</div>  
 
 
-				<div class="btn-check-log">
-					<button type="submit" class="btn-check-login">결제하기</button>
+											<div class="btn-check-log">
+												<button type="submit" class="btn-check-login">결제하기</button>
+											</div>
+										</form>
+									</div>
+									<div id="confirm-details" class="container tab-pane fade">
+										<br>
+										<h3>Menu 2</h3>
+										<p>Sed ut perspiciatis unde omnis iste natus error sit
+											voluptatem accusantium doloremque laudantium, totam rem 
+											aperiam.</p>
+									</div>
+								</div>
+							</div>
 				</div>
-			</form>
-			</div> 
+
+				<br>
+				<br>
+			</div>
+			<!-- row  -->
+
 		</div>
+
 	</div>
-		
-	<br>
-	<br> 
+	<!-- /.container -->
 
 	<!-- Footer -->
 	<c:import url='/WEB-INF/views/includes/footer.jsp' />
