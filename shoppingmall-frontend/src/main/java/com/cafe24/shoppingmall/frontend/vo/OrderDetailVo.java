@@ -4,6 +4,7 @@ public class OrderDetailVo {
 
 	private Long no;
 	private Long orderNo;
+	private String mainImg;
 	private String orderStringNo;
 	private Long productNo;
 	private Long productOptionNo;
@@ -18,11 +19,21 @@ public class OrderDetailVo {
 		// TODO Auto-generated constructor stub
 	}
 
-	public OrderDetailVo(Long no, Long orderNo, String orderStringNo, Long productNo, Long productOptionNo,
-			String productName, String productOptionName, Long quantity, String status, Long price) {
+	public String getMainImg() {
+		return mainImg;
+	}
+
+	public void setMainImg(String mainImg) {
+		this.mainImg = mainImg;
+	}
+
+	public OrderDetailVo(Long no, Long orderNo, String mainImg, String orderStringNo, Long productNo,
+			Long productOptionNo, String productName, String productOptionName, Long quantity, String status,
+			Long price) {
 		super();
 		this.no = no;
 		this.orderNo = orderNo;
+		this.mainImg = mainImg;
 		this.orderStringNo = orderStringNo;
 		this.productNo = productNo;
 		this.productOptionNo = productOptionNo;
@@ -111,14 +122,14 @@ public class OrderDetailVo {
 
 	public void setPrice(Long price) {
 		this.price = price;
-	}
+	} 
 
 	@Override
 	public String toString() {
-		return "OrderDetailVo [no=" + no + ", orderNo=" + orderNo + ", orderStringNo=" + orderStringNo + ", productNo="
-				+ productNo + ", productOptionNo=" + productOptionNo + ", productName=" + productName
-				+ ", productOptionName=" + productOptionName + ", quantity=" + quantity + ", status=" + status
-				+ ", price=" + price + "]";
+		return "OrderDetailVo [no=" + no + ", orderNo=" + orderNo + ", mainImg=" + mainImg + ", orderStringNo="
+				+ orderStringNo + ", productNo=" + productNo + ", productOptionNo=" + productOptionNo + ", productName="
+				+ productName + ", productOptionName=" + productOptionName + ", quantity=" + quantity + ", status="
+				+ status + ", price=" + price + "]";
 	}
 
 }

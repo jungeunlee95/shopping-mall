@@ -22,6 +22,7 @@ import com.cafe24.shoppingmall.frontend.service.ProductService;
 import com.cafe24.shoppingmall.frontend.service.UserService;
 import com.cafe24.shoppingmall.frontend.vo.CartVo;
 import com.cafe24.shoppingmall.frontend.vo.CategoryVo;
+import com.cafe24.shoppingmall.frontend.vo.OrderDetailVo;
 import com.cafe24.shoppingmall.frontend.vo.ProductVo;
 import com.cafe24.shoppingmall.frontend.vo.UserVo;
 
@@ -111,5 +112,17 @@ public class AdminController {
 		List<OrderDto> list = orderService.getList();
 		model.addAttribute("orderList", list);
 		return "admin/order-list";  
+	}
+	
+	@GetMapping( "/order/detail/{orderNo}/{userNo}" ) 
+	public String orderDetail(Model model, @PathVariable("orderNo") Long orderNo
+								, @PathVariable("userNo") Long userNo) {
+		
+		UserVo user = userService.getUserDetail(userNo);
+		model.addAttribute("user", user);
+		
+		List<OrderDetailVo> orderList = orderService.getDetail(orderNo);
+		model.addAttribute("orderList", orderList);
+		return "admin/order-detail";   
 	}
 }

@@ -110,8 +110,8 @@ $(document).ready(function() {
 							<li><a class="np-btn" href="#"><i
 									class="fa fa-angle-right pagination-right"></i></a></li> 
 						</ul>
-					</div>
-					<table class="table table-inbox table-hover">
+					</div> 
+					<table class="table table-inbox table-hover"> 
 						<tbody>
 							<c:set var='count' value='${fn:length(orderList) }' /> 
 							<c:forEach items='${orderList }' var='vo' varStatus='status'>
@@ -120,7 +120,11 @@ $(document).ready(function() {
 									<td class="inbox-small-cells"><input type="checkbox"
 										class="mail-checkbox"></td> 
 									<td class="inbox-small-cells">[${count - status.index }]</td>
-									<td class="view-message  dont-show">${vo.userName }</td>
+									<td class="view-message  dont-show">
+										<a href="${pageContext.request.contextPath }/admin/order/detail/${vo.no}/${vo.userNo}">
+											${vo.orderStringNo }
+										</a> 
+									</td>
 									<td class="view-message ">${vo.userName }회원님이 주문하셨습니다.</td> 
 									<td class="view-message  inbox-small-cells"> </td>
 									<td class="view-message  text-right">${vo.regDate }</td> 

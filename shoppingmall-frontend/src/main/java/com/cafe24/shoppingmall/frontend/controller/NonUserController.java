@@ -86,6 +86,20 @@ public class NonUserController {
 		return "goods/cart"; 
 	}
 	
+	@GetMapping("/user/order/list")
+	public String orderList(Model model,  @AuthUser SecurityUser securityUser) { 
+		List<CategoryVo> cList = categoryService.getLowList();
+		model.addAttribute("categoryList", cList); 
+		
+		List<CartVo> cartList = null;   
+		if(securityUser!=null) {
+			cartList = userService.getUserCartList(securityUser.getNo());
+		} 
+		model.addAttribute("cartList", cartList); 
+		
+		return "goods/cart"; 
+	}
+	
 	@GetMapping("/order")
 	public String order(Model model, @AuthUser SecurityUser securityUser) { 
 		List<CategoryVo> cList = categoryService.getLowList();

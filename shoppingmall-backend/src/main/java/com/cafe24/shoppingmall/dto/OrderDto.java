@@ -85,7 +85,7 @@ public class OrderDto {
 	}
 
 	public String getUserAddress() {
-		return postcode + " " + roadAddress + " " + jibunAddress + " " + extraAddress + " " + detailAddress;
+		return userAddress;
 	}
 
 	public void setUserAddress(String userAddress) {
@@ -133,7 +133,7 @@ public class OrderDto {
 	}
 
 	public String getUserPhoneNumber() {
-		return txtMobile1 + "-" + txtMobile2 + "-" + txtMobile3;
+		return userPhoneNumber;
 	}
 
 	public void setUserPhoneNumber(String userPhoneNumber) {

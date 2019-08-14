@@ -89,17 +89,17 @@
 	</select>
 	
 	<!-- 주문 정보 - 회원-->
-	<select id="getOrderListUser" parameterType="map" resultType="ordervo">
+	<select id="getOrderListUser" parameterType="map" resultType="orderdto">
 		<![CDATA[
 			select no, user_no userNo, order_no orderStringNo,   
-			convert(AES_DECRYPT(name, SHA2(#{key }, 512)) using utf8) name,
-			gender, convert(AES_DECRYPT(phone_number, SHA2(#{key }, 512)) using utf8) phoneNumber,
-			convert(AES_DECRYPT(email, SHA2(#{key }, 512)) using utf8) email,
-			convert(AES_DECRYPT(address, SHA2(#{key }, 512)) using utf8) address,
-			total_price totalPrice, reg_date regDate, message
+			convert(AES_DECRYPT(name, SHA2(#{key }, 512)) using utf8) userName,
+			convert(AES_DECRYPT(phone_number, SHA2(#{key }, 512)) using utf8) userPhoneNumber,
+			convert(AES_DECRYPT(email, SHA2(#{key }, 512)) using utf8) userEmail,
+			convert(AES_DECRYPT(address, SHA2(#{key }, 512)) using utf8) userAddress,
+			total_price totalPrice, reg_date regDate, message shippingMessage
 			from orders
-			where user_no=#{userNo }
-			by no desc ]]>
+			where user_no = #{no }  
+			order by no desc ]]>
 	</select>
 	
 	<!-- 관리자 - 전체 주문 리스트-->
@@ -135,10 +135,10 @@
 	<!-- 주문 상세 정보 -->
 	<select id="getOrderDetailList" parameterType="long" resultType="orderdetailvo">
 	<![CDATA[
-		select no, order_no orderNo, product_no productNo,
+		select no, order_no orderNo, product_no productNo, img_url mainImg, 
 		(select order_no from orders where no = orderNo ) orderStringNo,
 		 product_name productName,
-		productoption_name productOptionName,
+		productoption_name productOptionName, 
 		quantity, status, price 
 		from orderdetail
 		where order_no=#{no }

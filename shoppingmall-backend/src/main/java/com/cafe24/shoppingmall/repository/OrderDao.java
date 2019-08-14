@@ -48,9 +48,11 @@ public class OrderDao{
 	}
 
 	// 주문 리스트
-	public List<OrderVo> getOrderList(OrderVo orderVo) {
-		orderVo.setKey(KEY);
-		return sqlSession.selectList("order.getOrderListUser", orderVo);
+	public List<OrderDto> getOrderList(Long userNo) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("no", userNo);
+		map.put("key", KEY); 
+		return sqlSession.selectList("order.getOrderListUser", userNo);
 	}
 	
 	public List<OrderDetailVo> getOrderDetailList(Long no) {

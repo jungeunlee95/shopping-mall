@@ -52,9 +52,9 @@ public class OrderController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name="OrderVo", value="no : 회원 PK번호 \n ", required=true, dataType="OrderVo", defaultValue="")
 	})
-	@GetMapping(value="/list") 
-	public ResponseEntity<JSONResult> getList(@RequestBody OrderVo orderVo) {
-		List<OrderVo> list = orderService.getOrderListByNo(orderVo);
+	@GetMapping(value="/list/{userNo}")  
+	public ResponseEntity<JSONResult> getList(@PathVariable(value="userNo") Long userNo) {
+		List<OrderDto> list = orderService.getOrderListByNo(userNo);
 		return ResponseEntity.status(HttpStatus.OK).body(JSONResult.success(list));
 	} 
 	

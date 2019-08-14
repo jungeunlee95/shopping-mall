@@ -29,9 +29,11 @@ public class OrderService {
 
 	// =============================== 회원 ======================================= 
 	public Boolean addOrder(OrderDto orderDto) {
+		orderDto.setUserAddress(orderDto.getPostcode() + " " + orderDto.getRoadAddress() + " " + orderDto.getJibunAddress() + " " + orderDto.getExtraAddress() + " " +  orderDto.getDetailAddress());
+		orderDto.setUserPhoneNumber(orderDto.getTxtMobile1() + "-" + orderDto.getTxtMobile2() + "-" + orderDto.getTxtMobile3());
 		
 		for(OrderProductDto vo : orderDto.getOrderProductDto()) {
-			OptionNameVo stockCheck = orderDao.stockCheck(vo.getProductOptionNo());
+			OptionNameVo stockCheck = orderDao.stockCheck(vo.getProductOptionNo()); 
 			// 재고 체크를 하는 경우
 			if(stockCheck.getUseStock()) {
 				// 재고가 부족한 경우
@@ -56,8 +58,8 @@ public class OrderService {
 		return order==1 && orderDetail == orderDto.getOrderProductDto().size();
 	}
 
-	public List<OrderVo> getOrderListByNo(OrderVo orderVo) {
-		List<OrderVo> list = orderDao.getOrderList(orderVo);
+	public List<OrderDto> getOrderListByNo(Long userNo) {
+		List<OrderDto> list = orderDao.getOrderList(userNo);
 		return list;			
 	}
 
