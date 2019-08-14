@@ -42,12 +42,12 @@
 							주문에 성공하셨습니다! 
 							<hr>
 						</div> 
-					</c:when>
+					</c:when> 
 					<c:otherwise>
-						<div class="card-header text-center">주문 실패</div>
+						<div class="card-header text-center">주문 성공</div>
 						<div class="card-body">
-							죄송합니다. 주문에 실패하셨습니다.
-							<hr>   
+							주문에 성공하셨습니다! 
+							<hr>
 						</div>
 					</c:otherwise>
 				</c:choose>

@@ -28,10 +28,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     @Override
     public void configure(WebSecurity web) throws Exception {
         //super.configure(web); // 아무런 작업을 하지 않음
-    	
+
         // 스프링 시큐리티의 필터 연결을 설정하기 위한 오버라이딩이다.
         // 예외가 웹접근 URL를 설정한다.
-        // ACL(Access Control List - 접근 제어 목록)의 예외 URL을 설정
+        // ACL(Access Control List - 접근 제어 목록)의 예외 URL을 설정 
     }
 
     @Override
@@ -39,7 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         // 인터셉터로 요청을 안전하게 보호하는 방법을 설정하기 위한 오버라이딩이다. ( ACL )
         http.authorizeRequests()
         	.antMatchers("/oauth/token").permitAll()
-        	.anyRequest().permitAll()
+//        	.anyRequest().permitAll()
         // 예외처리
         
     	.and()

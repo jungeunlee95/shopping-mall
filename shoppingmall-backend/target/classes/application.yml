@@ -17,11 +17,7 @@ spring:
    devtools: 
       livereload:
          enabled: true
-   mvc:
-      view:
-         prefix: /WEB-INF/views/
-         suffix: .jsp
-   http: 
+   http:  
       encoding:
          charset: UTF-8
          enabled: true

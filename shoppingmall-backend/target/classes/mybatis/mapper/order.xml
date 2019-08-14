@@ -135,13 +135,16 @@
 	<!-- 주문 상세 정보 -->
 	<select id="getOrderDetailList" parameterType="long" resultType="orderdetailvo">
 	<![CDATA[
-		select no, order_no orderNo, product_no productNo, img_url mainImg, 
+		select d.no, d.order_no orderNo, product_no productNo, img_url mainImg,
 		(select order_no from orders where no = orderNo ) orderStringNo,
 		 product_name productName,
-		productoption_name productOptionName, 
-		quantity, status, price 
-		from orderdetail
-		where order_no=#{no }
+		productoption_name productOptionName,
+		quantity, status, price, o.total_price totalPrice, o.message shippingMessage
+		, convert(AES_DECRYPT(o.address, SHA2("aaa", 512)) using utf8) userAddress,
+		convert(AES_DECRYPT(o.phone_number, SHA2("aaa", 512)) using utf8) userPhoneNumber
+		from orderdetail d, orders o
+		where d.order_no = o.no
+		and d.order_no=#{no } 
 	]]>
 	</select>
 </mapper>

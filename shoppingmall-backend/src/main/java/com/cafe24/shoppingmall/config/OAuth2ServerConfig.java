@@ -20,7 +20,7 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
 
-@Configuration
+@Configuration 
 public class OAuth2ServerConfig {
 
 	@Configuration
@@ -29,18 +29,20 @@ public class OAuth2ServerConfig {
 		
 		@Override
 		public void configure(HttpSecurity http) throws Exception {
-						http.headers().frameOptions().disable();
+			http.headers().frameOptions().disable();
 
 			// 자원서버 접근 권한 설정
-			http
+			http   
 				.authorizeRequests()
-				.anyRequest().access("#oauth2.hasScope('read,write')");
+				.anyRequest().access("#oauth2.hasScope('read') or #oauth2.hasScope('write')");
+			
+			http.csrf().disable();  
 		}
-
+ 
 		@Override
 		public void configure(ResourceServerSecurityConfigurer securityConfigure) throws Exception {
 			securityConfigure.resourceId("jemall_api");
-		}
+		} 
 	}
 	
 	 

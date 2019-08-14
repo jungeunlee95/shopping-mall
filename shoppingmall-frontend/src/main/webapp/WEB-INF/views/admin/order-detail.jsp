@@ -82,9 +82,15 @@ $('.a-disabled').click(function () {return false;});
 						
 					</div> 
 					<div class="col-xs-9">
-					<hr> <hr>
+					<hr> <hr> 
+						<h3>주문 정보</h3> 
+						 주문 번호 : ${orderList[0].orderStringNo } <br>
+						 배송지 : ${orderList[0].userAddress } <br>
+						 주문 메세지 : ${orderList[0].userPhoneNumber } <br>
+						 주문 메일 : ${orderList[0].userEmail } <br>
+						 
+						<h4>주문 상품 리스트</h4>
 						<ul class="menu-items"> 
-						<h3>주문 정보</h3> <hr>     
 							<c:forEach items='${orderList }' var='vo' varStatus='status'>
 								<div class="product">
 									<div class="row"> 
@@ -102,6 +108,7 @@ $('.a-disabled').click(function () {return false;});
 											<p class="product-description" style="min-width: 30%;">
 											옵션 : ${vo.productOptionName }</p>
 											${vo.quantity } 개
+											
 										</div>  
 									</div>  
 								</div> 

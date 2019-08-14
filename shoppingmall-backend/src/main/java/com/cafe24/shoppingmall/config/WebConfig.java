@@ -38,9 +38,9 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-//@Configuration
-//@EnableSwagger2
-//@ComponentScan(basePackages={"com.cafe24.shoppingmall"})
+@Configuration
+@EnableSwagger2
+@ComponentScan(basePackages={"com.cafe24.shoppingmall"})
 public class WebConfig implements WebMvcConfigurer {
 
 	// Message Converter 
@@ -144,13 +144,13 @@ public class WebConfig implements WebMvcConfigurer {
 	public void configureViewResolvers(ViewResolverRegistry registry) {
 		// TODO Auto-generated method stub
 		
-	}
+	} 
 
 	@Override
 	public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
 		// TODO Auto-generated method stub
 		
-	}
+	} 
 
 	@Override
 	public void addReturnValueHandlers(List<HandlerMethodReturnValueHandler> returnValueHandlers) {

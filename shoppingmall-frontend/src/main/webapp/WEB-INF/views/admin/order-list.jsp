@@ -124,14 +124,15 @@ $(document).ready(function() {
 										<a href="${pageContext.request.contextPath }/admin/order/detail/${vo.no}/${vo.userNo}">
 											${vo.orderStringNo }
 										</a> 
-									</td>
-									<td class="view-message ">${vo.userName }회원님이 주문하셨습니다.</td> 
+									</td> 
+									<td class="view-message ">[${vo.userName }] 회원님이 
+									<span style="color:red;">주문</span>하셨습니다.</td> 
 									<td class="view-message  inbox-small-cells"> </td>
 									<td class="view-message  text-right">${vo.regDate }</td> 
 								</tr>
-							
-							</c:forEach>
-							
+							 
+							</c:forEach>    
+							  
 							
 							
 							
