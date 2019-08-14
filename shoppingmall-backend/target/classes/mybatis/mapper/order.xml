@@ -141,6 +141,7 @@
 		productoption_name productOptionName,
 		quantity, status, price, o.total_price totalPrice, o.message shippingMessage
 		, convert(AES_DECRYPT(o.address, SHA2("aaa", 512)) using utf8) userAddress,
+		convert(AES_DECRYPT(email, SHA2("aaa", 512)) using utf8) userEmail, 
 		convert(AES_DECRYPT(o.phone_number, SHA2("aaa", 512)) using utf8) userPhoneNumber
 		from orderdetail d, orders o
 		where d.order_no = o.no

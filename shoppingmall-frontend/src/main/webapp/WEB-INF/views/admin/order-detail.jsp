@@ -80,17 +80,17 @@ $('.a-disabled').click(function () {return false;});
 						<h4>포인트 : ${user.point }</h4>  
 						<hr> 
 						
-					</div> 
-					<div class="col-xs-9">
-					<hr> <hr> 
-						<h3>주문 정보</h3> 
-						 주문 번호 : ${orderList[0].orderStringNo } <br>
+					</div>  
+					<div class="col-xs-9">  
+					<hr> <hr>   
+						<h3>주문 정보</h3>   
+						 주문 번호 : ${orderList[0].orderStringNo } <br>    
 						 배송지 : ${orderList[0].userAddress } <br>
-						 주문 메세지 : ${orderList[0].userPhoneNumber } <br>
-						 주문 메일 : ${orderList[0].userEmail } <br>
-						 
-						<h4>주문 상품 리스트</h4>
-						<ul class="menu-items"> 
+						 주문 메세지 : ${orderList[0].shippingMessage } <br> 
+						 주문 메일 : ${orderList[0].userEmail }	<br> <hr> 
+						   
+						<h5>주문 상품 리스트</h5>  
+						<ul class="menu-items">  
 							<c:forEach items='${orderList }' var='vo' varStatus='status'>
 								<div class="product">
 									<div class="row"> 

@@ -43,3 +43,15 @@ security:
 #                client:
 #                       client-id: pjmall
 #                       client-secret: 1234
+
+# application.properties
+spring:
+   application:
+      name: shoppingmall-backend
+spring:
+   zipkin:   
+      baseUrl: http://192.168.1.52:9411/     
+spring:
+   sleuth:
+      sampler:
+         probability: 1          

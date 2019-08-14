@@ -5,6 +5,7 @@ public class OrderDetailVo {
 	private Long no;
 	private Long orderNo;
 	private String mainImg;
+	private String userEmail;
 	private String orderStringNo;
 	private Long productNo;
 	private Long productOptionNo;
@@ -134,13 +135,22 @@ public class OrderDetailVo {
 		this.userPhoneNumber = userPhoneNumber;
 	}
 
-	public OrderDetailVo(Long no, Long orderNo, String mainImg, String orderStringNo, Long productNo,
+	public String getUserEmail() {
+		return userEmail;
+	}
+
+	public void setUserEmail(String userEmail) {
+		this.userEmail = userEmail;
+	}
+
+	public OrderDetailVo(Long no, Long orderNo, String mainImg, String userEmail, String orderStringNo, Long productNo,
 			Long productOptionNo, String productName, String productOptionName, Long quantity, String status,
 			Long price, String shippingMessage, String userAddress, String userPhoneNumber) {
 		super();
 		this.no = no;
 		this.orderNo = orderNo;
 		this.mainImg = mainImg;
+		this.userEmail = userEmail;
 		this.orderStringNo = orderStringNo;
 		this.productNo = productNo;
 		this.productOptionNo = productOptionNo;
@@ -156,11 +166,11 @@ public class OrderDetailVo {
 
 	@Override
 	public String toString() {
-		return "OrderDetailVo [no=" + no + ", orderNo=" + orderNo + ", mainImg=" + mainImg + ", orderStringNo="
-				+ orderStringNo + ", productNo=" + productNo + ", productOptionNo=" + productOptionNo + ", productName="
-				+ productName + ", productOptionName=" + productOptionName + ", quantity=" + quantity + ", status="
-				+ status + ", price=" + price + ", shippingMessage=" + shippingMessage + ", userAddress=" + userAddress
-				+ ", userPhoneNumber=" + userPhoneNumber + "]";
+		return "OrderDetailVo [no=" + no + ", orderNo=" + orderNo + ", mainImg=" + mainImg + ", userEmail=" + userEmail
+				+ ", orderStringNo=" + orderStringNo + ", productNo=" + productNo + ", productOptionNo="
+				+ productOptionNo + ", productName=" + productName + ", productOptionName=" + productOptionName
+				+ ", quantity=" + quantity + ", status=" + status + ", price=" + price + ", shippingMessage="
+				+ shippingMessage + ", userAddress=" + userAddress + ", userPhoneNumber=" + userPhoneNumber + "]";
 	}
 
 }
