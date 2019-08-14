@@ -172,6 +172,18 @@
 			<artifactId>jackson-module-parameter-names</artifactId>
 		</dependency>
 
+		<!-- Zipkin -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-zipkin</artifactId>
+			<version>1.3.2.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-sleuth</artifactId>
+			<version>1.3.2.RELEASE</version>
+		</dependency>
+
 	</dependencies>
 
 
