@@ -4,14 +4,7 @@
 
 <br>
 
-### :vhs: 프로젝트 동영상
-
-<br>
-
-
-
-<iframe width="640" height="360" src="https://www.youtube.com/embed/i-TITAFIIJk" frameborder="0" gesture="media" allowfullscreen=""></iframe>
-
+### :vhs: [프로젝트 동영상 보러가기](https://www.youtube.com/embed/i-TITAFIIJk)
 
 
 <br>
